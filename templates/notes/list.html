@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Notes — {{ config.title }}{% endblock %}
+
+{% block content %}
+<section class="post-list">
+    <h1>Notes</h1>
+    {% for year, posts in section.pages | group_by(attribute="year") %}
+    <div class="year-group">
+        <h2 class="year-heading">{{ year }}</h2>
+        {% for post in posts %}
+        <article class="post-preview">
+            <a href="{{ post.permalink }}" class="post-link">
+                <time datetime="{{ post.date }}">{{ post.date | date(format="%b %e") }}</time>
+                <h3>{{ post.title }}</h3>
+                {% if post.description %}
+                <p class="post-summary">{{ post.description }}</p>
+                {% endif %}
+            </a>
+        </article>
+        {% endfor %}
+    </div>
+    {% endfor %}
+</section>
+{% endblock %}

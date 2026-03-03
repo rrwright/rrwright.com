@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Tagged "{{ term.name }}" — {{ config.title }}{% endblock %}
+
+{% block content %}
+<section class="post-list">
+    <h1>Tagged &ldquo;{{ term.name }}&rdquo;</h1>
+    {% for post in term.pages %}
+    <article class="post-preview">
+        <time datetime="{{ post.date }}">{{ post.date | date(format="%b %e, %Y") }}</time>
+        <h3><a href="{{ post.permalink }}">{{ post.title }}</a></h3>
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}

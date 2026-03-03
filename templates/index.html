@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+    <h1>Philosophy ⊗ Computer Science</h1>
+    <p class="tagline">{{ config.description }}</p>
+</section>
+
+<section class="recent-posts">
+    <h2>Recent Notes</h2>
+    {% set notes = get_section(path="notes/_index.md") %}
+    {% for post in notes.pages | slice(end=5) %}
+    <article class="post-preview">
+        <a href="{{ post.permalink }}" class="post-link">
+            <time datetime="{{ post.date }}">{{ post.date | date(format="%B %e, %Y") }}</time>
+            <h3>{{ post.title }}</h3>
+            {% if post.description %}
+            <p class="post-summary">{{ post.description }}</p>
+            {% endif %}
+        </a>
+    </article>
+    {% endfor %}
+    {% if notes.pages | length > 5 %}
+    <a href="{{ get_url(path='notes') }}" class="see-all">All notes &rarr;</a>
+    {% endif %}
+</section>
+{% endblock %}
