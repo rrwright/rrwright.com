@@ -1,0 +1,655 @@
+/* ── Color Palette (under consideration) ────────────────
+
+   Background options (dark / light):
+   - "Deep Primary" #071b30 / #f0f5fa
+   - "Midnight"     #0d1b2a / #f1f5f9
+   - "Oxford"       #0a1628 / #eff6ff  ★ current
+   - "Marine"       #0c1e3a / #e6f7fa
+   - "Ink"          #050e1a / #f4f6f8  ★ favorite
+
+   Two-tone options:
+   - "Oxford + Ink Nav"  body: Oxford, nav: Ink
+   - "Ink + Oxford Nav"  body: Ink, nav: Oxford
+
+   Accent options:
+   - "Sky"          #64b5f6  (current)
+   - "Cyan"         #38bdf8
+   - "Indigo"       #818cf8
+
+──────────────────────────────────────────────────────── */
+
+/* ── Fonts ───────────────────────────────────────────── */
+
+@font-face {
+    font-family: 'Fraunces';
+    src: url('/fonts/Fraunces.woff2') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/fonts/InterVariable.woff2') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/fonts/InterVariable-Italic.woff2') format('woff2');
+    font-weight: 100 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('/fonts/JetBrainsMono-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ── Reset & Base ────────────────────────────────────── */
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Dark theme (default) */
+:root {
+    --text:        #b8c0cc;
+    --text-bright: #e0e6ed;
+    --text-muted:  #8892a0;
+    --bg:          #0a1628;
+    --bg-nav:      var(--bg);
+    --bg-code:     #1b263b;
+    --accent:      #64b5f6;
+    --accent-hover:#90caf9;
+    --border:      #2d3748;
+    --max-width:   42rem;
+    color-scheme: dark;
+}
+
+/* Light theme */
+:root.light {
+    --text:        #374151;
+    --text-bright: #1a202c;
+    --text-muted:  #64748b;
+    --bg:          #eff6ff;
+    --bg-nav:      var(--bg);
+    --bg-code:     #e2e8f0;
+    --accent:      #2563eb;
+    --accent-hover:#1d4ed8;
+    --border:      #cbd5e1;
+    color-scheme: light;
+}
+
+@media (prefers-color-scheme: light) {
+    :root:not(.dark) {
+        --text:        #374151;
+        --text-bright: #1a202c;
+        --text-muted:  #64748b;
+        --bg:          #eff6ff;
+        --bg-nav:      var(--bg);
+        --bg-code:     #e2e8f0;
+        --accent:      #2563eb;
+        --accent-hover:#1d4ed8;
+        --border:      #cbd5e1;
+        color-scheme: light;
+    }
+}
+
+html {
+    font-size: 18px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.7;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Fraunces', Georgia, serif;
+    color: var(--text-bright);
+}
+
+/* ── Layout ──────────────────────────────────────────── */
+
+main {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+    width: 100%;
+    flex: 1;
+}
+
+/* ── Header ──────────────────────────────────────────── */
+
+.site-header {
+    background: var(--bg-nav);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.site-header nav {
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.site-name {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-bright);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: color 0.15s;
+}
+
+.nav-links a:hover {
+    color: var(--text);
+}
+
+.nav-links .icon-link {
+    display: flex;
+    align-items: center;
+}
+
+.nav-links .icon-link svg {
+    vertical-align: middle;
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1;
+    transition: color 0.15s;
+}
+
+.theme-toggle:hover {
+    color: var(--text);
+}
+
+
+.theme-toggle .icon-sun,
+.theme-toggle .icon-moon {
+    display: none;
+}
+
+/* Dark is default, show sun to switch to light */
+:root:not(.light) .theme-toggle .icon-sun { display: inline; }
+:root.light .theme-toggle .icon-moon { display: inline; }
+
+@media (prefers-color-scheme: light) {
+    :root:not(.dark):not(.light) .theme-toggle .icon-moon { display: inline; }
+    :root:not(.dark):not(.light) .theme-toggle .icon-sun { display: none; }
+}
+
+/* ── Footer ──────────────────────────────────────────── */
+
+.site-footer {
+    border-top: 1px solid var(--border);
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1.5rem;
+    width: 100%;
+    position: relative;
+}
+
+.site-footer .copyright {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.site-footer .rss-link {
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-decoration: none;
+}
+
+.site-footer .rss-link:hover {
+    color: var(--text);
+}
+
+/* ── Homepage ────────────────────────────────────────── */
+
+.hero {
+    padding: 3rem 0 2.5rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2.5rem;
+}
+
+.hero h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+}
+
+.tagline {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.recent-posts h2 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.see-all {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.see-all:hover {
+    color: var(--accent-hover);
+}
+
+/* ── Post Previews ───────────────────────────────────── */
+
+.post-preview {
+    margin-bottom: 1.8rem;
+}
+
+.post-preview time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 0.01em;
+}
+
+.post-preview h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.35;
+    margin-top: 0.15rem;
+    letter-spacing: -0.01em;
+}
+
+.post-preview .post-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.post-preview .post-link h3 {
+    color: var(--text-bright);
+    transition: color 0.15s;
+}
+
+.post-preview .post-link:hover h3 {
+    color: var(--accent);
+}
+
+.post-summary {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-top: 0.3rem;
+    line-height: 1.6;
+}
+
+/* ── Year Groups (blog listing) ──────────────────────── */
+
+.post-list > h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+}
+
+.year-heading {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.year-group:first-child .year-heading {
+    margin-top: 0;
+}
+
+/* ── Blog Post ───────────────────────────────────────── */
+
+.post-header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.post-header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+}
+
+.post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.post-meta time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+}
+
+.reading-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+}
+
+.post-tags a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    text-decoration: none;
+    background: var(--bg-code);
+    padding: 0.15em 0.5em;
+    border-radius: 3px;
+    text-transform: lowercase;
+}
+
+.post-tags a:hover {
+    color: var(--accent-hover);
+}
+
+/* ── Post Content ────────────────────────────────────── */
+
+.post-content h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+}
+
+.post-content h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.post-content p {
+    margin-bottom: 1.25rem;
+}
+
+.post-content a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-thickness: 1px;
+}
+
+.post-content a:hover {
+    color: var(--accent-hover);
+}
+
+.post-content ul,
+.post-content ol {
+    margin-bottom: 1.25rem;
+    padding-left: 1.5rem;
+}
+
+.post-content li {
+    margin-bottom: 0.4rem;
+}
+
+.post-content blockquote {
+    border-left: 3px solid var(--accent);
+    padding-left: 1.25rem;
+    margin: 1.5rem 0;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.post-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin: 1.5rem 0;
+}
+
+.post-content hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+}
+
+/* ── Code ────────────────────────────────────────────── */
+
+.post-content code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    background: var(--bg-code);
+    padding: 0.15em 0.35em;
+    border-radius: 3px;
+}
+
+.post-content pre {
+    margin: 1.5rem 0;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 0.82rem;
+    line-height: 1.55;
+}
+
+.post-content pre code {
+    background: none;
+    padding: 0;
+}
+
+/* ── Footnotes ──────────────────────────────────────── */
+
+.footnote-definition:first-of-type {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+}
+
+.footnote-definition {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.footnote-definition-label {
+    flex-shrink: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+}
+
+.footnote-definition p {
+    margin: 0;
+}
+
+.footnote-reference a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.footnote-backlink {
+    color: var(--accent);
+    text-decoration: none;
+    margin-left: 0.25em;
+}
+
+.footnote-backlink:hover {
+    color: var(--accent-hover);
+}
+
+/* ── Post Navigation ─────────────────────────────────── */
+
+.post-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+}
+
+.post-nav a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    max-width: 45%;
+}
+
+.post-nav a:hover {
+    color: var(--accent-hover);
+}
+
+.post-nav .next {
+    margin-left: auto;
+    text-align: right;
+}
+
+/* ── Pages (About, etc.) ─────────────────────────────── */
+
+.page h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+}
+
+.page-content p {
+    margin-bottom: 1.25rem;
+}
+
+.page-content a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+/* ── Tags Page ───────────────────────────────────────── */
+
+.tags-page h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+}
+
+.tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tag-cloud a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--accent);
+    text-decoration: none;
+    background: var(--bg-code);
+    padding: 0.3em 0.7em;
+    border-radius: 3px;
+}
+
+.tag-cloud a:hover {
+    color: var(--accent-hover);
+}
+
+.tag-count {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+}
+
+/* ── Responsive ──────────────────────────────────────── */
+
+@media (max-width: 600px) {
+    html { font-size: 16px; }
+
+    .hero h1 { font-size: 1.8rem; }
+    .post-header h1 { font-size: 1.7rem; }
+    .post-list > h1 { font-size: 1.6rem; }
+
+    .site-header nav {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .post-nav {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .post-nav a {
+        max-width: 100%;
+    }
+
+    .post-nav .next {
+        text-align: left;
+    }
+}

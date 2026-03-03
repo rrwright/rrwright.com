@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Ryan Wright</title>
+    <subtitle>The personal page of Ryan Wright: Philosopher-CTO, researcher, software engineer, inventor of the streaming graph</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://rrwright.com/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://rrwright.com"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-02-20T00:00:00+00:00</updated>
+    <id>https://rrwright.com/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Dialectical Review</title>
+        <published>2026-02-20T00:00:00+00:00</published>
+        <updated>2026-02-20T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://rrwright.com/notes/dialectical-review/"/>
+        <id>https://rrwright.com/notes/dialectical-review/</id>
+        
+        <content type="html" xml:base="https://rrwright.com/notes/dialectical-review/">&lt;p&gt;A code review methodology for the age of AI-assisted development.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;the-problem&quot;&gt;The Problem&lt;&#x2F;h2&gt;
+&lt;p&gt;Traditional code review doesn’t work well anymore. Arguably, it never really worked that well for complex changes. But AI-generated code has dramatically illumated what is wrong with code review. Reviewers scan diffs line by line, leave a few comments about naming or style, rubber-stamp the PR, and move on. The reviewer rarely builds a genuine understanding of what the code should do, and almost never independently verifies that it does exactly and only what it should do. They don’t because it is increadibly difficult to reverse-engineer the intent from a line-by-line diff. So nearly no one does.&lt;&#x2F;p&gt;
+&lt;p&gt;AI-assisted development has made this problem worse! A developer can produce more code, faster, with comprehensive test suites. But the reviewer’s capacity to meaningfully evaluate that output hasn’t scaled to match. The original process of reverse-engineering the design from a line-by-line reading of the code was too laborious and cognatively challenging to begin with. If we have to do it more, we never will.&lt;&#x2F;p&gt;
+&lt;p&gt;We need a review process where the reviewer’s effort produces durable, mechanically verifiable artifacts, not just comments on a diff. And that effort should itself be a creative process, using that reviewers knowledge and background. And the process should consider the open-world space of what else needs to be considered by the changes in the PR, instead of just approving or objecting in the small, line by line.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;the-solution-dialectical-review&quot;&gt;The Solution: Dialectical Review&lt;&#x2F;h2&gt;
+&lt;p&gt;Dialectical Review borrows inspiration from a longstanding intellection tradition in philosophy: “dialectic”. The idea is that we arrive at an understanding of deep ideas through conversation or “dialogue” (rame root word). Each person needs to build their own understanding or “mental model”, but it’s through engaging with the mental model of others that we truely come to understand difficult new ideas.&lt;&#x2F;p&gt;
+&lt;p&gt;This tradition goes all the way back to Socrates and the ancient greek philosophers. But Hegel’s later form is nicely succint and applicable to our review process:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Thesis.&lt;&#x2F;strong&gt; The author writes code and communicates their mental model of what it does and why. But they do not include tests.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Antithesis.&lt;&#x2F;strong&gt; The reviewer learns, and then independently challenges that mental model by writing tests designed to test their assumptions or break the code.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Synthesis.&lt;&#x2F;strong&gt; Failing tests trigger a conversation. Passing tests become a permanent part of the codebase, collaboratively written by author and reviewer(s).&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;The key insight is that both test outcomes are valuable. A failing test reveals a gap—either in the code, in the author’s communication, or in the reviewer’s understanding; in each case, a conversation ensues. A passing test suite means a real human interrogated the code from an independent perspective, the code survived, and the tests record that process in ways that can be mechanically checked. Either way, the codebase and the mental models get stronger.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;the-process&quot;&gt;The Process&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;phase-1-author-submits-the-pr&quot;&gt;Phase 1: Author Submits the PR&lt;&#x2F;h3&gt;
+&lt;p&gt;The author writes the code, with or without AI assistance, and opens a traditional pull request. The PR includes:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;The code under review.&lt;&#x2F;strong&gt; Production code only. Comments as usual.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;An educational description.&lt;&#x2F;strong&gt; Not a changelog, not a list of files changed. A genuine explanation of what the code does at a high level, why it exists, what mental model the reviewer needs to hold in order to understand it. Think of it as teaching a colleague, not documenting a commit. Supplement the PR description with additional educational documentation as needed.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;A code tour.&lt;&#x2F;strong&gt; After describing the high level ideas in prose, guide the user through the code in the order that will help them understand. e.g.: “The entrypoint for a user is Object.method() in X.file.” -or- “The types that define the protocol are in package.protocol.types.”&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Interactive demonstration.&lt;&#x2F;strong&gt; Include instructions for how to interact with the proposed changes. e.g.: Call methods manually in a REPL, debugger, or browser console to see intermediate steps and let the reviewer step through the automated process manually and interactively. This is how they can fill in any gaps in their own mental model and test their understanding.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;No tests.&lt;&#x2F;strong&gt; The author’s tests are withheld from the PR. They exist, and they pass, but they are not visible to the reviewer. These tests probably live on a separate branch.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Stripping the tests is deliberate. The reviewer should not be anchored by the author’s test cases. The goal is for the reviewer to develop their own sense of what is important and what should be true about this code. The author should teach what the reviewer needs to understand, but do not guide the reviewer into what the author thinks proves the code is right.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;phase-2-reviewer-builds-a-mental-model&quot;&gt;Phase 2: Reviewer Builds a Mental Model&lt;&#x2F;h3&gt;
+&lt;p&gt;The reviewer reads the PR description and the code. The objective is to understand what the author intended — not to nitpick syntax, not to scan for obvious bugs, but to build a mental model of the system’s behavior.&lt;&#x2F;p&gt;
+&lt;p&gt;The reviewer should be able to answer:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;What is the purpose of this code?&lt;&#x2F;li&gt;
+&lt;li&gt;What should this code do?&lt;&#x2F;li&gt;
+&lt;li&gt;What should this code NOT do?&lt;&#x2F;li&gt;
+&lt;li&gt;How do I run it and interactively to see intermediate results or test it with my own values?&lt;&#x2F;li&gt;
+&lt;li&gt;What invariants should this code maintain?&lt;&#x2F;li&gt;
+&lt;li&gt;What are the boundary conditions?&lt;&#x2F;li&gt;
+&lt;li&gt;What assumptions has the author made about inputs, state, and environment?&lt;&#x2F;li&gt;
+&lt;li&gt;What could go wrong that the author might not have considered?&lt;&#x2F;li&gt;
+&lt;li&gt;What should be considered which the author never thought of?&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;This phase is where the educational PR description pays for itself. The author is not asking the reviewer to reverse-engineer intent from a diff. The author is teaching. The reviewer is learning but bringing all their own ideas into the mix as well.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;phase-3-reviewer-writes-adversarial-tests&quot;&gt;Phase 3: Reviewer Writes Adversarial Tests&lt;&#x2F;h3&gt;
+&lt;p&gt;The reviewer creates a new branch based on the PR branch and writes tests. These tests are adversarial in the legal sense: not hostile, but independently argued. Like a lawyer in a courtroom, the reviewer constructs the strongest case they can that the code is broken, incomplete, or insufficiently specified. That “argument” is made in the form of test cases.&lt;&#x2F;p&gt;
+&lt;p&gt;The reviewer should use whatever tools and techniques are appropriate to the situation:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Unit tests&lt;&#x2F;strong&gt; for specific behavioral claims.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Property-based tests&lt;&#x2F;strong&gt; for invariants that should hold across a wide input space.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Model checking&lt;&#x2F;strong&gt; for stateful or concurrent systems.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Formal methods&lt;&#x2F;strong&gt; where the stakes justify the effort of achieving proof.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;AI assistance is encouraged. The reviewer can and should use Claude Code or any other tool to help generate test cases, identify edge cases, and express properties. AI tools also make using formal methods tooling more accessible and tractible.&lt;&#x2F;p&gt;
+&lt;p&gt;The one constraint is that the reviewer should not be looking at the author’s original tests. The reviewer’s tests must come from the reviewer’s own mental model. That difference in perspective is actually the whole the point of the exercise!&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;phase-4-reconciliation&quot;&gt;Phase 4: Reconciliation&lt;&#x2F;h3&gt;
+&lt;p&gt;Run the reviewer’s tests against the author’s code.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;If all tests pass:&lt;&#x2F;strong&gt; The reviewer failed to break the code. This is probably a good outcome, assuming strong effort and expertise were exerted in creating the test cases. The reviewer’s test suite now represents a meaningful, independently-motivated set of assertions about the code’s behavior. These tests should be merged alongside the author’s tests.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;If any tests fail:&lt;&#x2F;strong&gt; A failing test is not a defect report. It is the beginning of a conversation. The failure indicates a divergence between the author’s mental model (now expressed in code) and the reviewer’s mental model (now expressed in tests). There are three possible resolutions:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;The code is wrong.&lt;&#x2F;strong&gt; The reviewer found a genuine bug or gap. The author fixes the code. Everyone understands it better.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;The test is wrong.&lt;&#x2F;strong&gt; The reviewer misunderstood the intended behavior. The test is corrected or removed, and the PR description is improved to prevent the same misunderstanding in the future. Everyone understands it better.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;The spec is ambiguous.&lt;&#x2F;strong&gt; Neither party is wrong. The desired behavior was never clearly defined. The author and reviewer agree on what the behavior should be, update the code and&#x2F;or tests accordingly, and document the decision. Everyone understands it better.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;In all three cases, the codebase is better than it was before and the humans have increasingly robust mental models of both the goals and the code.&lt;&#x2F;p&gt;
+&lt;p&gt;Writing software is a team sport, and the goal is to build a shared mental model, which is expressed in the code.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;why-strip-the-tests&quot;&gt;Why Strip the Tests?&lt;&#x2F;h2&gt;
+&lt;p&gt;This is the most counterintuitive part of the process. The author has tests. They pass. Why hide them?&lt;&#x2F;p&gt;
+&lt;p&gt;Because visible tests anchor and bias the reviewer. A reviewer who sees the author’s test suite will unconsciously adopt the author’s framing of what matters. They will look for gaps in the existing tests rather than reasoning from first principles about what should be true. The reviewer’s independent perspective is the entire point of having a reviewer. If we bias them from the start, then their perspective is compromised.&lt;&#x2F;p&gt;
+&lt;p&gt;Stripping the tests forces the reviewer to think. It turns the review from a passive audit into an active exercise in understanding and challenging the code. And from our experience so far, the kinds of tests a truely independent reviewer will create end up being substantially different than the author’s original tests—and they add much more value.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;why-an-educational-pr-description&quot;&gt;Why an Educational PR Description?&lt;&#x2F;h2&gt;
+&lt;p&gt;Code does not communicate intent. Comments help, but they are local. A diff is usually what a reviewer reads, but a diff is just a red&#x2F;green list of changes, not an explanation of a system or its intent. Asking a reviewer to reconstruct the author’s mental model from a diff is asking them to solve an inverse problem: they have to reverse-engineer the intent from the code. That is EXTREMELY hard to do, and in practice, they don’t! They pattern-match, skim, and then “LGTM”, approved.&lt;&#x2F;p&gt;
+&lt;p&gt;An educational PR description inverts the burden. The author, who already holds the mental model, takes responsibility for transmitting it. The reviewer can then spend their cognitive effort on the more valuable task: challenging that model rather than reverse-engineering it.&lt;&#x2F;p&gt;
+&lt;p&gt;This also creates a useful accountability mechanism aroudn communication. If the reviewer consistently misunderstands the author’s intent, the problem may be the author’s communication, not the reviewer’s competence.&lt;&#x2F;p&gt;
+&lt;p&gt;The final result is a creative and intellectually engaging process for both the author and the reviewer. They really do end up being coauthors.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;the-role-of-ai&quot;&gt;The Role of AI&lt;&#x2F;h2&gt;
+&lt;p&gt;AI-assisted development is what makes this process both necessary and viable.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Necessary&lt;&#x2F;strong&gt; because AI enables developers to produce more code and more tests than a human reviewer can meaningfully evaluate using traditional line-by-line review. The bottleneck has shifted from code production to code comprehension and verification.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Viable&lt;&#x2F;strong&gt; because the reviewer can use AI to implement and amplify their own challenge. Once the reviewer has a mental model of the code, they can use AI to help enumerate edge cases, generate property-based tests, explore failure modes, and express formal properties. The reviewer’s job is to direct this process with human judgment, expertise, and creativity. The AI helps with volume and thoroughness. AI can also make rigorous tools more accessible. Formal Methods is a powerful approch to validating software, but many of the tools require niche expertise to make use of them. AI can substantially reduce this burden so that powerful tools get used more often to gain high assurance of code quality.&lt;&#x2F;p&gt;
+&lt;p&gt;The constraint is important: the reviewer uses AI to express and test their own mental model, not to summarize or evaluate the author’s. The independence of the reviewer’s perspective is what gives the process its value. If the reviewer outsources their side of the process to AI entirely, their independent creative perspective is lost and the value of their contribution evaporates.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;when-to-use-dialectical-review&quot;&gt;When to Use Dialectical Review&lt;&#x2F;h2&gt;
+&lt;p&gt;Dialectical Review is not appropriate for every PR. It is heavyweight by design. Use it when:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;The code is complex enough that a reviewer could plausibly misunderstand it.&lt;&#x2F;li&gt;
+&lt;li&gt;The code is important enough that undiscovered bugs have real consequences.&lt;&#x2F;li&gt;
+&lt;li&gt;The author and reviewer are both willing to invest the time and creative intellectual energy.&lt;&#x2F;li&gt;
+&lt;li&gt;You want to produce a high-quality, independently-motivated test suite as a side effect of the review process.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;For trivial changes, config updates, or mechanical refactors, a standard review is fine. But you probably already knew this.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;&#x2F;h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Author submits code with an educational description. Tests are withheld.&lt;&#x2F;li&gt;
+&lt;li&gt;Reviewer reads, learns, and builds their own independent mental model.&lt;&#x2F;li&gt;
+&lt;li&gt;Reviewer writes adversarial tests from their own understanding, using any tools available.&lt;&#x2F;li&gt;
+&lt;li&gt;Tests are run. Passes get merged. Failures start a conversation.&lt;&#x2F;li&gt;
+&lt;li&gt;The codebase ends up with two independently-motivated test suites and a shared, verified understanding between author and reviewer.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>AI;DR</title>
+        <published>2026-02-19T00:00:00+00:00</published>
+        <updated>2026-02-19T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://rrwright.com/notes/ai-dr/"/>
+        <id>https://rrwright.com/notes/ai-dr/</id>
+        
+        <content type="html" xml:base="https://rrwright.com/notes/ai-dr/">&lt;p&gt;It used to be the case that writing a document to clearly express an idea was such a significant obstacle that by the time someone did write said document, it was obviously a valuable artifact because it was clearly thought through and the work was done to carefully craft it.&lt;&#x2F;p&gt;
+&lt;p&gt;AI broke that. Now having a document is of almost no value at all, because I can generate a long and coherent document on any topic you’d like with a small prompt.&lt;&#x2F;p&gt;
+&lt;p&gt;So what’s left to be valuable if it’s not the document? It’s the “clearly thought through” part. That means: a recommendation. A human has spent the time and effort to evaluate a document, understand it, and then assert that “this is worth the time.”&lt;&#x2F;p&gt;
+&lt;p&gt;So that’s the standard. You put your reputation on the line to claim that this is worth the time. You spend some credibility to make that assertion. If someone reads and agrees that it’s worth the time, you get that credibility back with interest. If they disagree, you’ve lost your credibility in the eyes of that reader.&lt;&#x2F;p&gt;
+&lt;p&gt;So, the goal is: create content—through AI or not—which you are willing to spend your credibility on.&lt;&#x2F;p&gt;
+&lt;p&gt;Pro tip: don’t entrust AI with your hard-fought credibility. Make sure your document is stamped with your seal of approval. And whenever possible, make the document shorter.&lt;sup class=&quot;footnote-reference&quot;&gt;&lt;a href=&quot;#1&quot;&gt;1&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;&lt;&#x2F;p&gt;
+&lt;div class=&quot;footnote-definition&quot; id=&quot;1&quot;&gt;&lt;sup class=&quot;footnote-definition-label&quot;&gt;1&lt;&#x2F;sup&gt;
+&lt;p&gt;See: “&lt;a href=&quot;https:&#x2F;&#x2F;www.orwellfoundation.com&#x2F;the-orwell-foundation&#x2F;orwell&#x2F;essays-and-other-works&#x2F;politics-and-the-english-language&#x2F;&quot;&gt;Politics and the English Language&lt;&#x2F;a&gt;” by George Orwell. Rule #3&lt;&#x2F;p&gt;
+&lt;&#x2F;div&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Specific vs. General Knowledge</title>
+        <published>2026-01-22T00:00:00+00:00</published>
+        <updated>2026-01-22T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://rrwright.com/notes/specific-vs-general-knowledge/"/>
+        <id>https://rrwright.com/notes/specific-vs-general-knowledge/</id>
+        
+        <content type="html" xml:base="https://rrwright.com/notes/specific-vs-general-knowledge/">&lt;p&gt;The “Erm, Actually” Engineer is becoming obsolete.&lt;&#x2F;p&gt;
+&lt;p&gt;The greatest benefit of A.I. (and Claude Code in particular) is bridging General and Specific Knowledge. This is what will shape the next decade of software development.&lt;&#x2F;p&gt;
+&lt;p&gt;“&lt;strong&gt;Specific Knowledge&lt;&#x2F;strong&gt;” is what you know about the details and specifics of a particular library, particular codebase, particular toolchain, particular development history, etc.&lt;&#x2F;p&gt;
+&lt;p&gt;“&lt;strong&gt;General Knowledge&lt;&#x2F;strong&gt;” is what you know about what should be done. Design patterns, rules of thumb, best practices, architecture patterns, what to avoid and why, etc.&lt;&#x2F;p&gt;
+&lt;p&gt;General Knowledge is much more valuable, but it is usually gated or blocked by the need for Specific Knowledge.&lt;&#x2F;p&gt;
+&lt;p&gt;I’ve seen many Senior Engineers (with lots of General Knowledge) change jobs and suffer from Impostor Syndrome and panic from feeling ineffective because they feel like they should be contributing more sooner. It’s because they feel the value of their General Knowledge gained through experience, but can’t deploy it until they gain lots of Specific Knowledge about the new particular codebase they’re working on. It’s like breathing through a straw.&lt;&#x2F;p&gt;
+&lt;p&gt;Similarly, managers often have deep architectural skill and General Knowledge, but don’t have the time to maintain the Specific Knowledge they need to deploy it personally. So they leave the details to their team members and try to provide what little architectural oversight they have time for.&lt;&#x2F;p&gt;
+&lt;p&gt;A.I. is enabling General Knowledge to be deployed without the labor of maintaining the Specific Knowledge which used to be required to deploy it. This is what is really revolutionizing software development!&lt;&#x2F;p&gt;
+&lt;p&gt;So my predictions are:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;If you’ve made a career out of knowing esoteric details of specific libraries, there will be less of place for you. Focus on gaining General Knowledge.&lt;&#x2F;li&gt;
+&lt;li&gt;If you’re a manager with architectural skill, you should become hands-on once again and will accomplish more than your entire team did.&lt;&#x2F;li&gt;
+&lt;li&gt;If you manage people, your team will need your help adjusting to the new patterns of Specific and General Knowledge in the age of A.I. tools. If you can help them, you will always have a job.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Philosopher-CTO</title>
+        <published>2026-01-01T00:00:00+00:00</published>
+        <updated>2026-01-01T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://rrwright.com/notes/philosopher-cto/"/>
+        <id>https://rrwright.com/notes/philosopher-cto/</id>
+        
+        <content type="html" xml:base="https://rrwright.com/notes/philosopher-cto/">&lt;p&gt;It’s like “Warrior-Poet” for the modern age. Software + Philosophy.&lt;sup class=&quot;footnote-reference&quot;&gt;&lt;a href=&quot;#1&quot;&gt;1&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;The history of philosophy is a treasure trove of deep thinking on important ideas. It’s a collection of all the most important ideas that humanity has wrestled with, and all the lifetimes and brilliant minds spent toward making progress on those important ideas.&lt;&#x2F;p&gt;
+&lt;p&gt;But philosophy was always limited. The problem is that we didn’t have tools to actualize that work until very recently! So “deep thinking about important stuff”&lt;sup class=&quot;footnote-reference&quot;&gt;&lt;a href=&quot;#2&quot;&gt;2&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt; ended in the armchair and could go no further.&lt;&#x2F;p&gt;
+&lt;p&gt;Now as modern computing technology has become ubiquitous, we now have the tools to realize that thinking in practical applications. We don’t have to just imagine a language which could express and verify logical truths; &lt;a href=&quot;https:&#x2F;&#x2F;lean-lang.org&quot;&gt;we have it&lt;&#x2F;a&gt; and can use it for many critical applications every day!&lt;&#x2F;p&gt;
+&lt;p&gt;Years ago, I set about trying to understand what knowledge is and how it works. For 2,500 years, all you could do with that is think, talk, and write. Well, now we make machines to do each of those for us and we can work on knowledge directly.&lt;&#x2F;p&gt;
+&lt;p&gt;That’s why I created &lt;a href=&quot;https:&#x2F;&#x2F;quine.io&quot;&gt;Quine&lt;&#x2F;a&gt; (named in honor of the 20th century philosopher and logician Willard van Orman Quine). The graph is a pictorial representation of language; and it’s computable! Quine is “event-driven,” so it can react as the graph structure changes. This gives us a model not just for representing knowledge (a knowledge graph), but also representing the acquisition and deployment of that knowledge, actively! This has many practical applications we’ll save for another time, but it’s also a concrete example of applying philosophy to modern computer science. Models of knowledge + computation from events lets us trigger a new category of capability.&lt;&#x2F;p&gt;
+&lt;p&gt;The history of philosophy is a treasure trove of important ideas waiting to be worked out in software, now that we have the tools.&lt;&#x2F;p&gt;
+&lt;div class=&quot;footnote-definition&quot; id=&quot;1&quot;&gt;&lt;sup class=&quot;footnote-definition-label&quot;&gt;1&lt;&#x2F;sup&gt;
+&lt;p&gt;This actually started on LinkedIn as part-joke and part-way-to-reduce-spam. It worked to reduce spam, and I like it. So that’s my title now officially.&lt;&#x2F;p&gt;
+&lt;&#x2F;div&gt;
+&lt;div class=&quot;footnote-definition&quot; id=&quot;2&quot;&gt;&lt;sup class=&quot;footnote-definition-label&quot;&gt;2&lt;&#x2F;sup&gt;
+&lt;p&gt;This was my undergraduate philosophy advisor’s definition of “What is Philosophy?” Answer: “Deep clear thinking about important stuff.”&lt;&#x2F;p&gt;
+&lt;&#x2F;div&gt;
+</content>
+        
+    </entry>
+</feed>

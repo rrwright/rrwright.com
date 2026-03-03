@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<script>
+(function() {
+    var theme = document.cookie.match(/theme=(light|dark)/);
+    if (theme) document.documentElement.classList.add(theme[1]);
+})();
+</script>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Specific vs. General Knowledge — Ryan Wright</title>
+    <meta name="description" content="The kind of knowledge that makes AI useful">
+    <link rel="alternate" type="application/atom+xml" title="RSS" href="https://rrwright.com/atom.xml">
+    <link rel="stylesheet" href="https://rrwright.com/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav>
+            <a href="https:&#x2F;&#x2F;rrwright.com" class="site-name">Ryan Wright</a>
+            <div class="nav-links">
+                <a href="https:&#x2F;&#x2F;rrwright.com">Home</a>
+                <a href="https://rrwright.com/notes">Notes</a>
+                <a href="https://rrwright.com/about">About</a>
+                <a href="https://github.com/rrwright" aria-label="GitHub" class="icon-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
+                <a href="https://www.linkedin.com/in/wrightryan/" aria-label="LinkedIn" class="icon-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+                <span class="color-name" style="display:none;position:fixed;bottom:1rem;left:1rem;font-family:monospace;font-size:0.75rem;color:var(--text-muted);background:var(--bg-code);padding:0.25em 0.5em;border-radius:3px;"></span>
+                <button class="theme-toggle" aria-label="Toggle theme">
+                    <span class="icon-sun">☀</span>
+                    <span class="icon-moon">☾</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        
+<article class="post">
+    <header class="post-header">
+        <h1>Specific vs. General Knowledge</h1>
+        <div class="post-meta">
+            <time datetime="2026-01-22">January 22, 2026</time>
+            
+            
+            <span class="reading-time">2 min read</span>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <p>The “Erm, Actually” Engineer is becoming obsolete.</p>
+<p>The greatest benefit of A.I. (and Claude Code in particular) is bridging General and Specific Knowledge. This is what will shape the next decade of software development.</p>
+<p>“<strong>Specific Knowledge</strong>” is what you know about the details and specifics of a particular library, particular codebase, particular toolchain, particular development history, etc.</p>
+<p>“<strong>General Knowledge</strong>” is what you know about what should be done. Design patterns, rules of thumb, best practices, architecture patterns, what to avoid and why, etc.</p>
+<p>General Knowledge is much more valuable, but it is usually gated or blocked by the need for Specific Knowledge.</p>
+<p>I’ve seen many Senior Engineers (with lots of General Knowledge) change jobs and suffer from Impostor Syndrome and panic from feeling ineffective because they feel like they should be contributing more sooner. It’s because they feel the value of their General Knowledge gained through experience, but can’t deploy it until they gain lots of Specific Knowledge about the new particular codebase they’re working on. It’s like breathing through a straw.</p>
+<p>Similarly, managers often have deep architectural skill and General Knowledge, but don’t have the time to maintain the Specific Knowledge they need to deploy it personally. So they leave the details to their team members and try to provide what little architectural oversight they have time for.</p>
+<p>A.I. is enabling General Knowledge to be deployed without the labor of maintaining the Specific Knowledge which used to be required to deploy it. This is what is really revolutionizing software development!</p>
+<p>So my predictions are:</p>
+<ul>
+<li>If you’ve made a career out of knowing esoteric details of specific libraries, there will be less of place for you. Focus on gaining General Knowledge.</li>
+<li>If you’re a manager with architectural skill, you should become hands-on once again and will accomplish more than your entire team did.</li>
+<li>If you manage people, your team will need your help adjusting to the new patterns of Specific and General Knowledge in the age of A.I. tools. If you can help them, you will always have a job.</li>
+</ul>
+
+    </div>
+</article>
+
+
+
+    </main>
+
+    <footer class="site-footer">
+        <p class="copyright">&copy; 2026 by Ryan Wright ...and not an AI</p>
+        <a class="rss-link" href="https://rrwright.com/atom.xml">RSS</a>
+    </footer>
+<script data-goatcounter="https://rrwright.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script>
+document.querySelectorAll('.footnote-reference a').forEach(function(ref) {
+    var id = ref.getAttribute('href').slice(1);
+    ref.parentElement.id = 'ref-' + id;
+});
+document.querySelectorAll('.footnote-definition').forEach(function(def) {
+    var id = def.id;
+    var backlink = document.createElement('a');
+    backlink.href = '#ref-' + id;
+    backlink.className = 'footnote-backlink';
+    backlink.textContent = '↩';
+    backlink.setAttribute('aria-label', 'Back to text');
+    var p = def.querySelector('p');
+    p.appendChild(document.createTextNode(' '));
+    p.appendChild(backlink);
+});
+</script>
+<script>
+var bgColors = [
+    { name: 'Deep Primary', dark: '#071b30', light: '#f0f5fa', darkNav: null, lightNav: null },
+    { name: 'Midnight', dark: '#0d1b2a', light: '#f1f5f9', darkNav: null, lightNav: null },
+    { name: 'Oxford', dark: '#0a1628', light: '#eff6ff', darkNav: null, lightNav: null },
+    { name: 'Marine', dark: '#0c1e3a', light: '#e6f7fa', darkNav: null, lightNav: null },
+    { name: 'Ink', dark: '#050e1a', light: '#f4f6f8', darkNav: null, lightNav: null },
+    { name: 'Oxford + Ink Nav', dark: '#0a1628', light: '#eff6ff', darkNav: '#050e1a', lightNav: '#e8eaed' },
+    { name: 'Ink + Oxford Nav', dark: '#050e1a', light: '#f4f6f8', darkNav: '#0a1628', lightNav: '#e4ecf4' }
+];
+var currentColorIndex = 2;
+
+var colorNameEl = document.querySelector('.color-name');
+var colorNameTimeout;
+
+function applyColor(showName) {
+    var selected = bgColors[currentColorIndex];
+    var root = document.documentElement;
+    var isLight = root.classList.contains('light') ||
+        (!root.classList.contains('dark') && window.matchMedia('(prefers-color-scheme: light)').matches);
+    root.style.setProperty('--bg', isLight ? selected.light : selected.dark);
+    var navColor = isLight ? (selected.lightNav || selected.light) : (selected.darkNav || selected.dark);
+    root.style.setProperty('--bg-nav', navColor);
+    if (showName) {
+        colorNameEl.textContent = selected.name;
+        colorNameEl.style.display = 'block';
+        clearTimeout(colorNameTimeout);
+        colorNameTimeout = setTimeout(function() {
+            colorNameEl.style.display = 'none';
+        }, 2000);
+    }
+}
+
+document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+        currentColorIndex = (currentColorIndex + 1) % bgColors.length;
+        applyColor(true);
+    }
+});
+
+document.querySelector('.theme-toggle').addEventListener('click', function() {
+    var root = document.documentElement;
+    var isLight = root.classList.contains('light') ||
+        (!root.classList.contains('dark') && window.matchMedia('(prefers-color-scheme: light)').matches);
+
+    root.classList.remove('light', 'dark');
+    root.classList.add(isLight ? 'dark' : 'light');
+    document.cookie = 'theme=' + (isLight ? 'dark' : 'light') + ';path=/;max-age=31536000';
+    applyColor(false);
+});
+</script>
+</body>
+</html>
