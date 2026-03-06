@@ -9,6 +9,7 @@ feed_filenames = ["atom.xml"]
 
 [markdown]
 smart_punctuation = true
+insert_anchor_links = "left"
 
 [markdown.highlighting]
 light_theme = "github-light"
