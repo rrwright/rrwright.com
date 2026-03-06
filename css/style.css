@@ -419,6 +419,40 @@ main {
     color: var(--accent-hover);
 }
 
+/* ── Heading Anchors ─────────────────────────────────── */
+
+.zola-anchor {
+    text-decoration: none !important;
+    border-bottom: none !important;
+    color: var(--text-muted);
+    opacity: 0;
+    font-size: 0;  /* hide default 🔗 emoji */
+    margin-left: -2rem;
+    padding-right: 0.6rem;
+    transition: opacity 0.15s;
+}
+
+.zola-anchor::before {
+    content: "¶";
+    font-size: 1.3rem;
+    text-decoration: none;
+    vertical-align: baseline;
+    position: relative;
+}
+
+h2:hover .zola-anchor,
+h3:hover .zola-anchor,
+h4:hover .zola-anchor,
+h5:hover .zola-anchor,
+h6:hover .zola-anchor,
+.zola-anchor:focus {
+    opacity: 1;
+}
+
+.zola-anchor:hover {
+    color: var(--accent);
+}
+
 /* ── Post Content ────────────────────────────────────── */
 
 .post-content h2 {
@@ -440,7 +474,7 @@ main {
     margin-bottom: 1.25rem;
 }
 
-.post-content a {
+.post-content a:not(.zola-anchor) {
     color: var(--accent);
     text-decoration: underline;
     text-underline-offset: 2px;
@@ -529,6 +563,10 @@ main {
 
 .footnote-definition p {
     margin: 0;
+}
+
+.footnote-reference {
+    scroll-margin-top: 6rem;
 }
 
 .footnote-reference a {

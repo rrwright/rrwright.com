@@ -181,6 +181,28 @@
         
     </entry>
     <entry xml:lang="en">
+        <title>The Em Dash</title>
+        <published>2026-01-03T00:00:00+00:00</published>
+        <updated>2026-01-03T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://rrwright.com/notes/the-em-dash/"/>
+        <id>https://rrwright.com/notes/the-em-dash/</id>
+        
+        <content type="html" xml:base="https://rrwright.com/notes/the-em-dash/">&lt;p&gt;For the record: I use em dashes all the time. I love em dashes! I did this long before AI tools made it de rigueur. An em dash (—) behaves like parenthesis, but without having to demote the clause into a lower tier of importance. It interrupts the main idea in order to change direction. Use it a second time and it goes back to the main idea again, just like a closing parenthesis.&lt;&#x2F;p&gt;
+&lt;p&gt;So if I wanted to demonstrate using an em dash—which I do—I would interrupt this sentence—like I did.&lt;&#x2F;p&gt;
+&lt;p&gt;As a style choice—which has (and needs) no justification—I prefer em dashes without spaces.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
         <title>Philosopher-CTO</title>
         <published>2026-01-01T00:00:00+00:00</published>
         <updated>2026-01-01T00:00:00+00:00</updated>
@@ -201,7 +223,7 @@
 &lt;p&gt;But philosophy was always limited. The problem is that we didn’t have tools to actualize that work until very recently! So “deep thinking about important stuff”&lt;sup class=&quot;footnote-reference&quot;&gt;&lt;a href=&quot;#2&quot;&gt;2&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt; ended in the armchair and could go no further.&lt;&#x2F;p&gt;
 &lt;p&gt;Now as modern computing technology has become ubiquitous, we now have the tools to realize that thinking in practical applications. We don’t have to just imagine a language which could express and verify logical truths; &lt;a href=&quot;https:&#x2F;&#x2F;lean-lang.org&quot;&gt;we have it&lt;&#x2F;a&gt; and can use it for many critical applications every day!&lt;&#x2F;p&gt;
 &lt;p&gt;Years ago, I set about trying to understand what knowledge is and how it works. For 2,500 years, all you could do with that is think, talk, and write. Well, now we make machines to do each of those for us and we can work on knowledge directly.&lt;&#x2F;p&gt;
-&lt;p&gt;That’s why I created &lt;a href=&quot;https:&#x2F;&#x2F;quine.io&quot;&gt;Quine&lt;&#x2F;a&gt; (named in honor of the 20th century philosopher and logician Willard van Orman Quine). The graph is a pictorial representation of language; and it’s computable! Quine is “event-driven,” so it can react as the graph structure changes. This gives us a model not just for representing knowledge (a knowledge graph), but also representing the acquisition and deployment of that knowledge, actively! This has many practical applications we’ll save for another time, but it’s also a concrete example of applying philosophy to modern computer science. Models of knowledge + computation from events lets us trigger a new category of capability.&lt;&#x2F;p&gt;
+&lt;p&gt;That’s why I created &lt;a href=&quot;https:&#x2F;&#x2F;quine.io&quot;&gt;Quine&lt;&#x2F;a&gt; (named in honor of the 20th century philosopher and logician &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Willard_Van_Orman_Quine&quot;&gt;Willard van Orman Quine&lt;&#x2F;a&gt;). The graph is a pictorial representation of language; and it’s computable! Quine is “event-driven,” so it can react as the graph structure changes. This gives us a model not just for representing knowledge (a knowledge graph), but also representing the acquisition and deployment of that knowledge, actively! This has many practical applications we’ll save for another time, but it’s also a concrete example of applying philosophy to modern computer science. Models of knowledge + computation from events lets us trigger a new category of capability.&lt;&#x2F;p&gt;
 &lt;p&gt;The history of philosophy is a treasure trove of important ideas waiting to be worked out in software, now that we have the tools.&lt;&#x2F;p&gt;
 &lt;div class=&quot;footnote-definition&quot; id=&quot;1&quot;&gt;&lt;sup class=&quot;footnote-definition-label&quot;&gt;1&lt;&#x2F;sup&gt;
 &lt;p&gt;This actually started on LinkedIn as part-joke and part-way-to-reduce-spam. It worked to reduce spam, and I like it. So that’s my title now officially.&lt;&#x2F;p&gt;
