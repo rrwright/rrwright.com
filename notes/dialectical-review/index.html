@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dialectical Review — Ryan Wright</title>
+    <title>Dialectical Review: Reviewers Write the Tests — Ryan Wright</title>
     <meta name="description" content="A code review methodology for the age of AI-assisted development.">
     <link rel="alternate" type="application/atom+xml" title="RSS" href="https://rrwright.com/atom.xml">
     <link rel="stylesheet" href="https://rrwright.com/css/style.css">
@@ -37,7 +37,7 @@
         
 <article class="post">
     <header class="post-header">
-        <h1>Dialectical Review</h1>
+        <h1>Dialectical Review: Reviewers Write the Tests</h1>
         <div class="post-meta">
             <time datetime="2026-02-20">February 20, 2026</time>
             
@@ -50,12 +50,12 @@
     <div class="post-content">
         <p>A code review methodology for the age of AI-assisted development.</p>
 <h2 id="the-problem">The Problem</h2>
-<p>Traditional code review doesn’t work well anymore. Arguably, it never really worked that well for complex changes. But AI-generated code has dramatically illumated what is wrong with code review. Reviewers scan diffs line by line, leave a few comments about naming or style, rubber-stamp the PR, and move on. The reviewer rarely builds a genuine understanding of what the code should do, and almost never independently verifies that it does exactly and only what it should do. They don’t because it is increadibly difficult to reverse-engineer the intent from a line-by-line diff. So nearly no one does.</p>
-<p>AI-assisted development has made this problem worse! A developer can produce more code, faster, with comprehensive test suites. But the reviewer’s capacity to meaningfully evaluate that output hasn’t scaled to match. The original process of reverse-engineering the design from a line-by-line reading of the code was too laborious and cognatively challenging to begin with. If we have to do it more, we never will.</p>
+<p>Traditional code review doesn’t work well anymore. Arguably, it never really worked that well for complex changes. But AI-generated code has <a href="https://arstechnica.com/ai/2026/03/after-outages-amazon-to-make-senior-engineers-sign-off-on-ai-assisted-changes/">dramatically illuminated</a> what is wrong with code review. Reviewers scan diffs line by line, leave a few comments about naming or style, rubber-stamp the PR, and move on. The reviewer rarely builds a genuine understanding of what the code should do, and almost never independently verifies that it does exactly and only what it should do. They don’t because it is incredibly difficult to reverse-engineer the intent from a line-by-line diff. So nearly no one does.</p>
+<p>AI-assisted development has made this problem worse! A developer can produce more code, faster, with comprehensive test suites. But the reviewer’s capacity to meaningfully evaluate that output hasn’t scaled to match. The original process of reverse-engineering the design from a line-by-line reading of the code was too laborious and cognitively challenging to begin with. If we have to do it more, we never will.</p>
 <p>We need a review process where the reviewer’s effort produces durable, mechanically verifiable artifacts, not just comments on a diff. And that effort should itself be a creative process, using that reviewers knowledge and background. And the process should consider the open-world space of what else needs to be considered by the changes in the PR, instead of just approving or objecting in the small, line by line.</p>
 <h2 id="the-solution-dialectical-review">The Solution: Dialectical Review</h2>
-<p>Dialectical Review borrows inspiration from a longstanding intellection tradition in philosophy: “dialectic”. The idea is that we arrive at an understanding of deep ideas through conversation or “dialogue” (rame root word). Each person needs to build their own understanding or “mental model”, but it’s through engaging with the mental model of others that we truely come to understand difficult new ideas.</p>
-<p>This tradition goes all the way back to Socrates and the ancient greek philosophers. But Hegel’s later form is nicely succint and applicable to our review process:</p>
+<p>Dialectical Review borrows inspiration from a longstanding intellection tradition in philosophy: “dialectic”. The idea is that we arrive at an understanding of deep ideas through conversation or “dialogue” (same root word). Each person needs to build their own understanding or “mental model”, but it’s through engaging with the mental model of others that we truly come to understand difficult new ideas.</p>
+<p>This tradition goes all the way back to Socrates and the ancient greek philosophers. But Hegel’s later form is nicely succinct and applicable to our review process:</p>
 <ul>
 <li><strong>Thesis.</strong> The author writes code and communicates their mental model of what it does and why. But they do not include tests.</li>
 <li><strong>Antithesis.</strong> The reviewer learns, and then independently challenges that mental model by writing tests designed to test their assumptions or break the code.</li>
@@ -68,13 +68,13 @@
 <ul>
 <li><strong>The code under review.</strong> Production code only. Comments as usual.</li>
 <li><strong>An educational description.</strong> Not a changelog, not a list of files changed. A genuine explanation of what the code does at a high level, why it exists, what mental model the reviewer needs to hold in order to understand it. Think of it as teaching a colleague, not documenting a commit. Supplement the PR description with additional educational documentation as needed.</li>
-<li><strong>A code tour.</strong> After describing the high level ideas in prose, guide the user through the code in the order that will help them understand. e.g.: “The entrypoint for a user is Object.method() in X.file.” -or- “The types that define the protocol are in package.protocol.types.”</li>
+<li><strong>A code tour.</strong> After describing the high level ideas in prose, guide the user through the code in the order that will help them understand. e.g.: “The entry point for a user is Object.method() in X.file.” -or- “The types that define the protocol are in package.protocol.types.”</li>
 <li><strong>Interactive demonstration.</strong> Include instructions for how to interact with the proposed changes. e.g.: Call methods manually in a REPL, debugger, or browser console to see intermediate steps and let the reviewer step through the automated process manually and interactively. This is how they can fill in any gaps in their own mental model and test their understanding.</li>
 <li><strong>No tests.</strong> The author’s tests are withheld from the PR. They exist, and they pass, but they are not visible to the reviewer. These tests probably live on a separate branch.</li>
 </ul>
 <p>Stripping the tests is deliberate. The reviewer should not be anchored by the author’s test cases. The goal is for the reviewer to develop their own sense of what is important and what should be true about this code. The author should teach what the reviewer needs to understand, but do not guide the reviewer into what the author thinks proves the code is right.</p>
 <h3 id="phase-2-reviewer-builds-a-mental-model">Phase 2: Reviewer Builds a Mental Model</h3>
-<p>The reviewer reads the PR description and the code. The objective is to understand what the author intended — not to nitpick syntax, not to scan for obvious bugs, but to build a mental model of the system’s behavior.</p>
+<p>The reviewer reads the PR description and the code. The objective is to understand what the author intended—not to nitpick syntax, not to scan for obvious bugs, but to build a mental model of the system’s behavior.</p>
 <p>The reviewer should be able to answer:</p>
 <ul>
 <li>What is the purpose of this code?</li>
@@ -113,16 +113,17 @@
 <h2 id="why-strip-the-tests">Why Strip the Tests?</h2>
 <p>This is the most counterintuitive part of the process. The author has tests. They pass. Why hide them?</p>
 <p>Because visible tests anchor and bias the reviewer. A reviewer who sees the author’s test suite will unconsciously adopt the author’s framing of what matters. They will look for gaps in the existing tests rather than reasoning from first principles about what should be true. The reviewer’s independent perspective is the entire point of having a reviewer. If we bias them from the start, then their perspective is compromised.</p>
-<p>Stripping the tests forces the reviewer to think. It turns the review from a passive audit into an active exercise in understanding and challenging the code. And from our experience so far, the kinds of tests a truely independent reviewer will create end up being substantially different than the author’s original tests—and they add much more value.</p>
+<p>Stripping the tests forces the reviewer to think. It turns the review from a passive audit into an active exercise in understanding and challenging the code. And from our experience so far, the kinds of tests a truly independent reviewer will create end up being substantially different than the author’s original tests, and they add much more value.</p>
+<p>But when review is complete, merge all the tests back in again.</p>
 <h2 id="why-an-educational-pr-description">Why an Educational PR Description?</h2>
-<p>Code does not communicate intent. Comments help, but they are local. A diff is usually what a reviewer reads, but a diff is just a red/green list of changes, not an explanation of a system or its intent. Asking a reviewer to reconstruct the author’s mental model from a diff is asking them to solve an inverse problem: they have to reverse-engineer the intent from the code. That is EXTREMELY hard to do, and in practice, they don’t! They pattern-match, skim, and then “LGTM”, approved.</p>
+<p>Code does not communicate intent. Comments can help, but they are local. A diff is usually what a reviewer reads, but a diff is just a red/green list of changes, not an explanation of a system or its intent, or the ideas behind them all. Asking a reviewer to reconstruct the author’s mental model from a diff is asking them to solve an inverse problem: they have to reverse-engineer the intent from the code. That is EXTREMELY hard to do, and in practice, they don’t! They pattern-match, skim, and then “LGTM”, approved.</p>
 <p>An educational PR description inverts the burden. The author, who already holds the mental model, takes responsibility for transmitting it. The reviewer can then spend their cognitive effort on the more valuable task: challenging that model rather than reverse-engineering it.</p>
-<p>This also creates a useful accountability mechanism aroudn communication. If the reviewer consistently misunderstands the author’s intent, the problem may be the author’s communication, not the reviewer’s competence.</p>
+<p>This also creates a useful accountability mechanism around communication. If the reviewer consistently misunderstands the author’s intent, the problem may be the author’s communication, not the reviewer’s competence.</p>
 <p>The final result is a creative and intellectually engaging process for both the author and the reviewer. They really do end up being coauthors.</p>
 <h2 id="the-role-of-ai">The Role of AI</h2>
 <p>AI-assisted development is what makes this process both necessary and viable.</p>
 <p><strong>Necessary</strong> because AI enables developers to produce more code and more tests than a human reviewer can meaningfully evaluate using traditional line-by-line review. The bottleneck has shifted from code production to code comprehension and verification.</p>
-<p><strong>Viable</strong> because the reviewer can use AI to implement and amplify their own challenge. Once the reviewer has a mental model of the code, they can use AI to help enumerate edge cases, generate property-based tests, explore failure modes, and express formal properties. The reviewer’s job is to direct this process with human judgment, expertise, and creativity. The AI helps with volume and thoroughness. AI can also make rigorous tools more accessible. Formal Methods is a powerful approch to validating software, but many of the tools require niche expertise to make use of them. AI can substantially reduce this burden so that powerful tools get used more often to gain high assurance of code quality.</p>
+<p><strong>Viable</strong> because the reviewer can use AI to implement and amplify their own challenge. Once the reviewer has a mental model of the code, they can use AI to help enumerate edge cases, generate property-based tests, explore failure modes, and express formal properties. The reviewer’s job is to direct this process with human judgment, expertise, and creativity. The AI helps with volume and thoroughness. AI can also make rigorous tools more accessible. Formal Methods is a powerful approach to validating software, but many of the tools require niche expertise to make use of them. AI can substantially reduce this burden so that powerful tools get used more often to gain high assurance of code quality.</p>
 <p>The constraint is important: the reviewer uses AI to express and test their own mental model, not to summarize or evaluate the author’s. The independence of the reviewer’s perspective is what gives the process its value. If the reviewer outsources their side of the process to AI entirely, their independent creative perspective is lost and the value of their contribution evaporates.</p>
 <h2 id="when-to-use-dialectical-review">When to Use Dialectical Review</h2>
 <p>Dialectical Review is not appropriate for every PR. It is heavyweight by design. Use it when:</p>
@@ -141,6 +142,8 @@
 <li>Tests are run. Passes get merged. Failures start a conversation.</li>
 <li>The codebase ends up with two independently-motivated test suites and a shared, verified understanding between author and reviewer.</li>
 </ol>
+<hr />
+<p>Edited: March 10, 2026</p>
 
     </div>
 </article>
