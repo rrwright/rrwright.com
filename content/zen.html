@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glossary of Zen Aesthetic Terms</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Serif+JP:wght@200;300;400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a18;
+    --paper: #f5f0e8;
+    --paper-dark: #e8e0d0;
+    --stone: #8a8478;
+    --moss: #6b7c5e;
+    --gold: #b8965a;
+    --indigo: #2c3e6b;
+    --mist: rgba(180, 175, 165, 0.3);
+    --space: clamp(3rem, 8vw, 6rem);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { font-size: 18px; scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+  .header {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; padding: 2rem; position: relative; overflow: hidden;
+  }
+  .header-enso {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 320px; height: 320px; border: 3px solid var(--stone); border-radius: 50%;
+    opacity: 0.25; border-top-color: transparent; border-right-width: 5px; pointer-events: none;
+  }
+  .header h1 {
+    font-family: 'Noto Serif JP', serif; font-weight: 200;
+    font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: 0.15em; margin-bottom: 0.5em;
+  }
+  .header .subtitle {
+    font-family: 'EB Garamond', serif; font-weight: 400; font-style: italic;
+    font-size: clamp(1rem, 2vw, 1.25rem); color: var(--stone); max-width: 36ch; line-height: 1.6;
+  }
+  .header .scroll-hint {
+    position: absolute; bottom: 3rem; font-size: 0.75rem; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--stone); opacity: 0.5;
+  }
+  nav.toc { max-width: 700px; margin: 0 auto; padding: 4rem 2rem; border-top: 1px solid var(--mist); border-bottom: 1px solid var(--mist); }
+  nav.toc h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 0.8rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--stone); margin-bottom: 2rem; }
+  nav.toc .toc-sections { columns: 2; column-gap: 3rem; font-size: 0.9rem; }
+  nav.toc .toc-section { break-inside: avoid; margin-bottom: 1.5rem; }
+  nav.toc .toc-section h3 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); margin-bottom: 0.4rem; }
+  nav.toc a { display: block; color: var(--ink); text-decoration: none; padding: 0.15em 0; transition: color 0.3s; }
+  nav.toc a:hover { color: var(--gold); }
+  nav.toc .kanji { font-family: 'Noto Serif JP', serif; font-weight: 300; margin-right: 0.5em; font-size: 0.85em; }
+  .section-header { max-width: 700px; margin: 0 auto; padding: var(--space) 2rem 2rem; }
+  .section-header h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(1.5rem, 3vw, 2rem); letter-spacing: 0.1em; border-bottom: 1px solid var(--mist); padding-bottom: 0.5em; }
+  .entry { max-width: 900px; margin: 0 auto; padding: 0 2rem; margin-bottom: var(--space); }
+  .entry-content { max-width: 700px; margin: 0 auto; }
+  .entry-kanji { font-family: 'Noto Serif JP', serif; font-weight: 200; font-size: clamp(2rem, 5vw, 3rem); color: var(--stone); opacity: 0.6; line-height: 1.2; margin-bottom: 0.1em; }
+  .entry-romaji { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.3rem; letter-spacing: 0.05em; margin-bottom: 0.5em; }
+  .entry p { margin-bottom: 1em; text-align: left; hyphens: auto; }
+  .entry .sub-term { font-weight: 500; font-family: 'Noto Serif JP', serif; }
+  .visual { width: 100%; height: 280px; margin: 2rem 0; position: relative; overflow: hidden; border-radius: 2px; }
+  .vl { position: absolute; pointer-events: none; }
+  .footer { max-width: 700px; margin: 0 auto; padding: var(--space) 2rem; border-top: 1px solid var(--mist); }
+  .footer p { font-size: 0.85rem; color: var(--stone); font-style: italic; line-height: 1.8; }
+  @media (max-width: 600px) { html { font-size: 16px; } .visual { height: 200px; } nav.toc .toc-sections { columns: 1; } }
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-enso"></div>
+  <h1>禅の美学</h1>
+  <p class="subtitle">An AI-generated glossary of terms drawn from Zen Buddhism, Japanese aesthetics, and the traditional arts</p>
+  <span class="scroll-hint">scroll</span>
+</header>
+<nav class="toc">
+  <h2>Contents</h2>
+  <div class="toc-sections">
+    <div class="toc-section"><h3>Core Principles</h3>
+      <a href="#wabisabi"><span class="kanji">侘寂</span>Wabi-sabi</a>
+      <a href="#yugen"><span class="kanji">幽玄</span>Yūgen</a>
+      <a href="#ma"><span class="kanji">間</span>Ma</a>
+      <a href="#seijaku"><span class="kanji">静寂</span>Seijaku</a>
+      <a href="#kanso"><span class="kanji">簡素</span>Kanso</a>
+      <a href="#shibui"><span class="kanji">渋い</span>Shibui</a>
+      <a href="#shizen"><span class="kanji">自然</span>Shizen</a>
+      <a href="#fukinsei"><span class="kanji">不均整</span>Fukinsei</a>
+      <a href="#datsuzoku"><span class="kanji">脱俗</span>Datsuzoku</a>
+      <a href="#koko"><span class="kanji">枯高</span>Kokō</a>
+    </div>
+    <div class="toc-section"><h3>Time &amp; Relation</h3>
+      <a href="#mujo"><span class="kanji">無常</span>Mujō</a>
+      <a href="#mono"><span class="kanji">物の哀れ</span>Mono no aware</a>
+      <a href="#ichigo"><span class="kanji">一期一会</span>Ichigo ichie</a>
+      <a href="#en"><span class="kanji">縁</span>En</a>
+    </div>
+    <div class="toc-section"><h3>Qualities of Mind</h3>
+      <a href="#mushin"><span class="kanji">無心</span>Mushin</a>
+      <a href="#zanshin"><span class="kanji">残心</span>Zanshin</a>
+      <a href="#shoshin"><span class="kanji">初心</span>Shoshin</a>
+      <a href="#kiin"><span class="kanji">気韻生動</span>Ki'in seidō</a>
+      <a href="#ki"><span class="kanji">気</span>Ki</a>
+    </div>
+    <div class="toc-section"><h3>The Arts</h3>
+      <a href="#shodo"><span class="kanji">書道</span>Shodō</a>
+      <a href="#bokuseki"><span class="kanji">墨跡</span>Bokuseki</a>
+      <a href="#sumie"><span class="kanji">墨絵</span>Sumi-e</a>
+      <a href="#karesansui"><span class="kanji">枯山水</span>Karesansui</a>
+      <a href="#kintsugi"><span class="kanji">金継ぎ</span>Kintsugi</a>
+      <a href="#chado"><span class="kanji">茶道</span>Chadō</a>
+      <a href="#kado"><span class="kanji">花道</span>Kadō</a>
+      <a href="#noh"><span class="kanji">能</span>Nō</a>
+    </div>
+    <div class="toc-section"><h3>Space &amp; Composition</h3>
+      <a href="#oku"><span class="kanji">奥</span>Oku</a>
+      <a href="#mitate"><span class="kanji">見立て</span>Mitate</a>
+      <a href="#shakkei"><span class="kanji">借景</span>Shakkei</a>
+    </div>
+    <div class="toc-section"><h3>Foundations</h3>
+      <a href="#ku"><span class="kanji">空</span>Kū</a>
+      <a href="#mu"><span class="kanji">無</span>Mu</a>
+      <a href="#satori"><span class="kanji">悟り</span>Satori</a>
+      <a href="#do"><span class="kanji">道</span>Dō</a>
+    </div>
+  </div>
+</nav>
+
+<div class="section-header"><h2>Core Aesthetic Principles</h2></div>
+
+<article class="entry" id="wabisabi">
+  <div class="entry-content">
+    <div class="entry-kanji">侘寂</div>
+    <div class="entry-romaji">Wabi-sabi</div>
+    <div class="visual" style="background: linear-gradient(135deg, #c9bca8, #b5a890, #a89880, #bfb09a);">
+      <div class="vl" style="top:15%; left:10%; width:80%; height:70%; border: 2px solid rgba(70,60,45,0.35); border-radius: 48% 52% 45% 55% / 50% 46% 54% 50%; transform: rotate(-3deg);"></div>
+      <div class="vl" style="top:38%; left:20%; width:55%; height:1.5px; background: linear-gradient(90deg, transparent 0%, rgba(60,50,35,0.5) 20%, rgba(60,50,35,0.4) 80%, transparent 100%); transform: rotate(12deg);"></div>
+      <div class="vl" style="top:52%; left:35%; width:35%; height:1px; background: linear-gradient(90deg, transparent, rgba(60,50,35,0.35), transparent); transform: rotate(-8deg);"></div>
+      <div class="vl" style="top:60%; left:25%; width:20%; height:1px; background: linear-gradient(90deg, transparent, rgba(60,50,35,0.3), transparent); transform: rotate(20deg);"></div>
+    </div>
+    <p>The compound aesthetic most commonly associated with Zen. Difficult to decompose cleanly, but the two constituent ideas are distinguishable:</p>
+    <p><span class="sub-term">侘 Wabi</span> — a quality of rustic, austere simplicity. Originally carried connotations of desolation and poverty; over time, especially through the tea tradition, it was revalued as the beauty found in deliberate plainness, incompleteness, and humble materials. A rough clay bowl preferred over fine porcelain.</p>
+    <p><span class="sub-term">寂 Sabi</span> — the beauty that comes with age, wear, and the passage of time. Patina on bronze, moss on stone, the fading of dyed cloth. Where wabi is a quality of composition, sabi is a quality of surface and duration.</p>
+    <p>Together, wabi-sabi points toward an acceptance of transience and imperfection as the ground of aesthetic experience rather than obstacles to it.</p>
+  </div>
+</article>
+
+<article class="entry" id="yugen">
+  <div class="entry-content">
+    <div class="entry-kanji">幽玄</div>
+    <div class="entry-romaji">Yūgen</div>
+    <div class="visual" style="background: linear-gradient(180deg, #d8d0c4 0%, #c0b5a5 20%, #a89a8a 40%, #8a7d70 60%, #706458 80%, #5a5048 100%);">
+      <div class="vl" style="bottom:10%; left:0; right:0; height:30%; background: linear-gradient(180deg, transparent, rgba(200,192,180,0.6));"></div>
+      <div class="vl" style="bottom:30%; left:0; right:0; height:25%; background: linear-gradient(180deg, transparent, rgba(190,182,168,0.35), transparent);"></div>
+      <div class="vl" style="top:15%; left:60%; width:80px; height:80px; background: radial-gradient(circle, rgba(220,215,205,0.5) 0%, rgba(220,215,205,0.2) 40%, transparent 70%); border-radius: 50%;"></div>
+    </div>
+    <p>Profound, subtle, mysterious beauty — what is felt but not fully grasped. The term predates Zen (it appears in Chinese philosophy and Heian-era literary criticism), but Zen practice deepened its meaning. Zeami Motokiyo (ca. 1363–1443) made yūgen central to Noh aesthetics: the suggestion of depth beyond what is shown, beauty that recedes as you approach it. A partially obscured moon. A mountain village at dusk barely visible through mist.</p>
+  </div>
+</article>
+
+<article class="entry" id="ma">
+  <div class="entry-content">
+    <div class="entry-kanji">間</div>
+    <div class="entry-romaji">Ma</div>
+    <div class="visual" style="background: #ece7dd;">
+      <div class="vl" style="bottom:35%; right:28%; width:14px; height:14px; background: #5a544a; border-radius: 50%; opacity: 0.7;"></div>
+    </div>
+    <p>Interval, gap, negative space — in both spatial and temporal senses. Ma is not mere emptiness but the pregnant pause, the space <em>between</em> that gives form to what surrounds it. In architecture: the open room. In music: the silence between notes that shapes the phrase. In conversation: the pause that holds more meaning than speech. Ma resists the Western design instinct to fill every void.</p>
+  </div>
+</article>
+
+<article class="entry" id="seijaku">
+  <div class="entry-content">
+    <div class="entry-kanji">静寂</div>
+    <div class="entry-romaji">Seijaku</div>
+    <div class="visual" style="background: linear-gradient(180deg, #ddd8cc, #d5cfbf, #ddd8cc);">
+      <div class="vl" style="top:50%; left:50%; transform: translate(-50%,-50%); width:80px; height:80px; border-radius:50%; border: 1.5px solid rgba(100,95,85,0.35);"></div>
+      <div class="vl" style="top:50%; left:50%; transform: translate(-50%,-50%); width:150px; height:150px; border-radius:50%; border: 1px solid rgba(100,95,85,0.25);"></div>
+      <div class="vl" style="top:50%; left:50%; transform: translate(-50%,-50%); width:230px; height:230px; border-radius:50%; border: 1px solid rgba(100,95,85,0.15);"></div>
+      <div class="vl" style="top:50%; left:50%; transform: translate(-50%,-50%); width:320px; height:320px; border-radius:50%; border: 1px solid rgba(100,95,85,0.08);"></div>
+    </div>
+    <p>Stillness, deep tranquility. Not the absence of sound or motion, but an active quality of settled calm — the kind of silence found in a garden after rain, or in a tea room after the water has boiled. In the aesthetic context, seijaku describes the quality in a work or space that induces contemplative quiet in the perceiver.</p>
+  </div>
+</article>
+
+<article class="entry" id="kanso">
+  <div class="entry-content">
+    <div class="entry-kanji">簡素</div>
+    <div class="entry-romaji">Kanso</div>
+    <div class="visual" style="background: #ece7dd;">
+      <div class="vl" style="top:48%; left:12%; width:76%; height:5px; background: linear-gradient(90deg, transparent 0%, rgba(25,25,22,0.7) 4%, rgba(25,25,22,0.85) 12%, rgba(25,25,22,0.75) 50%, rgba(25,25,22,0.5) 80%, rgba(25,25,22,0.15) 95%, transparent 100%); transform: rotate(-1.5deg); border-radius: 2px;"></div>
+    </div>
+    <p>Simplicity achieved by elimination. Not minimalism as a style choice, but the stripping away of whatever is not essential, so that what remains carries full weight. Kanso implies that ornamentation obscures rather than reveals. The blank space in a sumi-e painting is kanso in action — the unpainted area <em>is</em> the composition as much as the ink.</p>
+  </div>
+</article>
+
+<article class="entry" id="shibui">
+  <div class="entry-content">
+    <div class="entry-kanji">渋い</div>
+    <div class="entry-romaji">Shibui</div>
+    <div class="visual" style="background: #263558; background-image: repeating-linear-gradient(0deg, transparent, transparent 6px, rgba(255,255,255,0.07) 6px, rgba(255,255,255,0.07) 7px), repeating-linear-gradient(90deg, transparent, transparent 6px, rgba(255,255,255,0.05) 6px, rgba(255,255,255,0.05) 7px);">
+      <div class="vl" style="top:0; left:0; right:0; bottom:0; background: radial-gradient(ellipse at 35% 55%, rgba(50,70,120,0.5) 0%, transparent 65%);"></div>
+    </div>
+    <p>Understated, unobtrusive beauty. Literally "astringent" (as in the taste of unripe persimmon). Shibui describes objects and qualities that are refined without being decorative, complex without being showy. The beauty is indirect — it reveals itself slowly and rewards sustained attention. Often contrasted with <em>hade</em> (flashy, conspicuous). A dark indigo fabric with an almost-invisible woven pattern might be called shibui.</p>
+  </div>
+</article>
+
+<article class="entry" id="shizen">
+  <div class="entry-content">
+    <div class="entry-kanji">自然</div>
+    <div class="entry-romaji">Shizen</div>
+    <div class="visual" style="background: #ddd8cc;">
+      <div class="vl" style="top:0; left:0; right:0; bottom:0; background: radial-gradient(ellipse at 15% 75%, rgba(85,110,70,0.5) 0%, transparent 35%), radial-gradient(ellipse at 70% 25%, rgba(90,115,75,0.4) 0%, transparent 30%), radial-gradient(ellipse at 45% 55%, rgba(100,120,80,0.3) 0%, transparent 40%), radial-gradient(ellipse at 80% 70%, rgba(80,105,65,0.35) 0%, transparent 25%);"></div>
+    </div>
+    <p>Naturalness, but not in the sense of "wilderness" or the untouched. Shizen in Zen aesthetics refers to the absence of artifice and pretense — things being as they are, without forced arrangement. A garden designed with shizen appears undesigned; a calligraphic stroke with shizen looks inevitable rather than effortful. The paradox: achieving shizen in art requires discipline and practice.</p>
+  </div>
+</article>
+
+<article class="entry" id="fukinsei">
+  <div class="entry-content">
+    <div class="entry-kanji">不均整</div>
+    <div class="entry-romaji">Fukinsei</div>
+    <div class="visual" style="background: #e2dbd0;">
+      <div class="vl" style="top:18%; left:62%; width:70px; height:65px; background: rgba(70,65,55,0.4); border-radius: 42% 58% 48% 52% / 50% 44% 56% 50%;"></div>
+      <div class="vl" style="bottom:22%; left:15%; width:50px; height:45px; background: rgba(70,65,55,0.3); border-radius: 52% 48% 55% 45% / 48% 52% 48% 52%;"></div>
+      <div class="vl" style="top:50%; left:40%; width:28px; height:25px; background: rgba(70,65,55,0.22); border-radius: 45% 55% 50% 50%;"></div>
+    </div>
+    <p>Asymmetry, irregularity, imbalance. The deliberate avoidance of perfect symmetry, which in Zen aesthetics is regarded as static, closed, and lifeless. Fukinsei introduces dynamic tension — an odd number of stones in a garden, an off-center composition in a scroll painting, a tea bowl with an uneven rim. The irregularity invites the viewer's eye to move, explore, and participate.</p>
+  </div>
+</article>
+
+<article class="entry" id="datsuzoku">
+  <div class="entry-content">
+    <div class="entry-kanji">脱俗</div>
+    <div class="entry-romaji">Datsuzoku</div>
+    <div class="visual" style="background: #ece7dd; background-image: repeating-linear-gradient(90deg, transparent, transparent 31px, rgba(130,122,110,0.25) 31px, rgba(130,122,110,0.25) 32px);">
+      <div class="vl" style="top:25%; left:45%; width:80px; height:80px; background: rgba(184,150,90,0.45); border-radius: 38% 62% 55% 45% / 50% 38% 62% 50%; transform: rotate(25deg);"></div>
+    </div>
+    <p>Freedom from convention, breaking free from the routine or habitual. In aesthetics: the element of surprise or transcendence that jolts the perceiver out of ordinary seeing. A sudden break in an expected pattern. Datsuzoku doesn't mean randomness — it means the unexpected move that, in retrospect, feels precisely right.</p>
+  </div>
+</article>
+
+<article class="entry" id="koko">
+  <div class="entry-content">
+    <div class="entry-kanji">枯高</div>
+    <div class="entry-romaji">Kokō</div>
+    <div class="visual" style="background: linear-gradient(180deg, #e2ddd2, #d8d2c6);">
+      <div class="vl" style="bottom:28%; left:12%; width:70%; height:3px; background: rgba(50,45,38,0.5); transform: rotate(-6deg); transform-origin: left center; border-radius: 1px;"></div>
+      <div class="vl" style="bottom:40%; left:48%; width:28%; height:2.5px; background: rgba(50,45,38,0.4); transform: rotate(-30deg); transform-origin: left center; border-radius: 1px;"></div>
+      <div class="vl" style="bottom:55%; left:60%; width:15%; height:2px; background: rgba(50,45,38,0.3); transform: rotate(-50deg); transform-origin: left center; border-radius: 1px;"></div>
+      <div class="vl" style="bottom:32%; left:55%; width:18%; height:2px; background: rgba(50,45,38,0.35); transform: rotate(20deg); transform-origin: left center; border-radius: 1px;"></div>
+    </div>
+    <p>Austere sublimity, weathered dignity. A quality of age and reduction taken to its extreme — the beauty of a bare winter branch, a stone worn smooth by centuries of water. Kokō is sometimes translated as "austere elegance." It overlaps with sabi but emphasizes elevation and severity rather than gentle decay.</p>
+  </div>
+</article>
+
+<div class="section-header"><h2>Temporal &amp; Relational Concepts</h2></div>
+
+<article class="entry" id="mujo">
+  <div class="entry-content">
+    <div class="entry-kanji">無常</div>
+    <div class="entry-romaji">Mujō</div>
+    <div class="visual" style="background: linear-gradient(180deg, #ece7dd, #e5dfd3);">
+      <div class="vl" style="top:12%; left:25%; width:10px; height:10px; border-radius:50%; background: rgba(195,140,140,0.7);"></div>
+      <div class="vl" style="top:28%; left:55%; width:8px; height:8px; border-radius:50%; background: rgba(195,140,140,0.55);"></div>
+      <div class="vl" style="top:45%; left:35%; width:9px; height:9px; border-radius:50%; background: rgba(195,140,140,0.45);"></div>
+      <div class="vl" style="top:55%; left:68%; width:7px; height:7px; border-radius:50%; background: rgba(195,140,140,0.35);"></div>
+      <div class="vl" style="top:70%; left:45%; width:8px; height:8px; border-radius:50%; background: rgba(195,140,140,0.25);"></div>
+      <div class="vl" style="top:80%; left:22%; width:6px; height:6px; border-radius:50%; background: rgba(195,140,140,0.15);"></div>
+      <div class="vl" style="top:88%; left:60%; width:5px; height:5px; border-radius:50%; background: rgba(195,140,140,0.08);"></div>
+    </div>
+    <p>Impermanence. A foundational Buddhist concept, but in Zen aesthetics it functions as the premise underlying wabi-sabi, mono no aware, and much of the Japanese visual tradition. The cherry blossom is beautiful <em>because</em> it falls. Mujō is not pessimism; it is the recognition that transience is inseparable from beauty.</p>
+  </div>
+</article>
+
+<article class="entry" id="mono">
+  <div class="entry-content">
+    <div class="entry-kanji">物の哀れ</div>
+    <div class="entry-romaji">Mono no aware</div>
+    <div class="visual" style="background: linear-gradient(180deg, #c8b8a0 0%, #baa585 25%, #c4a070 45%, #d0a870 60%, #c89858 75%, #d5a86a 100%);"></div>
+    <p>The bittersweet awareness of the transience of things — literally "the pathos of things." More associated with Heian court aesthetics and literary criticism (the scholar Motoori Norinaga formulated it in the 18th century) than with Zen proper, but it permeates Japanese aesthetic sensibility broadly. The emotional response evoked by autumn leaves, a departing friend, the last light of day.</p>
+  </div>
+</article>
+
+<article class="entry" id="ichigo">
+  <div class="entry-content">
+    <div class="entry-kanji">一期一会</div>
+    <div class="entry-romaji">Ichigo ichie</div>
+    <div class="visual" style="background: #ece7dd;">
+      <div class="vl" style="top:50%; left:50%; transform: translate(-50%,-50%); width:130px; height:130px; border: 3px solid rgba(30,28,24,0.35); border-radius:50%;"></div>
+    </div>
+    <p>"One time, one meeting." Every encounter is unique, unrepeatable, and therefore to be treasured fully. Originating in the tea ceremony tradition (attributed to the tea master Ii Naosuke), it expresses the Zen emphasis on presence and the singularity of each moment.</p>
+  </div>
+</article>
+
+<article class="entry" id="en">
+  <div class="entry-content">
+    <div class="entry-kanji">縁</div>
+    <div class="entry-romaji">En</div>
+    <div class="visual" style="background: #e2dbd0;">
+      <div class="vl" style="top:42%; left:35%; width:24px; height:24px; background: rgba(70,65,55,0.45); border-radius:50%;"></div>
+      <div class="vl" style="top:47%; left:55%; width:18px; height:18px; background: rgba(70,65,55,0.35); border-radius:50%;"></div>
+      <div class="vl" style="top:45%; left:44%; width:60px; height:1px; background: linear-gradient(90deg, transparent, rgba(70,65,55,0.2), transparent);"></div>
+    </div>
+    <p>Connection, affinity, karmic link. In aesthetic and craft contexts, en describes the relationship between maker and material, between an object and the person who encounters it. The sense that a particular tea bowl "found" its owner, or that a garden and its site were destined for each other.</p>
+  </div>
+</article>
+
+<div class="section-header"><h2>Qualities of Mind in Practice</h2></div>
+
+<article class="entry" id="mushin">
+  <div class="entry-content">
+    <div class="entry-kanji">無心</div>
+    <div class="entry-romaji">Mushin</div>
+    <div class="visual" style="background: #ece7dd;">
+      <div class="vl" style="top:20%; left:28%; width:45%; height:55%; border-left: 4px solid rgba(25,25,22,0.35); border-bottom: 3px solid rgba(25,25,22,0.25); border-radius: 0 0 0 65%; transform: rotate(3deg);"></div>
+    </div>
+    <p>No-mind, or mind without fixation. The state in which action arises without deliberation, self-consciousness, or hesitation. Central to martial arts and calligraphy alike — the brush moves, the sword cuts, without the interference of the thinking self. Mushin is not thoughtlessness; it is the culmination of training to the point where technique becomes transparent.</p>
+  </div>
+</article>
+
+<article class="entry" id="zanshin">
+  <div class="entry-content">
+    <div class="entry-kanji">残心</div>
+    <div class="entry-romaji">Zanshin</div>
+    <div class="visual" style="background: #ece7dd;">
+      <div class="vl" style="top:50%; left:50%; transform: translate(-50%,-50%); width:20px; height:20px; border-radius:50%; background: rgba(80,75,65,0.5);"></div>
+      <div class="vl" style="top:50%; left:50%; transform: translate(-50%,-50%); width:70px; height:70px; border-radius:50%; border: 2px solid rgba(80,75,65,0.3);"></div>
+      <div class="vl" style="top:50%; left:50%; transform: translate(-50%,-50%); width:130px; height:130px; border-radius:50%; border: 1.5px solid rgba(80,75,65,0.18);"></div>
+      <div class="vl" style="top:50%; left:50%; transform: translate(-50%,-50%); width:200px; height:200px; border-radius:50%; border: 1px solid rgba(80,75,65,0.1);"></div>
+      <div class="vl" style="top:50%; left:50%; transform: translate(-50%,-50%); width:280px; height:280px; border-radius:50%; border: 1px solid rgba(80,75,65,0.05);"></div>
+    </div>
+    <p>Lingering mind, continuing awareness. In martial arts: the sustained alertness after a strike or action. In aesthetics and tea: the quality of attention that persists after the formal act is complete — the host's care for guests after they depart, the resonance of a bell after it has been struck. Zanshin suggests that beauty is not only in the event but in its aftermath.</p>
+  </div>
+</article>
+
+<article class="entry" id="shoshin">
+  <div class="entry-content">
+    <div class="entry-kanji">初心</div>
+    <div class="entry-romaji">Shoshin</div>
+    <div class="visual" style="background: #ece7dd;">
+      <div class="vl" style="top:50%; left:50%; transform: translate(-50%,-40%); width:160px; height:90px; border: 2.5px solid rgba(70,65,55,0.35); border-top: none; border-radius: 0 0 50% 50%;"></div>
+    </div>
+    <p>Beginner's mind. The attitude of openness, eagerness, and absence of preconception, regardless of expertise. Shunryū Suzuki's formulation is well known: "In the beginner's mind there are many possibilities, but in the expert's there are few." In aesthetic practice, shoshin counteracts the ossification of technique into mannerism.</p>
+  </div>
+</article>
+
+<article class="entry" id="kiin">
+  <div class="entry-content">
+    <div class="entry-kanji">気韻生動</div>
+    <div class="entry-romaji">Ki'in seidō</div>
+    <div class="visual" style="background: #ece7dd;">
+      <div class="vl" style="top:50%; left:50%; transform: translate(-50%,-50%); width:60px; height:60px; border: 3px solid transparent; border-top-color: rgba(50,45,38,0.4); border-right-color: rgba(50,45,38,0.25); border-radius: 50%;"></div>
+      <div class="vl" style="top:50%; left:50%; transform: translate(-50%,-50%) rotate(30deg); width:120px; height:120px; border: 2px solid transparent; border-top-color: rgba(50,45,38,0.3); border-right-color: rgba(50,45,38,0.15); border-radius: 50%;"></div>
+      <div class="vl" style="top:50%; left:50%; transform: translate(-50%,-50%) rotate(60deg); width:190px; height:190px; border: 1.5px solid transparent; border-top-color: rgba(50,45,38,0.2); border-right-color: rgba(50,45,38,0.1); border-radius: 50%;"></div>
+    </div>
+    <p>"Spirit resonance and life movement." Originally a Chinese painting criterion (from Xie He's Six Principles, 5th–6th century), deeply absorbed into Japanese ink painting and Zen calligraphy. It describes the vital energy that animates a work — not anatomical accuracy or formal correctness, but the sense that the work is alive. The highest standard of evaluation.</p>
+  </div>
+</article>
+
+<article class="entry" id="ki">
+  <div class="entry-content">
+    <div class="entry-kanji">気</div>
+    <div class="entry-romaji">Ki</div>
+    <div class="visual" style="background: #ece7dd;">
+      <div class="vl" style="top:0; left:0; right:0; bottom:0; background: radial-gradient(circle at 50% 50%, rgba(180,150,100,0.45) 0%, rgba(180,150,100,0.2) 25%, transparent 55%);"></div>
+    </div>
+    <p>Vital energy, life force, breath. (Chinese: <em>qì</em>.) In aesthetics, ki refers to the animating quality in a work, a space, or a performance. A calligraphic stroke has ki when it communicates the energy of the writer's body and breath. A garden has ki when it feels vital rather than merely arranged.</p>
+  </div>
+</article>
+
+<div class="section-header"><h2>Terms from the Arts</h2></div>
+
+<article class="entry" id="shodo">
+  <div class="entry-content">
+    <div class="entry-kanji">書道</div>
+    <div class="entry-romaji">Shodō</div>
+    <div class="visual" style="background: #ece7dd;">
+      <div class="vl" style="top:22%; left:30%; width:40%; height:56%; background: linear-gradient(180deg, rgba(20,18,15,0.65) 0%, rgba(20,18,15,0.8) 25%, rgba(20,18,15,0.7) 60%, rgba(20,18,15,0.4) 100%); clip-path: polygon(8% 5%, 92% 0%, 85% 100%, 2% 90%); filter: blur(0.5px);"></div>
+    </div>
+    <p>The Way of Writing — calligraphy as a contemplative and aesthetic discipline. In Zen calligraphy specifically, the emphasis falls on directness, spontaneity, and the unity of body, breath, and brush. The character is written once; corrections are not possible. The result records the calligrapher's state of mind as much as it conveys linguistic content.</p>
+  </div>
+</article>
+
+<article class="entry" id="bokuseki">
+  <div class="entry-content">
+    <div class="entry-kanji">墨跡</div>
+    <div class="entry-romaji">Bokuseki</div>
+    <div class="visual" style="background: #e2dbd0;">
+      <div class="vl" style="top:15%; left:38%; width:24%; height:70%; background: linear-gradient(180deg, rgba(20,18,15,0.55) 0%, rgba(20,18,15,0.7) 18%, rgba(20,18,15,0.45) 40%, transparent 42%, rgba(20,18,15,0.6) 44%, rgba(20,18,15,0.35) 100%); transform: rotate(2deg);"></div>
+      <div class="vl" style="top:35%; left:32%; width:36%; height:4px; background: linear-gradient(90deg, rgba(20,18,15,0.5), rgba(20,18,15,0.3), transparent); transform: rotate(5deg);"></div>
+    </div>
+    <p>Literally "ink traces." Calligraphy by Zen monks, valued not for technical refinement but for the spiritual force conveyed through the brush. Bokuseki often appears rough, asymmetric, and energetically direct — qualities that distinguish it from courtly or scholarly calligraphy traditions.</p>
+  </div>
+</article>
+
+<article class="entry" id="sumie">
+  <div class="entry-content">
+    <div class="entry-kanji">墨絵</div>
+    <div class="entry-romaji">Sumi-e</div>
+    <div class="visual" style="background: #ece7dd;">
+      <div class="vl" style="bottom:10%; left:15%; width:70%; height:58%; background: linear-gradient(180deg, rgba(70,65,58,0.4) 0%, rgba(70,65,58,0.15) 100%); clip-path: polygon(45% 0%, 90% 100%, 0% 100%);"></div>
+      <div class="vl" style="bottom:10%; left:45%; width:45%; height:42%; background: linear-gradient(180deg, rgba(70,65,58,0.2) 0%, rgba(70,65,58,0.08) 100%); clip-path: polygon(35% 0%, 95% 100%, 5% 100%);"></div>
+    </div>
+    <p>Ink wash painting. Executed with black ink (<em>sumi</em>) on paper or silk, using the same brush and materials as calligraphy. Zen sumi-e prizes economy of means — a few strokes suggest a mountain, a bamboo stalk, an entire landscape. The blank paper is not background; it is integral to the composition (see kanso, ma).</p>
+  </div>
+</article>
+
+<article class="entry" id="karesansui">
+  <div class="entry-content">
+    <div class="entry-kanji">枯山水</div>
+    <div class="entry-romaji">Karesansui</div>
+    <div class="visual" style="background: #d8d2c4; background-image: repeating-linear-gradient(0deg, transparent, transparent 10px, rgba(165,158,142,0.5) 10px, rgba(165,158,142,0.5) 11px);">
+      <div class="vl" style="top:30%; left:25%; width:60px; height:50px; background: rgba(100,95,82,0.55); border-radius: 40% 55% 45% 52% / 50% 42% 58% 48%;"></div>
+      <div class="vl" style="top:48%; left:60%; width:35px; height:30px; background: rgba(100,95,82,0.4); border-radius: 52% 44% 56% 48% / 46% 54% 46% 54%;"></div>
+      <div class="vl" style="top:55%; left:68%; width:20px; height:18px; background: rgba(100,95,82,0.3); border-radius: 48% 52% 50% 50%;"></div>
+    </div>
+    <p>Dry landscape garden. Composed of rocks, gravel, sand, and sometimes moss — no water, despite the name ("dry mountain water"). The raked gravel patterns suggest water without representing it. Karesansui gardens are objects of contemplation, not spaces to walk through. Ryōan-ji in Kyoto is the most cited example: fifteen stones arranged so that no single vantage point reveals all of them.</p>
+  </div>
+</article>
+
+<article class="entry" id="kintsugi">
+  <div class="entry-content">
+    <div class="entry-kanji">金継ぎ</div>
+    <div class="entry-romaji">Kintsugi</div>
+    <div class="visual" style="background: #6e6358;">
+      <div class="vl" style="top:0; left:0; right:0; bottom:0; background:
+        linear-gradient(128deg, transparent 28%, rgba(200,170,90,0.7) 28.5%, rgba(200,170,90,0.7) 29%, transparent 29.5%),
+        linear-gradient(155deg, transparent 50%, rgba(200,170,90,0.6) 50.3%, rgba(200,170,90,0.6) 50.6%, transparent 50.9%),
+        linear-gradient(105deg, transparent 42%, rgba(200,170,90,0.5) 42.2%, rgba(200,170,90,0.5) 42.5%, transparent 42.8%),
+        linear-gradient(140deg, transparent 62%, rgba(200,170,90,0.45) 62.2%, rgba(200,170,90,0.45) 62.4%, transparent 62.6%),
+        linear-gradient(118deg, transparent 35%, rgba(200,170,90,0.4) 35.2%, rgba(200,170,90,0.4) 35.4%, transparent 35.6%);"></div>
+    </div>
+    <p>Golden joinery — the repair of broken ceramics with lacquer mixed with powdered gold (or silver, or platinum). Rather than disguising the break, kintsugi makes it visible, even luminous. The repaired object is understood as more beautiful, not less, for having been broken. Kintsugi is often cited as a material expression of wabi-sabi and mujō.</p>
+  </div>
+</article>
+
+<article class="entry" id="chado">
+  <div class="entry-content">
+    <div class="entry-kanji">茶道</div>
+    <div class="entry-romaji">Chadō</div>
+    <div class="visual" style="background: linear-gradient(180deg, #b5aa96, #a89882);">
+      <div class="vl" style="top:0; left:0; right:0; bottom:0; background: radial-gradient(ellipse at 50% 65%, rgba(170,140,90,0.45) 0%, transparent 50%);"></div>
+      <div class="vl" style="top:55%; left:45%; width:50px; height:35px; border: 2px solid rgba(80,70,55,0.3); border-radius: 50% 50% 48% 48%; border-top: none;"></div>
+    </div>
+    <p>The Way of Tea. The ritualized preparation and serving of matcha, developed most influentially by Sen no Rikyū (1522–1591). Chadō synthesizes architecture, ceramics, calligraphy, flower arrangement, cuisine, and social interaction into a single aesthetic and contemplative practice. Many of the terms in this glossary — wabi, ichigo ichie, ma, seijaku — find their most concentrated expression in the tea room.</p>
+  </div>
+</article>
+
+<article class="entry" id="kado">
+  <div class="entry-content">
+    <div class="entry-kanji">花道</div>
+    <div class="entry-romaji">Kadō</div>
+    <div class="visual" style="background: #ece7dd;">
+      <div class="vl" style="bottom:15%; left:48%; width:3px; height:62%; background: linear-gradient(180deg, rgba(85,110,70,0.6), rgba(85,110,70,0.3)); transform: rotate(-3deg); transform-origin: bottom center; border-radius: 1px;"></div>
+      <div class="vl" style="bottom:15%; left:44%; width:2.5px; height:48%; background: linear-gradient(180deg, rgba(85,110,70,0.5), rgba(85,110,70,0.2)); transform: rotate(12deg); transform-origin: bottom center; border-radius: 1px;"></div>
+      <div class="vl" style="bottom:15%; left:52%; width:2px; height:38%; background: linear-gradient(180deg, rgba(85,110,70,0.4), rgba(85,110,70,0.15)); transform: rotate(-18deg); transform-origin: bottom center; border-radius: 1px;"></div>
+      <div class="vl" style="top:12%; left:44%; width:14px; height:14px; background: rgba(195,140,140,0.45); border-radius: 50% 0 50% 50%; transform: rotate(45deg);"></div>
+    </div>
+    <p>The Way of Flowers — the art of flower arrangement as meditative and aesthetic practice. Kadō emphasizes the structural relationship between stems, leaves, and space (ma again), and the expression of seasonal awareness. Different schools (Ikenobō, Ohara, Sōgetsu) vary considerably in approach, from classical to avant-garde.</p>
+  </div>
+</article>
+
+<article class="entry" id="noh">
+  <div class="entry-content">
+    <div class="entry-kanji">能</div>
+    <div class="entry-romaji">Nō (Noh)</div>
+    <div class="visual" style="background: #e2dbd0;">
+      <div class="vl" style="top:50%; left:50%; transform: translate(-50%,-50%); width:100px; height:130px; border: 2.5px solid rgba(70,65,55,0.3); border-radius: 45% 45% 50% 50%;"></div>
+      <div class="vl" style="top:42%; left:43%; width:8px; height:1.5px; background: rgba(70,65,55,0.3);"></div>
+      <div class="vl" style="top:42%; left:53%; width:8px; height:1.5px; background: rgba(70,65,55,0.3);"></div>
+    </div>
+    <p>A form of musical theater developed in the 14th century, closely associated with Zen aesthetics through Zeami's theoretical writings. Noh is defined by extreme economy of movement, masked performance, and the deliberate use of stillness and slowness. It is the primary art form through which yūgen was theorized.</p>
+  </div>
+</article>
+
+<div class="section-header"><h2>Spatial &amp; Compositional Concepts</h2></div>
+
+<article class="entry" id="oku">
+  <div class="entry-content">
+    <div class="entry-kanji">奥</div>
+    <div class="entry-romaji">Oku</div>
+    <div class="visual" style="background: #e2dbd0;">
+      <div class="vl" style="top:10%; left:8%; right:8%; bottom:10%; border: 2px solid rgba(100,95,85,0.25); background: rgba(220,215,205,0.3);"></div>
+      <div class="vl" style="top:22%; left:18%; right:18%; bottom:22%; border: 1.5px solid rgba(100,95,85,0.2); background: rgba(215,210,200,0.3);"></div>
+      <div class="vl" style="top:34%; left:28%; right:28%; bottom:34%; border: 1px solid rgba(100,95,85,0.15); background: rgba(210,205,195,0.3);"></div>
+    </div>
+    <p>Depth, interiority, the innermost recess. In spatial design, oku describes the quality of layered depth — the sense that there is always something further in, something not yet revealed. A temple approach that bends and narrows before reaching the sanctuary. Oku creates anticipation and rewards movement through space.</p>
+  </div>
+</article>
+
+<article class="entry" id="mitate">
+  <div class="entry-content">
+    <div class="entry-kanji">見立て</div>
+    <div class="entry-romaji">Mitate</div>
+    <div class="visual" style="background: #ece7dd;">
+      <div class="vl" style="top:50%; left:50%; transform: translate(-50%,-50%); width:110px; height:110px; border: 2.5px solid rgba(80,75,65,0.35); border-radius: 8% 42% 8% 42%;"></div>
+    </div>
+    <p>Allusive reinterpretation — seeing one thing as another. A garden stone that "becomes" a mountain; a tea scoop named after a poem. Mitate is a compositional strategy that layers meaning without explicit statement, relying on the viewer's cultural literacy and imaginative participation.</p>
+  </div>
+</article>
+
+<article class="entry" id="shakkei">
+  <div class="entry-content">
+    <div class="entry-kanji">借景</div>
+    <div class="entry-romaji">Shakkei</div>
+    <div class="visual" style="background: linear-gradient(180deg, #b8c0aa 0%, #a8b498 30%, #98a888 60%, #90a080 100%);">
+      <div class="vl" style="top:10%; left:10%; right:10%; bottom:10%; border: 12px solid #e2dbd0; background: transparent;"></div>
+      <div class="vl" style="bottom:35%; left:25%; width:50%; height:30%; background: linear-gradient(180deg, rgba(80,100,65,0.4) 0%, rgba(80,100,65,0.15) 100%); clip-path: polygon(40% 0%, 85% 100%, 0% 100%);"></div>
+    </div>
+    <p>Borrowed scenery. A garden design technique in which distant landscape elements (a mountain, a tree line, a temple roof) are incorporated into the composition as if they belong to the garden itself. The boundary between the designed and the given is deliberately blurred.</p>
+  </div>
+</article>
+
+<div class="section-header"><h2>Foundational Zen Terms</h2></div>
+
+<article class="entry" id="ku">
+  <div class="entry-content">
+    <div class="entry-kanji">空</div>
+    <div class="entry-romaji">Kū</div>
+    <div class="visual" style="background: linear-gradient(180deg, #f0ebe2, #ece7dd, #f0ebe2);"></div>
+    <p>Emptiness, void. (Sanskrit: <em>śūnyatā</em>.) Not nihilistic negation but the recognition that all phenomena lack fixed, independent essence. In aesthetics, kū underlies the positive valuation of empty space, silence, and absence as generative rather than deficient.</p>
+  </div>
+</article>
+
+<article class="entry" id="mu">
+  <div class="entry-content">
+    <div class="entry-kanji">無</div>
+    <div class="entry-romaji">Mu</div>
+    <div class="visual" style="background: #ece7dd;">
+      <div class="vl" style="top:50%; left:50%; transform: translate(-50%,-50%); width:160px; height:160px; border: 5px solid rgba(25,24,20,0.45); border-radius: 50%; border-top-width: 4px; border-right-width: 6px; border-bottom-width: 3px; border-left-width: 5px; border-top-right-radius: 48%; border-bottom-left-radius: 52%; border-top-color: transparent;"></div>
+    </div>
+    <p>Nothing, negation — but in Zen usage, not simply the opposite of "something." Mu is the response to the famous kōan "Does a dog have Buddha-nature?" (<em>Jōshū's Mu</em>). It points beyond the binary of existence and non-existence. In aesthetic terms, mu resonates with the radical simplicity and emptiness valued in Zen art.</p>
+  </div>
+</article>
+
+<article class="entry" id="satori">
+  <div class="entry-content">
+    <div class="entry-kanji">悟り</div>
+    <div class="entry-romaji">Satori</div>
+    <div class="visual" style="background: #d8d2c6;">
+      <div class="vl" style="top:0; left:0; right:0; bottom:0; background: radial-gradient(circle at 50% 50%, rgba(255,252,235,0.95) 0%, rgba(255,250,225,0.6) 15%, rgba(240,235,220,0.3) 30%, transparent 50%);"></div>
+    </div>
+    <p>Awakening, sudden insight into the nature of reality. In the aesthetic context, satori is relevant because Zen arts are understood not merely as expressions of awakening but as practices <em>conducive</em> to it. The direct, non-conceptual quality of satori is what Zen art attempts to embody or provoke.</p>
+  </div>
+</article>
+
+<article class="entry" id="do">
+  <div class="entry-content">
+    <div class="entry-kanji">道</div>
+    <div class="entry-romaji">Dō</div>
+    <div class="visual" style="background: #e2dbd0;">
+      <div class="vl" style="top:0; left:50%; transform: translateX(-50%); width:3px; height:100%; background: linear-gradient(180deg, transparent 0%, rgba(70,65,55,0.35) 15%, rgba(70,65,55,0.45) 50%, rgba(70,65,55,0.35) 85%, transparent 100%);"></div>
+    </div>
+    <p>The Way, the path. The suffix <em>-dō</em> in shodō, chadō, kadō, kendō, etc., signals that these are not mere skills but disciplines of self-cultivation. The "way" is both the practice and its unfolding — there is no endpoint at which one has "completed" the way.</p>
+  </div>
+</article>
+
+<footer class="footer">
+  <p>Many of these terms carry meanings that shift across historical periods, schools, and individual teachers. The definitions above reflect common contemporary usage in Zen and Japanese aesthetic discourse, but they are not the final word. Direct experience of the arts and practices they describe remains the primary mode of understanding.</p>
+</footer>
+</body>
+</html>
