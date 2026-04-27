@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQL Joins → Set Theory</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0c0f1a; --surface: #141829; --surface-hover: #1a1f36;
+    --border: #252b45; --text: #c8cee0; --text-dim: #6b7394; --text-bright: #eef0f6;
+    --accent: #3b82f6; --accent-dim: rgba(59,130,246,0.12); --accent-glow: rgba(59,130,246,0.25);
+    --warn: #f59e0b; --warn-bg: rgba(245,158,11,0.08); --ok: #34d399;
+    --r-color: #f472b6; --r-bg: rgba(244,114,182,0.08);
+    --s-color: #38bdf8; --s-bg: rgba(56,189,248,0.08);
+    --match-bg: rgba(139,92,246,0.1); --null-color: #4a5078;
+    --mono: 'DM Mono', 'SF Mono', 'Fira Code', monospace;
+    --sans: 'DM Sans', -apple-system, sans-serif;
+    --serif: 'Playfair Display', Georgia, serif;
+  }
+  body { font-family: var(--sans); background: var(--bg); color: var(--text); min-height: 100vh; padding: 40px 20px 60px; -webkit-font-smoothing: antialiased; }
+  .container { max-width: 800px; margin: 0 auto; }
+  h1 { font-size: 28px; font-weight: 700; color: var(--text-bright); letter-spacing: -0.5px; margin-bottom: 4px; }
+  h1 span { font-family: var(--serif); font-style: italic; font-weight: 500; color: var(--accent); }
+  .subtitle { font-size: 13px; color: var(--text-dim); margin-bottom: 28px; line-height: 1.5; }
+  .source-tables { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; }
+  .source-table { flex: 1; min-width: 180px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; font-size: 13px; }
+  .source-table h3 { font-size: 13px; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+  .source-table h3 .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .source-table table { width: 100%; border-collapse: collapse; }
+  .source-table th { text-align: left; padding: 4px 8px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-dim); border-bottom: 1px solid var(--border); font-weight: 600; }
+  .source-table td { padding: 5px 8px; font-family: var(--mono); font-size: 12px; border-bottom: 1px solid rgba(255,255,255,0.03); }
+  .source-table .key-col { font-weight: 600; }
+  .tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 28px; }
+  .tab { padding: 7px 14px; font-family: var(--sans); font-size: 12px; font-weight: 500; background: var(--surface); color: var(--text-dim); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; transition: all 0.2s; user-select: none; }
+  .tab:hover { background: var(--surface-hover); color: var(--text); border-color: #3a4060; }
+  .tab.active { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 700; box-shadow: 0 0 16px var(--accent-glow); }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px; transition: border-color 0.3s; }
+  .card:hover { border-color: #3a4060; }
+  .card-top { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; margin-bottom: 20px; }
+  .card-diagram { flex-shrink: 0; }
+  .card-info { flex: 1; min-width: 250px; }
+  .card-title { font-size: 20px; font-weight: 700; color: var(--text-bright); margin-bottom: 6px; }
+  .set-op { display: inline-block; font-family: var(--serif); font-style: italic; font-size: 15px; color: var(--accent); background: var(--accent-dim); padding: 3px 12px; border-radius: 6px; margin-bottom: 10px; }
+  .card-desc { font-size: 14px; color: var(--text); line-height: 1.5; margin-bottom: 10px; }
+  .approx-badge { font-size: 11px; color: var(--warn); background: var(--warn-bg); padding: 3px 10px; border-radius: 5px; display: inline-block; margin-bottom: 10px; }
+  .sql-block { font-family: var(--mono); font-size: 11.5px; color: #a5b4d4; background: rgba(0,0,0,0.3); padding: 10px 14px; border-radius: 8px; overflow-x: auto; white-space: nowrap; border: 1px solid rgba(255,255,255,0.04); }
+  .example-section { border-top: 1px solid var(--border); padding-top: 20px; }
+  .example-section h4 { font-size: 12px; font-weight: 600; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 14px; }
+  .example-grid { display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; }
+  .example-keys { flex: 0 0 auto; min-width: 180px; background: rgba(0,0,0,0.2); border-radius: 10px; padding: 14px 16px; font-size: 13px; line-height: 1.8; }
+  .example-keys .label { font-size: 11px; color: var(--text-dim); font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 4px; }
+  .key-r { color: var(--r-color); font-family: var(--mono); font-size: 12px; }
+  .key-s { color: var(--s-color); font-family: var(--mono); font-size: 12px; }
+  .key-result { color: var(--accent); font-family: var(--mono); font-size: 12px; font-weight: 600; }
+  .example-result { flex: 1; min-width: 260px; overflow-x: auto; }
+  .result-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .result-table th { text-align: left; padding: 6px 10px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; border-bottom: 2px solid var(--border); }
+  .result-table th.col-r { color: var(--r-color); }
+  .result-table th.col-s { color: var(--s-color); }
+  .result-table td { padding: 6px 10px; font-family: var(--mono); border-bottom: 1px solid rgba(255,255,255,0.03); }
+  .result-table tr.from-r { background: var(--r-bg); }
+  .result-table tr.from-s { background: var(--s-bg); }
+  .result-table tr.from-both { background: var(--match-bg); }
+  .null-val { color: var(--null-color); font-style: italic; }
+  .table-wrap { margin-top: 32px; overflow-x: auto; }
+  .table-wrap table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .table-wrap thead tr { border-bottom: 2px solid var(--border); }
+  .table-wrap th { text-align: left; padding: 10px 12px; color: var(--text-dim); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .table-wrap th:last-child { text-align: center; }
+  .table-wrap tbody tr { border-bottom: 1px solid rgba(255,255,255,0.04); cursor: pointer; transition: background 0.15s; }
+  .table-wrap tbody tr:hover { background: var(--surface-hover); }
+  .table-wrap tbody tr.active { background: var(--accent-dim); }
+  .table-wrap td { padding: 10px 12px; }
+  .table-wrap td:first-child { font-weight: 600; color: var(--text-bright); }
+  .table-wrap td:nth-child(2) { font-family: var(--serif); font-style: italic; color: var(--accent); }
+  .table-wrap td:last-child { text-align: center; }
+  .check { color: var(--ok); } .approx { color: var(--warn); }
+  @media (max-width: 520px) { .card { padding: 20px; } .card-top { gap: 16px; } h1 { font-size: 22px; } .tab { padding: 6px 10px; font-size: 11px; } .example-grid { flex-direction: column; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>SQL Joins &#8594; <span>Set Theory (AI-Generated)</span></h1>
+  <p class="subtitle">Mapping is <em>approximate</em> &#8212; joins operate on tuples with a match predicate, not sets of identical elements. Click a join to see its Venn diagram, SQL, and a concrete example.</p>
+  <div class="source-tables">
+    <div class="source-table">
+      <h3><span class="dot" style="background:var(--r-color)"></span> R &#8212; Employees</h3>
+      <table><thead><tr><th>id</th><th>name</th></tr></thead>
+      <tbody><tr><td class="key-col">1</td><td>Alice</td></tr><tr><td class="key-col">2</td><td>Bob</td></tr><tr><td class="key-col">3</td><td>Carol</td></tr></tbody></table>
+    </div>
+    <div class="source-table">
+      <h3><span class="dot" style="background:var(--s-color)"></span> S &#8212; Departments</h3>
+      <table><thead><tr><th>id</th><th>dept</th></tr></thead>
+      <tbody><tr><td class="key-col">2</td><td>Eng</td></tr><tr><td class="key-col">3</td><td>Sales</td></tr><tr><td class="key-col">4</td><td>HR</td></tr></tbody></table>
+    </div>
+  </div>
+  <div class="tabs" id="tabs"></div>
+  <div class="card" id="detail-card"></div>
+  <div class="table-wrap" id="table-wrap"></div>
+</div>
+<script>
+const N = '<span class="null-val">NULL</span>';
+const joins = [
+  { name:"INNER JOIN", setOp:"R \u2229 S (Intersection)", desc:"Only tuples whose keys appear in both R and S.", highlight:"intersection", sql:"SELECT * FROM R INNER JOIN S ON R.id = S.id", exact:true,
+    keys:{r:"{1, 2, 3}",s:"{2, 3, 4}",result:"{2, 3}",op:"R.keys \u2229 S.keys"},
+    result:{cols:["R.id","R.name","S.id","S.dept"],colTypes:["r","r","s","s"],rows:[{vals:["2","Bob","2","Eng"],cls:"from-both"},{vals:["3","Carol","3","Sales"],cls:"from-both"}]}},
+  { name:"LEFT JOIN", setOp:"R \u222a (R \u2229 S)", desc:"All of R preserved. Matched columns from S, NULLs where no match.", highlight:"left", sql:"SELECT * FROM R LEFT JOIN S ON R.id = S.id", exact:false,
+    keys:{r:"{1, 2, 3}",s:"{2, 3, 4}",result:"{1, 2, 3}",op:"All R.keys"},
+    result:{cols:["R.id","R.name","S.id","S.dept"],colTypes:["r","r","s","s"],rows:[{vals:["1","Alice",N,N],cls:"from-r"},{vals:["2","Bob","2","Eng"],cls:"from-both"},{vals:["3","Carol","3","Sales"],cls:"from-both"}]}},
+  { name:"RIGHT JOIN", setOp:"(R \u2229 S) \u222a S", desc:"All of S preserved. Matched columns from R, NULLs where no match.", highlight:"right", sql:"SELECT * FROM R RIGHT JOIN S ON R.id = S.id", exact:false,
+    keys:{r:"{1, 2, 3}",s:"{2, 3, 4}",result:"{2, 3, 4}",op:"All S.keys"},
+    result:{cols:["R.id","R.name","S.id","S.dept"],colTypes:["r","r","s","s"],rows:[{vals:["2","Bob","2","Eng"],cls:"from-both"},{vals:["3","Carol","3","Sales"],cls:"from-both"},{vals:[N,N,"4","HR"],cls:"from-s"}]}},
+  { name:"FULL OUTER JOIN", setOp:"R \u222a S (Union)", desc:"All tuples from both. Matched rows combined, unmatched padded with NULLs.", highlight:"full", sql:"SELECT * FROM R FULL OUTER JOIN S ON R.id = S.id", exact:true,
+    keys:{r:"{1, 2, 3}",s:"{2, 3, 4}",result:"{1, 2, 3, 4}",op:"R.keys \u222a S.keys"},
+    result:{cols:["R.id","R.name","S.id","S.dept"],colTypes:["r","r","s","s"],rows:[{vals:["1","Alice",N,N],cls:"from-r"},{vals:["2","Bob","2","Eng"],cls:"from-both"},{vals:["3","Carol","3","Sales"],cls:"from-both"},{vals:[N,N,"4","HR"],cls:"from-s"}]}},
+  { name:"LEFT ANTI JOIN", setOp:"R \\ S (Difference)", desc:"Tuples in R with no matching key in S.", highlight:"leftonly", sql:"SELECT R.* FROM R LEFT JOIN S ON R.id = S.id WHERE S.id IS NULL", exact:true,
+    keys:{r:"{1, 2, 3}",s:"{2, 3, 4}",result:"{1}",op:"R.keys \\ S.keys"},
+    result:{cols:["R.id","R.name"],colTypes:["r","r"],rows:[{vals:["1","Alice"],cls:"from-r"}]}},
+  { name:"RIGHT ANTI JOIN", setOp:"S \\ R (Difference)", desc:"Tuples in S with no matching key in R.", highlight:"rightonly", sql:"SELECT S.* FROM R RIGHT JOIN S ON R.id = S.id WHERE R.id IS NULL", exact:true,
+    keys:{r:"{1, 2, 3}",s:"{2, 3, 4}",result:"{4}",op:"S.keys \\ R.keys"},
+    result:{cols:["S.id","S.dept"],colTypes:["s","s"],rows:[{vals:["4","HR"],cls:"from-s"}]}},
+  { name:"FULL ANTI JOIN", setOp:"R \u25b3 S (Symmetric Diff.)", desc:"Tuples in either relation but not both \u2014 the symmetric difference.", highlight:"symdiff", sql:"SELECT * FROM R FULL OUTER JOIN S ON R.id = S.id WHERE R.id IS NULL OR S.id IS NULL", exact:true,
+    keys:{r:"{1, 2, 3}",s:"{2, 3, 4}",result:"{1, 4}",op:"R.keys \u25b3 S.keys"},
+    result:{cols:["R.id","R.name","S.id","S.dept"],colTypes:["r","r","s","s"],rows:[{vals:["1","Alice",N,N],cls:"from-r"},{vals:[N,N,"4","HR"],cls:"from-s"}]}},
+  { name:"CROSS JOIN", setOp:"R \u00d7 S (Cartesian Product)", desc:"Every tuple in R paired with every tuple in S. No predicate \u2014 |R|\u00d7|S| rows.", highlight:"cross", sql:"SELECT * FROM R CROSS JOIN S", exact:true,
+    keys:{r:"{1, 2, 3}",s:"{2, 3, 4}",result:"3 \u00d7 3 = 9 rows",op:"R \u00d7 S"},
+    result:{cols:["R.id","R.name","S.id","S.dept"],colTypes:["r","r","s","s"],rows:[
+      {vals:["1","Alice","2","Eng"],cls:"from-both"},{vals:["1","Alice","3","Sales"],cls:"from-both"},{vals:["1","Alice","4","HR"],cls:"from-both"},
+      {vals:["2","Bob","2","Eng"],cls:"from-both"},{vals:["2","Bob","3","Sales"],cls:"from-both"},{vals:["2","Bob","4","HR"],cls:"from-both"},
+      {vals:["3","Carol","2","Eng"],cls:"from-both"},{vals:["3","Carol","3","Sales"],cls:"from-both"},{vals:["3","Carol","4","HR"],cls:"from-both"}]}},
+];
+let selected = 0;
+function vennSVG(hl, sz) {
+  sz=sz||140; const w=sz*1.6,h=sz,r=sz*0.38,cx1=w*0.38,cx2=w*0.62,cy=h*0.5;
+  const a="#3b82f6",n="rgba(148,163,184,0.08)",st="#4a5078",as="#3b82f6";
+  const uid=hl+'-'+Math.random().toString(36).slice(2,6);
+  if(hl==="cross") return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><text x="${cx1}" y="16" text-anchor="middle" font-size="12" fill="#6b7394" font-weight="600">R</text><text x="${cx2}" y="16" text-anchor="middle" font-size="12" fill="#6b7394" font-weight="600">S</text><circle cx="${cx1}" cy="${cy}" r="${r}" fill="rgba(59,130,246,0.1)" stroke="${as}" stroke-width="1.5" stroke-dasharray="6 3"/><circle cx="${cx2}" cy="${cy}" r="${r}" fill="rgba(59,130,246,0.1)" stroke="${as}" stroke-width="1.5" stroke-dasharray="6 3"/><defs><marker id="arr-${uid}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="${as}"/></marker></defs><line x1="${cx1}" y1="${cy}" x2="${cx2}" y2="${cy}" stroke="${as}" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-${uid})"/><text x="${w/2}" y="${h-6}" text-anchor="middle" font-size="10" fill="#4a5078">every r \u00d7 every s</text></svg>`;
+  const c={intersection:{l:n,r:n,i:a},left:{l:a,r:n,i:a},right:{l:n,r:a,i:a},full:{l:a,r:a,i:a},leftonly:{l:a,r:n,i:"p"},rightonly:{l:n,r:a,i:"p"},symdiff:{l:a,r:a,i:"p"}}[hl]||{l:n,r:n,i:n};
+  const pL=(hl==="leftonly"||hl==="symdiff"),pR=(hl==="rightonly"||hl==="symdiff");
+  let s=`<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><defs><clipPath id="cl-${uid}"><circle cx="${cx1}" cy="${cy}" r="${r}"/></clipPath><clipPath id="cr-${uid}"><circle cx="${cx2}" cy="${cy}" r="${r}"/></clipPath></defs><text x="${cx1-r*0.5}" y="16" text-anchor="middle" font-size="12" fill="#6b7394" font-weight="600">R</text><text x="${cx2+r*0.5}" y="16" text-anchor="middle" font-size="12" fill="#6b7394" font-weight="600">S</text><circle cx="${cx1}" cy="${cy}" r="${r}" fill="${c.l}" stroke="none"/><circle cx="${cx2}" cy="${cy}" r="${r}" fill="${c.r}" stroke="none"/>`;
+  if(c.i!=="p") s+=`<circle cx="${cx2}" cy="${cy}" r="${r}" fill="${c.i}" clip-path="url(#cl-${uid})"/>`;
+  if(pL) s+=`<circle cx="${cx2}" cy="${cy}" r="${r}" fill="var(--bg)" clip-path="url(#cl-${uid})"/>`;
+  if(pR) s+=`<circle cx="${cx1}" cy="${cy}" r="${r}" fill="var(--bg)" clip-path="url(#cr-${uid})"/>`;
+  s+=`<circle cx="${cx1}" cy="${cy}" r="${r}" fill="none" stroke="${c.l!==n?as:st}" stroke-width="1.5"/><circle cx="${cx2}" cy="${cy}" r="${r}" fill="none" stroke="${c.r!==n?as:st}" stroke-width="1.5"/></svg>`;
+  return s;
+}
+function render(){
+  const j=joins[selected];
+  document.getElementById("tabs").innerHTML=joins.map((it,i)=>`<button class="tab${i===selected?' active':''}" data-idx="${i}">${it.name}</button>`).join("");
+  const rr=j.result.rows.map(row=>`<tr class="${row.cls}">${row.vals.map(v=>`<td>${v}</td>`).join("")}</tr>`).join("");
+  const rc=j.result.cols.map((c,i)=>`<th class="col-${j.result.colTypes[i]}">${c}</th>`).join("");
+  document.getElementById("detail-card").innerHTML=`
+    <div class="card-top"><div class="card-diagram">${vennSVG(j.highlight,140)}</div><div class="card-info">
+      <div class="card-title">${j.name}</div><div class="set-op">${j.setOp}</div>
+      <p class="card-desc">${j.desc}</p>
+      ${!j.exact?'<div class="approx-badge">\u26a0 Approximate analogy \u2014 no exact set-theoretic equivalent</div>':''}
+      <div class="sql-block">${j.sql}</div></div></div>
+    <div class="example-section"><h4>Example \u2014 ON R.id = S.id</h4>
+      <div class="example-grid"><div class="example-keys">
+        <div class="label">Key Sets</div>
+        <div><span class="key-r">R.keys = ${j.keys.r}</span></div>
+        <div><span class="key-s">S.keys = ${j.keys.s}</span></div>
+        <div style="border-top:1px solid var(--border);margin:6px 0;padding-top:6px;">
+          <span style="font-size:11px;color:var(--text-dim)">${j.keys.op}</span><br>
+          <span class="key-result">\u2192 ${j.keys.result}</span></div></div>
+      <div class="example-result"><table class="result-table"><thead><tr>${rc}</tr></thead><tbody>${rr}</tbody></table></div></div></div>`;
+  document.getElementById("table-wrap").innerHTML=`<table><thead><tr><th>Join</th><th>Set Operation</th><th>Exact?</th></tr></thead><tbody>${joins.map((it,i)=>`<tr class="${i===selected?'active':''}" data-idx="${i}"><td>${it.name}</td><td>${it.setOp}</td><td>${it.exact?'<span class="check">\u2713</span>':'<span class="approx">\u2248</span>'}</td></tr>`).join("")}</tbody></table>`;
+}
+document.addEventListener("click",e=>{const el=e.target.closest("[data-idx]");if(el){selected=parseInt(el.dataset.idx,10);render();}});
+render();
+</script>
+</body>
+</html>
