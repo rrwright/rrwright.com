@@ -470,6 +470,11 @@ h6:hover .zola-anchor,
     margin-bottom: 0.5rem;
 }
 
+.post-content strong,
+.post-content b {
+    color: var(--text-bright);
+}
+
 .post-content p {
     margin-bottom: 1.25rem;
 }
@@ -514,6 +519,32 @@ h6:hover .zola-anchor,
     border: none;
     border-top: 1px solid var(--border);
     margin: 2rem 0;
+}
+
+/* ── Tables ──────────────────────────────────────────── */
+
+.post-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+}
+
+.post-content th,
+.post-content td {
+    padding: 0.6rem 0.75rem;
+    border: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+    text-align: left;
+}
+
+.post-content th {
+    color: var(--text-bright);
+    font-weight: 600;
+    border-bottom-color: var(--border);
+}
+
+.post-content tr:nth-child(even) td {
+    background: color-mix(in srgb, var(--border) 15%, transparent);
 }
 
 /* ── Code ────────────────────────────────────────────── */

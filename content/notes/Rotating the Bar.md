@@ -1,5 +1,5 @@
 +++
-title = "Rotating the Bar: the New Jr./Sr. Divide"
+title = "Rotating the Bar: the New Jr/Sr Divide"
 date = 2026-04-24
 description = "A.I. is changing what skills qualify a software engineer as 'Senior Level'"
 +++
