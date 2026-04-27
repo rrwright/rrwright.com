@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-Generated Taxonomy of Probabilistic Data Structures</title>
+<style>
+  :root {
+    --bg: #fdfdfd;
+    --text: #1a1a1a;
+    --accent: #2c5f8a;
+    --border: #c8c8c8;
+    --row-alt: #f5f7fa;
+    --header-bg: #2c5f8a;
+    --header-text: #fff;
+    --note-bg: #fff8e1;
+    --note-border: #f0c040;
+    --cat-bg: #eef3f9;
+    --onesided: #e8f5e9;
+    --symmetric: #fff3e0;
+    --code-bg: #f0f0f0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 2.5rem;
+    font-size: 15px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    color: var(--accent);
+    border-bottom: 3px solid var(--accent);
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  h2 {
+    font-size: 1.35rem;
+    color: var(--accent);
+    margin-top: 2.5rem;
+    margin-bottom: 0.3rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.3rem;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+    color: #444;
+    margin-top: 1.5rem;
+    margin-bottom: 0.4rem;
+  }
+
+  p, li { margin-bottom: 0.4rem; }
+
+  .subtitle {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+  }
+
+  .category-header {
+    background: var(--cat-bg);
+    padding: 0.8rem 1.2rem;
+    border-left: 4px solid var(--accent);
+    margin: 2rem 0 0.5rem;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .category-header h2 {
+    margin: 0;
+    border: none;
+    padding: 0;
+  }
+
+  .category-header .query-form {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 0.2rem;
+    background: var(--code-bg);
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+  }
+
+  .guarantee-tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+  }
+
+  .one-sided { background: var(--onesided); color: #2e7d32; }
+  .symmetric-tag { background: var(--symmetric); color: #e65100; }
+  .varies-tag { background: #f3e5f5; color: #6a1b9a; }
+
+  .note {
+    background: var(--note-bg);
+    border-left: 4px solid var(--note-border);
+    padding: 0.6rem 1rem;
+    margin: 0.8rem 0;
+    font-size: 0.9rem;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    margin: 0.8rem 0 1.5rem;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    min-width: 900px;
+  }
+
+  thead th {
+    background: var(--header-bg);
+    color: var(--header-text);
+    padding: 0.6rem 0.7rem;
+    text-align: left;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    white-space: nowrap;
+  }
+
+  tbody td {
+    padding: 0.5rem 0.7rem;
+    border-bottom: 1px solid #e0e0e0;
+    vertical-align: top;
+  }
+
+  tbody tr:nth-child(even) { background: var(--row-alt); }
+  tbody tr:hover { background: #e8edf3; }
+
+  td.struct-name {
+    font-weight: 600;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  code, .mono {
+    font-family: 'Courier New', monospace;
+    font-size: 0.85em;
+    background: var(--code-bg);
+    padding: 1px 4px;
+    border-radius: 3px;
+  }
+
+  .yes { color: #2e7d32; font-weight: 600; }
+  .no { color: #c62828; }
+  .partial { color: #ef6c00; }
+  .na { color: #999; font-style: italic; }
+
+  .error-one { background: #e8f5e9; }
+  .error-sym { background: #fff8e1; }
+
+  .toc {
+    background: #f8f9fa;
+    border: 1px solid var(--border);
+    padding: 1rem 1.5rem;
+    margin: 1rem 0 2rem;
+    border-radius: 6px;
+  }
+
+  .toc ol { padding-left: 1.5rem; }
+  .toc li { margin-bottom: 0.2rem; }
+  .toc a { color: var(--accent); text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+
+  .legend {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin: 0.5rem 0 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .legend-swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+  }
+
+  .summary-section {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--accent);
+  }
+
+  .ref-section {
+    margin-top: 2rem;
+    font-size: 0.88rem;
+    color: #555;
+  }
+
+  .ref-section dt { font-weight: 600; color: var(--text); }
+  .ref-section dd { margin-left: 1.5rem; margin-bottom: 0.3rem; }
+
+
+  /* Links in table struct names */
+  td.struct-name a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--accent);
+  }
+  td.struct-name a:hover {
+    border-bottom: 1px solid var(--accent);
+    background: #eef3f9;
+  }
+
+  /* External link icon */
+  td.struct-name a::after {
+    content: " ↗";
+    font-size: 0.7em;
+    vertical-align: super;
+    opacity: 0.5;
+  }
+
+  /* Glossary styles */
+  .glossary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin: 0.8rem 0 1.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  @media (max-width: 900px) {
+    .glossary-grid { grid-template-columns: 1fr; }
+  }
+
+  .glossary-section {
+    padding: 0;
+  }
+
+  .glossary-section h3 {
+    background: var(--header-bg);
+    color: var(--header-text);
+    padding: 0.5rem 0.8rem;
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .glossary-section dl {
+    padding: 0.4rem 0;
+    margin: 0;
+  }
+
+  .glossary-entry {
+    display: flex;
+    padding: 0.3rem 0.8rem;
+    font-size: 0.85rem;
+    border-bottom: 1px solid #f0f0f0;
+    line-height: 1.5;
+  }
+
+  .glossary-entry:last-child { border-bottom: none; }
+
+  .glossary-entry dt {
+    font-weight: 600;
+    color: var(--accent);
+    min-width: 120px;
+    flex-shrink: 0;
+    font-family: 'Courier New', monospace;
+    font-size: 0.82rem;
+    padding-top: 1px;
+  }
+
+  .glossary-entry dd {
+    margin: 0;
+    color: #444;
+  }
+
+  .glossary-full {
+    margin: 0.8rem 0 1.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .glossary-full h3 {
+    background: var(--header-bg);
+    color: var(--header-text);
+    padding: 0.5rem 0.8rem;
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .glossary-full dl {
+    padding: 0.4rem 0;
+    margin: 0;
+    column-count: 2;
+    column-gap: 0;
+  }
+
+  @media (max-width: 900px) {
+    .glossary-full dl { column-count: 1; }
+  }
+
+  .glossary-full .glossary-entry {
+    break-inside: avoid;
+  }
+
+  .ref-section a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--accent);
+  }
+
+  .ref-section a:hover {
+    border-bottom: 1px solid var(--accent);
+  }
+
+  @media (max-width: 768px) {
+    body { padding: 1rem; font-size: 14px; }
+    h1 { font-size: 1.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Taxonomy of Probabilistic Data Structures (AI-generated)</h1>
+<p class="subtitle">Structures providing space-efficient approximate answers with well-characterised probabilistic guarantees over collections.</p>
+
+<div class="note">
+  <strong>Scope.</strong> This document covers data structures that sacrifice exactness for sub-linear space (or time) while providing <em>bounded, analysable</em> error.
+  The term "asymmetric guarantee" is used broadly: some structures have strictly one-sided error (e.g., Bloom filters can only produce false positives, never false negatives),
+  while others have symmetric but tightly bounded error (e.g., HyperLogLog). Both classes are included, with the error direction explicitly noted.
+</div>
+
+<nav class="toc">
+  <strong>Contents</strong>
+  <ol>
+    <li><a href="#amq">Approximate Membership Query (AMQ) Structures</a></li>
+    <li><a href="#cardinality">Cardinality / Distinct-Count Estimation</a></li>
+    <li><a href="#frequency">Frequency Estimation &amp; Heavy Hitters</a></li>
+    <li><a href="#quantile">Quantile &amp; Rank Estimation</a></li>
+    <li><a href="#similarity">Similarity Estimation</a></li>
+    <li><a href="#setops">Set-Operation Sketches</a></li>
+    <li><a href="#master">Cross-Cutting Master Comparison</a></li>
+    <li><a href="#guide">Selection Guide</a></li>
+    <li><a href="#glossary">Glossary of Terms &amp; Acronyms</a></li>
+    <li><a href="#refs">Key References</a></li>
+  </ol>
+</nav>
+
+<div class="legend">
+  <div class="legend-item"><span class="legend-swatch" style="background:#e8f5e9"></span> One-sided error</div>
+  <div class="legend-item"><span class="legend-swatch" style="background:#fff8e1"></span> Symmetric / two-sided error</div>
+  <div class="legend-item"><span class="legend-swatch" style="background:#f3e5f5"></span> Varies by configuration</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="category-header" id="amq">
+  <h2>1. Approximate Membership Query (AMQ) Structures <span class="guarantee-tag one-sided">One-Sided</span></h2>
+  <div class="query-form">Query: "Is x ∈ S?" → { Definitely No | Probably Yes }</div>
+</div>
+
+<p>All AMQ structures share the core guarantee: <strong>no false negatives</strong>. If the structure reports an element is absent, it is certainly absent. False positives occur at a tuneable rate ε. The key differentiators are support for deletion, dynamism, cache behaviour, and space efficiency relative to the information-theoretic lower bound of <code>n · log₂(1/ε)</code> bits.</p>
+
+<div class="table-wrapper">
+<table>
+<thead>
+  <tr>
+    <th>Structure</th>
+    <th>Space (bits/element)</th>
+    <th>FPR Control</th>
+    <th>Lookup</th>
+    <th>Insert</th>
+    <th>Delete</th>
+    <th>Merge</th>
+    <th>Dynamic</th>
+    <th>Notes</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/Bloom_filter" title="Wikipedia" target="_blank" rel="noopener">Bloom Filter</a></td>
+    <td><code>1.44 log₂(1/ε)</code> at optimal <em>k</em></td>
+    <td>≈ (1 − e<sup>−kn/m</sup>)<sup>k</sup></td>
+    <td>O(k)</td>
+    <td>O(k)</td>
+    <td class="no">No</td>
+    <td class="yes">Yes (OR)</td>
+    <td class="yes">Yes</td>
+    <td>The canonical AMQ. ~44% overhead vs information-theoretic lower bound. k independent hash functions probe k bit positions.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/Counting_Bloom_filter" title="Wikipedia" target="_blank" rel="noopener">Counting Bloom Filter</a></td>
+    <td><code>~3–4× Bloom</code> (typically 4 bits/counter)</td>
+    <td>Same as Bloom</td>
+    <td>O(k)</td>
+    <td>O(k)</td>
+    <td class="yes">Yes</td>
+    <td class="yes">Yes</td>
+    <td class="yes">Yes</td>
+    <td>Replaces bits with counters. Counter overflow is possible (typically mitigated at 4-bit width). Deletion can cause false negatives if element was never inserted.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://doi.org/10.1007/978-3-540-72845-0_9" title="Putze, Sanders, Singler 2007 (Springer)" target="_blank" rel="noopener">Blocked Bloom Filter</a></td>
+    <td>Slightly worse than Bloom for same <em>m</em></td>
+    <td>Higher than standard Bloom at same space</td>
+    <td>O(k), 1 cache line</td>
+    <td>O(k), 1 cache line</td>
+    <td class="no">No</td>
+    <td class="yes">Yes</td>
+    <td class="yes">Yes</td>
+    <td>Each element maps to one cache-line-sized block. Dramatically better cache performance at modest FPR increase. Used in databases (e.g., Apache Impala).</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/Cuckoo_filter" title="Wikipedia" target="_blank" rel="noopener">Cuckoo Filter</a></td>
+    <td><code>(2 + 3/f) / α</code> bits/element (f = fingerprint bits, α = load factor)</td>
+    <td>ε ≈ 2b/2<sup>f</sup> (b = bucket size)</td>
+    <td>O(1) amortised, 2 lookups</td>
+    <td>O(1) amortised</td>
+    <td class="partial">Limited</td>
+    <td class="no">No</td>
+    <td class="yes">Yes</td>
+    <td>Better than Bloom when ε &lt; 3%. Deletion is supported but can introduce false negatives if deleting items not present. Not easily mergeable. Based on cuckoo hashing of fingerprints.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/Quotient_filter" title="Wikipedia" target="_blank" rel="noopener">Quotient Filter</a></td>
+    <td>~10–25% overhead vs Bloom</td>
+    <td>Controlled by quotient/remainder split</td>
+    <td>O(1) amortised</td>
+    <td>O(1) amortised</td>
+    <td class="yes">Yes</td>
+    <td class="yes">Yes</td>
+    <td class="yes">Yes (resizable)</td>
+    <td>Supports deletion, merge, and resize. Excellent cache locality (linear probing). Requires contiguous memory. Counting variant exists.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://arxiv.org/abs/1912.08258" title="Graf & Lemire 2020 (arXiv)" target="_blank" rel="noopener">Xor Filter</a></td>
+    <td><code>~1.23 log₂(1/ε)</code></td>
+    <td>ε = 1/2<sup>r</sup> (r = fingerprint bits)</td>
+    <td>O(1), 3 lookups</td>
+    <td class="na">N/A (static)</td>
+    <td class="no">No</td>
+    <td class="no">No</td>
+    <td class="no">No (static)</td>
+    <td>Built from 3-partite random hypergraph peeling. Must be constructed from the full set; no incremental insertion. Excellent space efficiency and query speed for immutable sets.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://arxiv.org/abs/2201.01174" title="Graf & Lemire 2022 (arXiv)" target="_blank" rel="noopener">Binary Fuse Filter</a></td>
+    <td><code>~1.13 log₂(1/ε)</code></td>
+    <td>ε = 1/2<sup>r</sup></td>
+    <td>O(1), 3 lookups</td>
+    <td class="na">N/A (static)</td>
+    <td class="no">No</td>
+    <td class="no">No</td>
+    <td class="no">No (static)</td>
+    <td>Successor to Xor filters. Faster construction, marginally better space. Near information-theoretic optimality for static sets.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://arxiv.org/abs/2103.02515" title="Dillinger & Walzer 2021 (arXiv)" target="_blank" rel="noopener">Ribbon Filter</a></td>
+    <td>Approaches <code>log₂(1/ε)</code> (near optimal)</td>
+    <td>ε = 1/2<sup>r</sup></td>
+    <td>O(1)</td>
+    <td class="na">N/A (static)</td>
+    <td class="no">No</td>
+    <td class="no">No</td>
+    <td class="no">No (static)</td>
+    <td>Based on solving a banded linear system over GF(2). Closest to the information-theoretic lower bound of any practical filter. Slower construction than Xor/Fuse. Used in RocksDB.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://arxiv.org/abs/1806.09155" title="Wang et al. 2019 (arXiv)" target="_blank" rel="noopener">Vacuum Filter</a></td>
+    <td>Better than Cuckoo at high load</td>
+    <td>Similar to Cuckoo</td>
+    <td>O(1)</td>
+    <td>O(1) amortised</td>
+    <td class="partial">Limited</td>
+    <td class="no">No</td>
+    <td class="yes">Yes</td>
+    <td>Improves on Cuckoo by using variable-length fingerprints and alternate bucket selection. Achieves higher load factors.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://www.vldb.org/pvldb/vol11/p1041-breslow.pdf" title="Breslow et al. 2018 (PDF)" target="_blank" rel="noopener">Morton Filter</a></td>
+    <td>Competitive with Cuckoo</td>
+    <td>Configurable</td>
+    <td>O(1), cache-optimised</td>
+    <td>O(1) amortised</td>
+    <td class="yes">Yes</td>
+    <td class="no">No</td>
+    <td class="yes">Yes</td>
+    <td>Uses compressed block metadata and underflowed fingerprint storage. Designed for SIMD-friendly cache-line access patterns. Supports deletion.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://doi.org/10.1109/ICDCS.2006.27" title="Deng & Rafiei 2006 (IEEE)" target="_blank" rel="noopener">Stable Bloom Filter</a></td>
+    <td>Similar to Counting Bloom</td>
+    <td>Converges to steady-state FPR</td>
+    <td>O(k)</td>
+    <td>O(k + p) (p random decrements)</td>
+    <td class="partial">Implicit (decay)</td>
+    <td class="no">No</td>
+    <td class="yes">Yes (streaming)</td>
+    <td>Designed for infinite streams. Randomly decrements counters on insert, causing old elements to decay. Trades FNR for bounded memory on unbounded streams.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/Bloom_filter#Extensions_and_applications" title="Wikipedia — Bloom filter extensions" target="_blank" rel="noopener">Scalable Bloom Filter</a></td>
+    <td>Grows dynamically</td>
+    <td>Geometric series ensures overall ε</td>
+    <td>O(k · s) worst case (s = number of sub-filters)</td>
+    <td>O(k)</td>
+    <td class="no">No</td>
+    <td class="no">No</td>
+    <td class="yes">Yes (unbounded n)</td>
+    <td>Chain of Bloom filters with tightening FPR. No need to know n in advance. Lookup cost grows logarithmically with number of sub-filters.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://dl.acm.org/doi/10.5555/982792.982797" title="Chazelle et al. 2004 (ACM)" target="_blank" rel="noopener">Bloomier Filter</a></td>
+    <td><code>O(n · (r + log(1/ε)))</code></td>
+    <td>Configurable</td>
+    <td>O(k)</td>
+    <td class="na">N/A (static)</td>
+    <td class="no">No</td>
+    <td class="no">No</td>
+    <td class="no">No (static)</td>
+    <td>Generalises Bloom to an approximate <em>dictionary</em>: maps keys to values with possible false positives on non-member queries. Returns correct values for members with certainty.</td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+<div class="note">
+  <strong>Key trade-off axes within AMQ structures:</strong>
+  <em>Static vs. dynamic</em> — Xor/Fuse/Ribbon achieve the best space but require the full set at construction time. Bloom/Cuckoo/Quotient support incremental insertion.
+  <em>Deletion</em> — Counting Bloom, Quotient, and (with caveats) Cuckoo support it. Standard Bloom and all static filters do not.
+  <em>Mergeability</em> — Bloom and Quotient filters merge via bitwise OR. Cuckoo and fingerprint-based filters generally cannot.
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="category-header" id="cardinality">
+  <h2>2. Cardinality / Distinct-Count Estimation <span class="guarantee-tag symmetric-tag">Symmetric</span></h2>
+  <div class="query-form">Query: "|S| = ?" → n̂ where P(|n̂ − |S|| > ε|S|) &lt; δ</div>
+</div>
+
+<p>These structures estimate the number of distinct elements in a stream or multiset. The error is generally <strong>symmetric</strong> — the estimate can be above or below the true cardinality — with a relative error bound that decreases as space increases. The core insight exploits the distribution of hash-derived observables (leading zeros, minimum values) over the input.</p>
+
+<div class="table-wrapper">
+<table>
+<thead>
+  <tr>
+    <th>Structure</th>
+    <th>Space</th>
+    <th>Relative Error (std. dev.)</th>
+    <th>Error Direction</th>
+    <th>Insert</th>
+    <th>Query</th>
+    <th>Merge</th>
+    <th>Notes</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="struct-name"><a href="https://doi.org/10.1145/78922.78925" title="Whang et al. 1990 (ACM)" target="_blank" rel="noopener">Linear Counting</a></td>
+    <td>O(n) bitmap in worst case; useful when n ≪ m</td>
+    <td>High variance for n near m</td>
+    <td>Symmetric</td>
+    <td>O(1)</td>
+    <td>O(m)</td>
+    <td class="yes">Yes (OR)</td>
+    <td>Simple bitmap. Estimate: −m · ln(V/m) where V = zero-count. Accurate when cardinality is well below bitmap size. Breaks down as bitmap fills.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/Flajolet%E2%80%93Martin_algorithm" title="Wikipedia — Flajolet–Martin" target="_blank" rel="noopener">PCSA (FM Sketch)</a></td>
+    <td>O(m · log log U) bits (m = number of bitmaps)</td>
+    <td>~0.78 / √m</td>
+    <td>Symmetric (biased high before correction)</td>
+    <td>O(1)</td>
+    <td>O(m)</td>
+    <td class="yes">Yes</td>
+    <td>Flajolet–Martin (1985). Stochastic averaging of bitmaps tracking max leading zeros. Foundational algorithm; superseded by LogLog/HLL.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/HyperLogLog" title="Wikipedia — HyperLogLog (covers LogLog family)" target="_blank" rel="noopener">LogLog</a></td>
+    <td>m · ⌈log₂ log₂ U⌉ bits (typically m × 5 bits)</td>
+    <td>~1.30 / √m</td>
+    <td>Symmetric (raw estimator biased high)</td>
+    <td>O(1)</td>
+    <td>O(m)</td>
+    <td class="yes">Yes</td>
+    <td>Stores max(ρ(h(x))) per register, where ρ counts leading zeros. Geometric mean estimator.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/HyperLogLog" title="Wikipedia — HyperLogLog (covers SuperLogLog)" target="_blank" rel="noopener">SuperLogLog</a></td>
+    <td>Same as LogLog (with truncation)</td>
+    <td>~1.05 / √m</td>
+    <td>Symmetric</td>
+    <td>O(1)</td>
+    <td>O(m log m) (due to sorting)</td>
+    <td class="yes">Yes</td>
+    <td>Truncated LogLog: discards highest registers (outlier suppression). Improved error constant over LogLog.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/HyperLogLog" title="Wikipedia" target="_blank" rel="noopener">HyperLogLog</a></td>
+    <td>m registers × ~5–6 bits ≈ <code>O(ε⁻² log log U)</code></td>
+    <td>~1.04 / √m</td>
+    <td>Symmetric (after bias correction)</td>
+    <td>O(1)</td>
+    <td>O(m)</td>
+    <td class="yes">Yes (max)</td>
+    <td>Harmonic mean estimator. The standard practical cardinality estimator. 1.5 KB for ~2% error on billions of elements. Small/large range corrections needed.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://dl.acm.org/doi/10.1145/2452376.2452456" title="Heule, Nunkesser, Hall 2013 (ACM)" target="_blank" rel="noopener">HyperLogLog++</a></td>
+    <td>Variable: sparse for small n, dense at m registers</td>
+    <td>~1.04 / √m (same as HLL)</td>
+    <td>Symmetric (improved bias correction)</td>
+    <td>O(1) amortised</td>
+    <td>O(m)</td>
+    <td class="yes">Yes</td>
+    <td>Google's improvement. Sparse representation for small cardinalities (saves space when n ≪ m). Empirical bias correction table for medium range. 64-bit hashing eliminates large-range correction.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://datasketches.apache.org/docs/CPC/CPC.html" title="Apache DataSketches" target="_blank" rel="noopener">CPC Sketch</a></td>
+    <td>~20–40% less than HLL for same accuracy</td>
+    <td>~1 / √K</td>
+    <td>Symmetric</td>
+    <td>O(1)</td>
+    <td>O(K)</td>
+    <td class="yes">Yes</td>
+    <td>Compressed Probability Counting (Kevin Lang, 2017). Compresses the "surprising" values. Best-in-class space efficiency for cardinality estimation. Implemented in Apache DataSketches.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://datasketches.apache.org/docs/Theta/InverseEstimate.html" title="Apache DataSketches — KMV" target="_blank" rel="noopener">KMV (K Minimum Values)</a></td>
+    <td>O(k · log U) bits</td>
+    <td>~1 / √k</td>
+    <td>Symmetric (unbiased)</td>
+    <td>O(log k) (heap maintenance)</td>
+    <td>O(1)</td>
+    <td class="yes">Yes</td>
+    <td>Maintains the k smallest hash values. Estimate: (k−1)/U_k where U_k is the k-th smallest value. Supports full set operations (union via merge, intersection via inclusion-exclusion). Basis for Theta Sketch.</td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+<div class="note">
+  <strong>No cardinality estimator in this list provides a one-sided guarantee.</strong> All can over- or underestimate. The guarantee is probabilistic: with high probability, the estimate is within (1 ± ε) of the true value. HyperLogLog's raw harmonic-mean estimator has a slight positive bias for small cardinalities, but this is corrected in practice (and in HLL++).
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="category-header" id="frequency">
+  <h2>3. Frequency Estimation &amp; Heavy Hitters <span class="guarantee-tag varies-tag">Varies</span></h2>
+  <div class="query-form">Query: "f(x) = ?" → f̂(x) with bounded error</div>
+</div>
+
+<p>These structures estimate item frequencies in a data stream. The error direction differs by structure — this is the most important differentiator in this category. Count-Min Sketch guarantees it <em>never underestimates</em> (one-sided overestimate), while Count Sketch provides an unbiased estimator (symmetric error).</p>
+
+<div class="table-wrapper">
+<table>
+<thead>
+  <tr>
+    <th>Structure</th>
+    <th>Space</th>
+    <th>Error Bound</th>
+    <th>Error Direction</th>
+    <th>Insert</th>
+    <th>Query</th>
+    <th>Merge</th>
+    <th>Delete</th>
+    <th>Notes</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/Count%E2%80%93min_sketch" title="Wikipedia" target="_blank" rel="noopener">Count-Min Sketch</a></td>
+    <td><code>O((1/ε) · ln(1/δ))</code> counters</td>
+    <td>f̂(x) ∈ [f(x), f(x) + εN] w.p. ≥ 1−δ</td>
+    <td class="error-one"><strong>One-sided: overestimates only</strong></td>
+    <td>O(d) (d = depth)</td>
+    <td>O(d)</td>
+    <td class="yes">Yes</td>
+    <td class="partial">Via negative counts</td>
+    <td>d × w array of counters. Query returns min over d rows. The fundamental property: <em>f̂(x) ≥ f(x)</em> always. Overestimates caused by hash collisions with other elements.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/Count%E2%80%93min_sketch#Conservative_update" title="Wikipedia — CMS Conservative Update" target="_blank" rel="noopener">Conservative Update CMS</a></td>
+    <td>Same as CMS</td>
+    <td>Same worst-case; better in practice</td>
+    <td class="error-one"><strong>One-sided: overestimates only</strong></td>
+    <td>O(d)</td>
+    <td>O(d)</td>
+    <td class="no">No</td>
+    <td class="no">No</td>
+    <td>On insert, only increments counters that are currently minimal. Reduces overestimation in practice but sacrifices mergeability and deletion. Same worst-case bounds.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/Count_sketch" title="Wikipedia" target="_blank" rel="noopener">Count Sketch</a></td>
+    <td><code>O((1/ε²) · ln(1/δ))</code> counters</td>
+    <td>|f̂(x) − f(x)| ≤ ε · ‖f<sub>tail</sub>‖₂ w.p. ≥ 1−δ</td>
+    <td class="error-sym"><strong>Symmetric (unbiased)</strong></td>
+    <td>O(d)</td>
+    <td>O(d)</td>
+    <td class="yes">Yes</td>
+    <td class="yes">Yes</td>
+    <td>Uses ±1 sign hashes. Median-of-means estimator. The ℓ₂ tail guarantee makes it better for finding heavy hitters in heavy-tailed distributions. Can both overestimate and underestimate.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/Streaming_algorithm#Heavy_hitters" title="Wikipedia — Heavy hitters" target="_blank" rel="noopener">Space-Saving</a></td>
+    <td>O(k) counters (k monitored items)</td>
+    <td>Overestimates ≤ N/k for tracked items; guaranteed to find items with f &gt; N/k</td>
+    <td class="error-one"><strong>One-sided: overestimates tracked items</strong></td>
+    <td>O(1) amortised</td>
+    <td>O(1)</td>
+    <td class="partial">Possible but complex</td>
+    <td class="no">No</td>
+    <td>Deterministic streaming algorithm. Maintains exactly k (item, count) pairs. On new item, evicts minimum-count item and inherits its count + 1. Excellent for top-k / heavy hitter queries.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/Misra%E2%80%93Gries_summary" title="Wikipedia" target="_blank" rel="noopener">Misra-Gries (Frequent)</a></td>
+    <td>O(k) counters</td>
+    <td>Underestimates ≤ N/(k+1); finds all items with f &gt; N/(k+1)</td>
+    <td class="error-one"><strong>One-sided: underestimates only</strong></td>
+    <td>O(1) amortised</td>
+    <td>O(1)</td>
+    <td class="yes">Yes</td>
+    <td class="no">No</td>
+    <td>Deterministic. Decrements all counters when table is full. The opposite direction from CMS: <em>f̂(x) ≤ f(x)</em> always. Dual of Space-Saving in guarantee direction.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/Lossy_Count_Algorithm" title="Wikipedia" target="_blank" rel="noopener">Lossy Counting</a></td>
+    <td>O((1/ε) · log(εN))</td>
+    <td>Underestimates ≤ εN; finds all items with f ≥ (s−ε)N</td>
+    <td class="error-one"><strong>One-sided: underestimates only</strong></td>
+    <td>O(1) amortised</td>
+    <td>O(1)</td>
+    <td class="no">No</td>
+    <td class="no">No</td>
+    <td>Deterministic, epoch-based. Divides stream into windows of ⌈1/ε⌉. Prunes items with count ≤ epoch number. Reports items meeting threshold. Practical for frequent itemset mining.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://doi.org/10.1145/872757.872787" title="Cohen & Matias 2003 (ACM)" target="_blank" rel="noopener">Spectral Bloom Filter</a></td>
+    <td>Variable (counter array)</td>
+    <td>Overestimates (like CMS but via Bloom structure)</td>
+    <td class="error-one"><strong>One-sided: overestimates only</strong></td>
+    <td>O(k)</td>
+    <td>O(k)</td>
+    <td class="yes">Yes</td>
+    <td class="yes">Yes</td>
+    <td>Extends Bloom to frequency estimation by using counters instead of bits and querying the minimum. Conceptually similar to CMS but uses Bloom hashing.</td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+<div class="note">
+  <strong>Error direction matters for applications.</strong> Count-Min Sketch's one-sided overestimate is ideal when false positives are tolerable but false negatives are not (e.g., cache admission, anomaly detection thresholds). Misra-Gries' one-sided underestimate is preferred when you need a conservative lower bound on frequency.
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="category-header" id="quantile">
+  <h2>4. Quantile &amp; Rank Estimation <span class="guarantee-tag symmetric-tag">Symmetric</span></h2>
+  <div class="query-form">Query: "What value has rank φ·N?" → v̂ where |rank(v̂) − φN| ≤ εN</div>
+</div>
+
+<p>Quantile sketches approximate the empirical distribution of a data stream. The guarantee is typically on the <em>rank error</em>: the returned value has a rank within ±εN of the target rank. Some newer structures provide <em>relative rank error</em>, which is more useful at extreme quantiles (p99, p99.9).</p>
+
+<div class="table-wrapper">
+<table>
+<thead>
+  <tr>
+    <th>Structure</th>
+    <th>Space</th>
+    <th>Guarantee</th>
+    <th>Error Type</th>
+    <th>Insert</th>
+    <th>Query</th>
+    <th>Merge</th>
+    <th>Notes</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="struct-name"><a href="https://dl.acm.org/doi/10.1145/375663.375670" title="ACM — Original paper" target="_blank" rel="noopener">Greenwald-Khanna (GK)</a></td>
+    <td>O((1/ε) · log(εN))</td>
+    <td>|rank(v̂) − rank(v)| ≤ εN (deterministic)</td>
+    <td>Symmetric, additive rank error</td>
+    <td>O(log(1/ε) + log(εN))</td>
+    <td>O(log(1/ε) + log(εN))</td>
+    <td class="partial">With care</td>
+    <td>Deterministic. The classic streaming quantile algorithm. Space grows logarithmically with N. Not easily parallelisable.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://dl.acm.org/doi/10.1145/1031495.1031524" title="Shrivastava et al. 2004 (ACM SenSys)" target="_blank" rel="noopener">Q-Digest</a></td>
+    <td>O((1/ε) · log σ) where σ = universe size</td>
+    <td>|rank(v̂) − rank(v)| ≤ εN (deterministic)</td>
+    <td>Symmetric, additive rank error</td>
+    <td>O(log σ)</td>
+    <td>O(log σ)</td>
+    <td class="yes">Yes</td>
+    <td>Requires bounded integer universe [1, σ]. Tree-based compression. Straightforward merge. Used in distributed settings.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://arxiv.org/abs/1902.04023" title="Dunning &amp; Ertl 2019 (arXiv)" target="_blank" rel="noopener">t-Digest</a></td>
+    <td>O(δ) (δ = compression param, typically 100–300)</td>
+    <td>No formal proof; empirically excellent at extreme quantiles</td>
+    <td>Symmetric; tighter at tails empirically</td>
+    <td>O(log δ)</td>
+    <td>O(δ)</td>
+    <td class="yes">Yes</td>
+    <td>Heuristic: clusters centroids using a scale function that allocates more resolution to tails. Extremely popular in practice (Elasticsearch, Apache Spark). Lack of formal guarantees is a known limitation.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://datasketches.apache.org/docs/KLL/KLLSketch.html" title="Apache DataSketches" target="_blank" rel="noopener">KLL Sketch</a></td>
+    <td>O((1/ε) · log log(1/δ)) — near optimal</td>
+    <td>|rank(v̂) − rank(v)| ≤ εN w.p. ≥ 1−δ</td>
+    <td>Symmetric, additive rank error (probabilistic)</td>
+    <td>O(1) amortised</td>
+    <td>O(log(1/ε))</td>
+    <td class="yes">Yes</td>
+    <td>Karnin-Lang-Liberty (2016). Near-optimal space. Randomised compaction. The best-known practical algorithm with provable guarantees. Implemented in Apache DataSketches.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://arxiv.org/abs/1908.10693" title="Masson et al. 2019 (arXiv)" target="_blank" rel="noopener">DDSketch</a></td>
+    <td>O((1/α) · log(max/min)) bins</td>
+    <td>Returned quantile value within (1 ± α) of true value</td>
+    <td><strong>Relative error on value</strong> (not rank)</td>
+    <td>O(1)</td>
+    <td>O(log(1/α))</td>
+    <td class="yes">Yes</td>
+    <td>Datadog (2019). Logarithmic binning. Guarantees on the <em>value</em> rather than the rank. Excellent for latency percentiles where relative accuracy at extreme quantiles matters (e.g., p99.9 of response times).</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://datasketches.apache.org/docs/REQ/ReqSketch.html" title="Apache DataSketches" target="_blank" rel="noopener">ReqSketch</a></td>
+    <td>O((1/ε) · √(log(1/(εδ))))</td>
+    <td>|rank(v̂) − rank(v)| ≤ ε · rank(v) w.p. ≥ 1−δ</td>
+    <td><strong>Relative rank error</strong></td>
+    <td>O(1) amortised</td>
+    <td>O(log(1/ε))</td>
+    <td class="yes">Yes</td>
+    <td>Relative-Error Quantile sketch. Provides relative (not additive) rank error, so accuracy is proportional to rank. Better for extreme quantiles than additive-error sketches. From Apache DataSketches.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://arxiv.org/abs/1803.01969" title="Gan et al. 2018 (arXiv)" target="_blank" rel="noopener">Moments Sketch</a></td>
+    <td>O(k) (k = number of moments)</td>
+    <td>Depends on distribution; exact for distributions characterised by k moments</td>
+    <td>Symmetric</td>
+    <td>O(k)</td>
+    <td>O(k³) (moment inversion)</td>
+    <td class="yes">Yes (add moments)</td>
+    <td>Stores the first k moments. Inverts via maximum entropy optimisation. Very compact but accuracy depends on how well the distribution is captured by k moments. Poor on multimodal data.</td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="category-header" id="similarity">
+  <h2>5. Similarity Estimation <span class="guarantee-tag symmetric-tag">Symmetric</span></h2>
+  <div class="query-form">Query: "sim(A, B) = ?" → ŝ ≈ sim(A, B)</div>
+</div>
+
+<p>These structures produce compact signatures (sketches) of sets or vectors such that similarity can be estimated from the signatures alone, without access to the original data. The estimators are generally unbiased with symmetric error.</p>
+
+<div class="table-wrapper">
+<table>
+<thead>
+  <tr>
+    <th>Structure</th>
+    <th>Similarity Metric</th>
+    <th>Signature Size</th>
+    <th>Error</th>
+    <th>Error Direction</th>
+    <th>Merge</th>
+    <th>Notes</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/MinHash" title="Wikipedia" target="_blank" rel="noopener">MinHash</a></td>
+    <td>Jaccard similarity: J(A,B) = |A∩B| / |A∪B|</td>
+    <td>k hash values per set (typically k = 128–256)</td>
+    <td>Std. dev. ≈ √(J(1−J)/k)</td>
+    <td>Symmetric (unbiased)</td>
+    <td class="yes">Yes (union via min)</td>
+    <td>Each signature element is min(h(x)) for x in S. P(min h(A) = min h(B)) = J(A,B). Estimate J by fraction of matching signatures. Foundation for LSH-based near-duplicate detection.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/MinHash#Variant:_b-Bit_Minwise_Hashing" title="Wikipedia — MinHash variants" target="_blank" rel="noopener">b-Bit MinHash</a></td>
+    <td>Jaccard similarity (approximate)</td>
+    <td>k × b bits per set (b typically 1–2)</td>
+    <td>Slightly higher variance; introduces small bias</td>
+    <td>Approximately symmetric (slight bias)</td>
+    <td class="yes">Yes</td>
+    <td>Stores only the lowest b bits of each MinHash value. Dramatically reduces space (e.g., 32× at b=1). Bias correction formula exists but is imperfect at extreme similarity values. From Li &amp; König (2010).</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/SimHash" title="Wikipedia" target="_blank" rel="noopener">SimHash</a></td>
+    <td>Cosine similarity / angular distance</td>
+    <td>d-bit fingerprint per vector</td>
+    <td>Hamming distance / d ≈ θ/π (where θ = angle)</td>
+    <td>Symmetric</td>
+    <td class="no">No</td>
+    <td>Charikar (2002). Projects high-dimensional vectors to binary fingerprints via random hyperplane rounding. P(bit match) = 1 − θ(A,B)/π. Used in web deduplication (e.g., Google). Not suitable for Jaccard.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/Locality-sensitive_hashing" title="Wikipedia" target="_blank" rel="noopener">Locality-Sensitive Hashing (LSH)</a></td>
+    <td>Various (Jaccard, cosine, Euclidean, Hamming)</td>
+    <td>L × k hash values (L tables, k concatenated hashes)</td>
+    <td>One-sided on retrieval: may miss similar items (false negatives), but reported items satisfy distance bounds w.h.p.</td>
+    <td><strong>One-sided on recall</strong></td>
+    <td class="na">N/A (index structure)</td>
+    <td>Framework, not a single structure. Hashes similar items to same bucket with high probability. Parameters trade recall (1 − FNR) against query time. Sub-linear approximate nearest neighbour search.</td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="category-header" id="setops">
+  <h2>6. Set-Operation Sketches <span class="guarantee-tag symmetric-tag">Symmetric</span></h2>
+  <div class="query-form">Query: "|A ∩ B| = ?, |A ∪ B| = ?, |A \ B| = ?" → approximate cardinalities</div>
+</div>
+
+<p>While HyperLogLog supports union (via register-wise max), it does not natively support intersection or difference with bounded error. These structures extend cardinality estimation to full set algebra.</p>
+
+<div class="table-wrapper">
+<table>
+<thead>
+  <tr>
+    <th>Structure</th>
+    <th>Operations</th>
+    <th>Space</th>
+    <th>Error</th>
+    <th>Merge</th>
+    <th>Notes</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="struct-name"><a href="https://datasketches.apache.org/docs/Theta/ThetaSketchFramework.html" title="Apache DataSketches" target="_blank" rel="noopener">Theta Sketch</a></td>
+    <td>Union, intersection, difference (A∩B, A∪B, A\B) with cardinality estimates</td>
+    <td>O(k · log U) bits (k retained hashes)</td>
+    <td>~1/√k relative error; degrades for small intersections</td>
+    <td class="yes">Yes</td>
+    <td>Based on KMV (k minimum values) framework. Retains hash values below a threshold θ. Set operations are exact on the retained hashes; cardinality is estimated from the result. Error worsens when intersection is small relative to union. Implemented in Apache DataSketches.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://datasketches.apache.org/docs/Tuple/TupleOverview.html" title="Apache DataSketches" target="_blank" rel="noopener">Tuple Sketch</a></td>
+    <td>Same as Theta, with associated summary values per key</td>
+    <td>O(k · (log U + S)) where S = summary size</td>
+    <td>Same as Theta for cardinality; exact on matched keys</td>
+    <td class="yes">Yes</td>
+    <td>Extension of Theta Sketch that associates arbitrary summary data (e.g., sum, mean) with each retained hash key. Enables approximate group-by / join operations. Apache DataSketches.</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/HyperLogLog" title="Wikipedia — HyperLogLog" target="_blank" rel="noopener">HLL + Inclusion-Exclusion</a></td>
+    <td>Union (native), intersection (via |A∩B| = |A| + |B| − |A∪B|)</td>
+    <td>O(m) per sketch</td>
+    <td>Poor for intersection when |A∩B| ≪ |A∪B| (catastrophic cancellation)</td>
+    <td class="yes">Yes (union only)</td>
+    <td>Intersection via inclusion-exclusion amplifies relative error. Only usable when intersection is a substantial fraction of union. Theta Sketch is strongly preferred for intersection queries.</td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="summary-section" id="master">
+<h2>7. Cross-Cutting Master Comparison</h2>
+
+<p>The following table summarises all major structures across categories with their key properties.</p>
+
+<div class="table-wrapper">
+<table>
+<thead>
+  <tr>
+    <th>Structure</th>
+    <th>Category</th>
+    <th>Query</th>
+    <th>Error Direction</th>
+    <th>Space</th>
+    <th>Dynamic Insert</th>
+    <th>Delete</th>
+    <th>Merge</th>
+  </tr>
+</thead>
+<tbody>
+  <!-- AMQ -->
+  <tr class="error-one">
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/Bloom_filter" title="Wikipedia" target="_blank" rel="noopener">Bloom Filter</a></td>
+    <td>AMQ</td>
+    <td>Membership</td>
+    <td>One-sided (FP only)</td>
+    <td>1.44·log₂(1/ε) bits/elem</td>
+    <td class="yes">Yes</td>
+    <td class="no">No</td>
+    <td class="yes">Yes</td>
+  </tr>
+  <tr class="error-one">
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/Counting_Bloom_filter" target="_blank" rel="noopener">Counting Bloom</a></td>
+    <td>AMQ</td>
+    <td>Membership</td>
+    <td>One-sided (FP only)</td>
+    <td>~4× Bloom</td>
+    <td class="yes">Yes</td>
+    <td class="yes">Yes</td>
+    <td class="yes">Yes</td>
+  </tr>
+  <tr class="error-one">
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/Cuckoo_filter" title="Wikipedia" target="_blank" rel="noopener">Cuckoo Filter</a></td>
+    <td>AMQ</td>
+    <td>Membership</td>
+    <td>One-sided (FP only)*</td>
+    <td>~12 bits/elem at ε≈3%</td>
+    <td class="yes">Yes</td>
+    <td class="partial">Partial</td>
+    <td class="no">No</td>
+  </tr>
+  <tr class="error-one">
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/Quotient_filter" title="Wikipedia" target="_blank" rel="noopener">Quotient Filter</a></td>
+    <td>AMQ</td>
+    <td>Membership</td>
+    <td>One-sided (FP only)</td>
+    <td>~10–20% &gt; Bloom</td>
+    <td class="yes">Yes</td>
+    <td class="yes">Yes</td>
+    <td class="yes">Yes</td>
+  </tr>
+  <tr class="error-one">
+    <td class="struct-name"><a href="https://arxiv.org/abs/1912.08258" title="Graf & Lemire 2020 (arXiv)" target="_blank" rel="noopener">Xor Filter</a></td>
+    <td>AMQ</td>
+    <td>Membership</td>
+    <td>One-sided (FP only)</td>
+    <td>1.23·log₂(1/ε) bits/elem</td>
+    <td class="no">No</td>
+    <td class="no">No</td>
+    <td class="no">No</td>
+  </tr>
+  <tr class="error-one">
+    <td class="struct-name"><a href="https://arxiv.org/abs/2201.01174" title="Graf & Lemire 2022 (arXiv)" target="_blank" rel="noopener">Binary Fuse Filter</a></td>
+    <td>AMQ</td>
+    <td>Membership</td>
+    <td>One-sided (FP only)</td>
+    <td>~1.13·log₂(1/ε) bits/elem</td>
+    <td class="no">No</td>
+    <td class="no">No</td>
+    <td class="no">No</td>
+  </tr>
+  <tr class="error-one">
+    <td class="struct-name"><a href="https://arxiv.org/abs/2103.02515" title="Dillinger & Walzer 2021 (arXiv)" target="_blank" rel="noopener">Ribbon Filter</a></td>
+    <td>AMQ</td>
+    <td>Membership</td>
+    <td>One-sided (FP only)</td>
+    <td>≈ log₂(1/ε) bits/elem</td>
+    <td class="no">No</td>
+    <td class="no">No</td>
+    <td class="no">No</td>
+  </tr>
+  <tr class="error-one">
+    <td class="struct-name"><a href="https://dl.acm.org/doi/10.5555/982792.982797" title="Chazelle et al. 2004 (ACM)" target="_blank" rel="noopener">Bloomier Filter</a></td>
+    <td>AMQ (dict)</td>
+    <td>Approx. dictionary</td>
+    <td>One-sided (FP on non-members)</td>
+    <td>O(n·(r + log(1/ε)))</td>
+    <td class="no">No</td>
+    <td class="no">No</td>
+    <td class="no">No</td>
+  </tr>
+
+  <!-- Cardinality -->
+  <tr class="error-sym">
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/HyperLogLog" title="Wikipedia" target="_blank" rel="noopener">HyperLogLog</a></td>
+    <td>Cardinality</td>
+    <td>Distinct count</td>
+    <td>Symmetric (±)</td>
+    <td>m × 5–6 bits</td>
+    <td class="yes">Yes</td>
+    <td class="no">No</td>
+    <td class="yes">Yes</td>
+  </tr>
+  <tr class="error-sym">
+    <td class="struct-name"><a href="https://dl.acm.org/doi/10.1145/2452376.2452456" title="Heule, Nunkesser, Hall 2013 (ACM)" target="_blank" rel="noopener">HyperLogLog++</a></td>
+    <td>Cardinality</td>
+    <td>Distinct count</td>
+    <td>Symmetric (±)</td>
+    <td>Variable (sparse/dense)</td>
+    <td class="yes">Yes</td>
+    <td class="no">No</td>
+    <td class="yes">Yes</td>
+  </tr>
+  <tr class="error-sym">
+    <td class="struct-name"><a href="https://datasketches.apache.org/docs/CPC/CPC.html" title="Apache DataSketches" target="_blank" rel="noopener">CPC Sketch</a></td>
+    <td>Cardinality</td>
+    <td>Distinct count</td>
+    <td>Symmetric (±)</td>
+    <td>~20–40% &lt; HLL</td>
+    <td class="yes">Yes</td>
+    <td class="no">No</td>
+    <td class="yes">Yes</td>
+  </tr>
+  <tr class="error-sym">
+    <td class="struct-name"><a href="https://datasketches.apache.org/docs/Theta/ThetaSketchFramework.html" target="_blank" rel="noopener">KMV / Theta Sketch</a></td>
+    <td>Cardinality + Set Ops</td>
+    <td>Distinct count, ∩, ∪, \</td>
+    <td>Symmetric (±)</td>
+    <td>O(k · log U)</td>
+    <td class="yes">Yes</td>
+    <td class="no">No</td>
+    <td class="yes">Yes</td>
+  </tr>
+
+  <!-- Frequency -->
+  <tr class="error-one">
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/Count%E2%80%93min_sketch" title="Wikipedia" target="_blank" rel="noopener">Count-Min Sketch</a></td>
+    <td>Frequency</td>
+    <td>Point frequency</td>
+    <td><strong>One-sided: overestimates</strong></td>
+    <td>O((1/ε)·ln(1/δ))</td>
+    <td class="yes">Yes</td>
+    <td class="partial">Partial</td>
+    <td class="yes">Yes</td>
+  </tr>
+  <tr class="error-sym">
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/Count_sketch" title="Wikipedia" target="_blank" rel="noopener">Count Sketch</a></td>
+    <td>Frequency</td>
+    <td>Point frequency</td>
+    <td>Symmetric (unbiased)</td>
+    <td>O((1/ε²)·ln(1/δ))</td>
+    <td class="yes">Yes</td>
+    <td class="yes">Yes</td>
+    <td class="yes">Yes</td>
+  </tr>
+  <tr class="error-one">
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/Streaming_algorithm#Heavy_hitters" title="Wikipedia — Heavy hitters" target="_blank" rel="noopener">Space-Saving</a></td>
+    <td>Frequency / Top-k</td>
+    <td>Heavy hitters</td>
+    <td><strong>One-sided: overestimates</strong></td>
+    <td>O(k) counters</td>
+    <td class="yes">Yes</td>
+    <td class="no">No</td>
+    <td class="partial">Complex</td>
+  </tr>
+  <tr class="error-one">
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/Misra%E2%80%93Gries_summary" title="Wikipedia" target="_blank" rel="noopener">Misra-Gries</a></td>
+    <td>Frequency</td>
+    <td>Frequent items</td>
+    <td><strong>One-sided: underestimates</strong></td>
+    <td>O(k) counters</td>
+    <td class="yes">Yes</td>
+    <td class="no">No</td>
+    <td class="yes">Yes</td>
+  </tr>
+  <tr class="error-one">
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/Lossy_Count_Algorithm" title="Wikipedia" target="_blank" rel="noopener">Lossy Counting</a></td>
+    <td>Frequency</td>
+    <td>Frequent items</td>
+    <td><strong>One-sided: underestimates</strong></td>
+    <td>O((1/ε)·log(εN))</td>
+    <td class="yes">Yes</td>
+    <td class="no">No</td>
+    <td class="no">No</td>
+  </tr>
+
+  <!-- Quantile -->
+  <tr class="error-sym">
+    <td class="struct-name"><a href="https://dl.acm.org/doi/10.1145/375663.375670" target="_blank" rel="noopener">Greenwald-Khanna</a></td>
+    <td>Quantile</td>
+    <td>ε-approximate quantile</td>
+    <td>Symmetric rank error</td>
+    <td>O((1/ε)·log(εN))</td>
+    <td class="yes">Yes</td>
+    <td class="no">No</td>
+    <td class="partial">With care</td>
+  </tr>
+  <tr class="error-sym">
+    <td class="struct-name"><a href="https://datasketches.apache.org/docs/KLL/KLLSketch.html" title="Apache DataSketches" target="_blank" rel="noopener">KLL Sketch</a></td>
+    <td>Quantile</td>
+    <td>ε-approximate quantile</td>
+    <td>Symmetric rank error</td>
+    <td>O((1/ε)·log log(1/δ))</td>
+    <td class="yes">Yes</td>
+    <td class="no">No</td>
+    <td class="yes">Yes</td>
+  </tr>
+  <tr class="error-sym">
+    <td class="struct-name"><a href="https://arxiv.org/abs/1902.04023" title="Dunning &amp; Ertl 2019 (arXiv)" target="_blank" rel="noopener">t-Digest</a></td>
+    <td>Quantile</td>
+    <td>Approximate quantile</td>
+    <td>Symmetric (heuristic)</td>
+    <td>O(δ)</td>
+    <td class="yes">Yes</td>
+    <td class="no">No</td>
+    <td class="yes">Yes</td>
+  </tr>
+  <tr class="error-sym">
+    <td class="struct-name"><a href="https://arxiv.org/abs/1908.10693" title="Masson et al. 2019 (arXiv)" target="_blank" rel="noopener">DDSketch</a></td>
+    <td>Quantile</td>
+    <td>Relative-error quantile value</td>
+    <td>Symmetric (relative on value)</td>
+    <td>O((1/α)·log(max/min))</td>
+    <td class="yes">Yes</td>
+    <td class="no">No</td>
+    <td class="yes">Yes</td>
+  </tr>
+  <tr class="error-sym">
+    <td class="struct-name"><a href="https://datasketches.apache.org/docs/REQ/ReqSketch.html" title="Apache DataSketches" target="_blank" rel="noopener">ReqSketch</a></td>
+    <td>Quantile</td>
+    <td>Relative rank error quantile</td>
+    <td>Symmetric (relative on rank)</td>
+    <td>O((1/ε)·√log(1/(εδ)))</td>
+    <td class="yes">Yes</td>
+    <td class="no">No</td>
+    <td class="yes">Yes</td>
+  </tr>
+
+  <!-- Similarity -->
+  <tr class="error-sym">
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/MinHash" title="Wikipedia" target="_blank" rel="noopener">MinHash</a></td>
+    <td>Similarity</td>
+    <td>Jaccard similarity</td>
+    <td>Symmetric (unbiased)</td>
+    <td>k hash values/set</td>
+    <td class="yes">Yes</td>
+    <td class="no">No</td>
+    <td class="yes">Yes</td>
+  </tr>
+  <tr class="error-sym">
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/SimHash" title="Wikipedia" target="_blank" rel="noopener">SimHash</a></td>
+    <td>Similarity</td>
+    <td>Cosine / angular</td>
+    <td>Symmetric</td>
+    <td>d bits/vector</td>
+    <td class="na">N/A</td>
+    <td class="na">N/A</td>
+    <td class="no">No</td>
+  </tr>
+  <tr>
+    <td class="struct-name"><a href="https://en.wikipedia.org/wiki/Locality-sensitive_hashing" target="_blank" rel="noopener">LSH</a></td>
+    <td>Similarity</td>
+    <td>Approx. nearest neighbour</td>
+    <td>One-sided on recall (may miss)</td>
+    <td>O(L·k) per item</td>
+    <td class="yes">Yes</td>
+    <td class="yes">Yes</td>
+    <td class="na">N/A</td>
+  </tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div id="guide">
+<h2>8. Selection Guide</h2>
+
+<h3>By problem type</h3>
+<div class="table-wrapper">
+<table>
+<thead>
+  <tr>
+    <th>Problem</th>
+    <th>First Choice</th>
+    <th>Alternative</th>
+    <th>Rationale</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Set membership, immutable set</td>
+    <td>Binary Fuse / Ribbon Filter</td>
+    <td>Xor Filter</td>
+    <td>Best space efficiency for static sets.</td>
+  </tr>
+  <tr>
+    <td>Set membership, dynamic inserts</td>
+    <td>Cuckoo Filter (ε &lt; 3%) or Bloom (ε ≥ 3%)</td>
+    <td>Quotient Filter (if merge/delete needed)</td>
+    <td>Cuckoo wins on space at low FPR; Bloom simpler at high FPR.</td>
+  </tr>
+  <tr>
+    <td>Distinct count, single set</td>
+    <td>HyperLogLog++ or CPC Sketch</td>
+    <td>HyperLogLog</td>
+    <td>CPC is most space-efficient; HLL++ widely implemented.</td>
+  </tr>
+  <tr>
+    <td>Distinct count with set intersection</td>
+    <td>Theta Sketch</td>
+    <td>—</td>
+    <td>Only practical option for intersection cardinality.</td>
+  </tr>
+  <tr>
+    <td>Top-k / heavy hitters</td>
+    <td>Space-Saving</td>
+    <td>Count-Min Sketch + heap</td>
+    <td>Space-Saving is simpler and deterministic for top-k.</td>
+  </tr>
+  <tr>
+    <td>Point frequency, must not undercount</td>
+    <td>Count-Min Sketch</td>
+    <td>Conservative Update CMS</td>
+    <td>One-sided overestimate guarantee.</td>
+  </tr>
+  <tr>
+    <td>Point frequency, unbiased estimate</td>
+    <td>Count Sketch</td>
+    <td>—</td>
+    <td>ℓ₂ tail bound; better for heavy-tailed distributions.</td>
+  </tr>
+  <tr>
+    <td>Quantiles, general purpose</td>
+    <td>KLL Sketch</td>
+    <td>t-Digest (if tail accuracy valued over formal guarantees)</td>
+    <td>KLL has provable near-optimal bounds; t-Digest is empirically better at extreme quantiles.</td>
+  </tr>
+  <tr>
+    <td>Quantiles, latency percentiles</td>
+    <td>DDSketch</td>
+    <td>t-Digest</td>
+    <td>DDSketch's relative value error is ideal for latency monitoring.</td>
+  </tr>
+  <tr>
+    <td>Set similarity (Jaccard)</td>
+    <td>MinHash</td>
+    <td>b-Bit MinHash (if space constrained)</td>
+    <td>MinHash is unbiased; b-Bit trades space for slight bias.</td>
+  </tr>
+  <tr>
+    <td>Near-duplicate / nearest neighbour</td>
+    <td>LSH (with appropriate hash family)</td>
+    <td>SimHash (for cosine similarity)</td>
+    <td>LSH is a framework; pick hash family for your metric.</td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+<h3>By error guarantee requirement</h3>
+<div class="table-wrapper">
+<table>
+<thead>
+  <tr>
+    <th>Requirement</th>
+    <th>Structures</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td><strong>Strictly one-sided (never underestimates)</strong></td>
+    <td>All AMQ filters (membership), Count-Min Sketch (frequency), Space-Saving (frequency)</td>
+  </tr>
+  <tr>
+    <td><strong>Strictly one-sided (never overestimates)</strong></td>
+    <td>Misra-Gries (frequency), Lossy Counting (frequency)</td>
+  </tr>
+  <tr>
+    <td><strong>Unbiased / symmetric</strong></td>
+    <td>Count Sketch, HyperLogLog family, KLL, MinHash, SimHash</td>
+  </tr>
+  <tr>
+    <td><strong>Deterministic bounds</strong></td>
+    <td>Greenwald-Khanna, Q-Digest, Misra-Gries, Lossy Counting, Space-Saving</td>
+  </tr>
+  <tr>
+    <td><strong>Probabilistic bounds</strong></td>
+    <td>Bloom family, HyperLogLog family, Count-Min, Count Sketch, KLL, ReqSketch</td>
+  </tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div id="glossary">
+<h2>9. Glossary of Terms &amp; Acronyms</h2>
+
+<div class="glossary-grid">
+
+<div class="glossary-section">
+<h3>Acronyms</h3>
+<dl>
+  <div class="glossary-entry"><dt>AMQ</dt><dd>Approximate Membership Query — a class of data structures that answer "is x in set S?" with possible false positives but no false negatives.</dd></div>
+  <div class="glossary-entry"><dt>CMS</dt><dd>Count-Min Sketch — a frequency estimation structure using d×w counter arrays with one-sided overestimate guarantees.</dd></div>
+  <div class="glossary-entry"><dt>CPC</dt><dd>Compressed Probability Counting — Kevin Lang's cardinality estimation algorithm that compresses "surprising" register values for improved space efficiency.</dd></div>
+  <div class="glossary-entry"><dt>DDSketch</dt><dd>Distributed Distribution Sketch — a quantile sketch using logarithmic binning to provide relative-error guarantees on quantile values. Developed at Datadog.</dd></div>
+  <div class="glossary-entry"><dt>FM</dt><dd>Flajolet–Martin — refers to the foundational 1985 probabilistic counting algorithm (PCSA) by Philippe Flajolet and G. Nigel Martin.</dd></div>
+  <div class="glossary-entry"><dt>FNR</dt><dd>False Negative Rate — the probability that a structure incorrectly reports an element as absent when it is actually present.</dd></div>
+  <div class="glossary-entry"><dt>FP</dt><dd>False Positive — an incorrect report that an element is present in a set when it is not.</dd></div>
+  <div class="glossary-entry"><dt>FPR</dt><dd>False Positive Rate — the probability of a false positive occurring, typically denoted ε. The information-theoretic lower bound for AMQ structures is n·log₂(1/ε) bits.</dd></div>
+  <div class="glossary-entry"><dt>GF(2)</dt><dd>Galois Field of order 2 — the finite field with elements {0, 1} and operations XOR (addition) and AND (multiplication). Used in Ribbon filter construction.</dd></div>
+  <div class="glossary-entry"><dt>GK</dt><dd>Greenwald–Khanna — a deterministic streaming quantile algorithm with O((1/ε)·log(εN)) space.</dd></div>
+  <div class="glossary-entry"><dt>HLL</dt><dd>HyperLogLog — the standard practical cardinality estimation algorithm using harmonic mean of register values.</dd></div>
+  <div class="glossary-entry"><dt>HLL++</dt><dd>HyperLogLog++ — Google's improved variant of HyperLogLog with sparse representation and empirical bias correction.</dd></div>
+  <div class="glossary-entry"><dt>KLL</dt><dd>Karnin–Lang–Liberty — a near-optimal randomised quantile sketch with provable space bounds.</dd></div>
+  <div class="glossary-entry"><dt>KMV</dt><dd>K Minimum Values — a cardinality and set-operation framework that retains the k smallest hash values from a set.</dd></div>
+  <div class="glossary-entry"><dt>LSH</dt><dd>Locality-Sensitive Hashing — a framework for approximate nearest-neighbour search that hashes similar items to the same bucket with high probability.</dd></div>
+  <div class="glossary-entry"><dt>PCSA</dt><dd>Probabilistic Counting with Stochastic Averaging — the original Flajolet–Martin cardinality estimation algorithm using multiple bitmaps.</dd></div>
+  <div class="glossary-entry"><dt>SIMD</dt><dd>Single Instruction, Multiple Data — a CPU parallelism model where one instruction operates on multiple data elements simultaneously. Relevant to Morton filter's cache-line access patterns.</dd></div>
+  <div class="glossary-entry"><dt>w.h.p.</dt><dd>With high probability — a statement that holds with probability ≥ 1 − 1/n<sup>c</sup> for some constant c > 0, where n is a problem parameter.</dd></div>
+  <div class="glossary-entry"><dt>w.p.</dt><dd>With probability — shorthand for "with probability at least", typically followed by a bound like 1−δ.</dd></div>
+</dl>
+</div>
+
+<div class="glossary-section">
+<h3>Mathematical Notation</h3>
+<dl>
+  <div class="glossary-entry"><dt>ε (epsilon)</dt><dd>The error/accuracy parameter. In AMQ structures, ε is the false positive rate. In frequency/quantile sketches, ε bounds the additive or relative error. Smaller ε → more space.</dd></div>
+  <div class="glossary-entry"><dt>δ (delta)</dt><dd>The failure probability parameter. The structure's guarantee holds with probability ≥ 1−δ. Smaller δ → higher confidence → more space (typically logarithmic in 1/δ).</dd></div>
+  <div class="glossary-entry"><dt>N</dt><dd>The total number of items in the stream (counting multiplicities), i.e. the stream length.</dd></div>
+  <div class="glossary-entry"><dt>n</dt><dd>The number of distinct elements inserted into the structure.</dd></div>
+  <div class="glossary-entry"><dt>m</dt><dd>The size of the structure's primary storage (e.g., number of bits in a Bloom filter, number of registers in HyperLogLog).</dd></div>
+  <div class="glossary-entry"><dt>k</dt><dd>Overloaded: in Bloom filters, the number of hash functions. In KMV/MinHash, the number of retained values. In frequency algorithms, the number of monitored counters.</dd></div>
+  <div class="glossary-entry"><dt>U</dt><dd>The size of the universe of possible element values (used in cardinality estimation space bounds).</dd></div>
+  <div class="glossary-entry"><dt>σ (sigma)</dt><dd>The size of the integer universe in Q-Digest, i.e. the range of possible values [1, σ].</dd></div>
+  <div class="glossary-entry"><dt>f(x)</dt><dd>The true frequency (count) of element x in the stream.</dd></div>
+  <div class="glossary-entry"><dt>f̂(x)</dt><dd>The estimated frequency of element x as returned by the sketch.</dd></div>
+  <div class="glossary-entry"><dt>ρ(·)</dt><dd>The function that counts the number of leading zeros in the binary representation of a hash value. Central to HyperLogLog and related algorithms.</dd></div>
+  <div class="glossary-entry"><dt>‖f<sub>tail</sub>‖₂</dt><dd>The ℓ₂ (Euclidean) norm of the frequency vector excluding the top-k elements. Used in Count Sketch's error bound — tighter than CMS's ℓ₁ bound for skewed distributions.</dd></div>
+  <div class="glossary-entry"><dt>O(·)</dt><dd>Big-O notation — asymptotic upper bound on growth rate, suppressing constant factors and lower-order terms.</dd></div>
+  <div class="glossary-entry"><dt>φ (phi)</dt><dd>A quantile parameter in [0, 1]. The φ-quantile is the value at rank φ·N in the sorted stream.</dd></div>
+  <div class="glossary-entry"><dt>α (alpha)</dt><dd>In Cuckoo filters, the load factor (fraction of occupied slots). In DDSketch, the relative accuracy parameter controlling bin width.</dd></div>
+  <div class="glossary-entry"><dt>θ (theta)</dt><dd>In Theta Sketch, the sampling threshold — only hash values below θ are retained. In SimHash, the angle between two vectors.</dd></div>
+</dl>
+</div>
+
+</div>
+
+<div class="glossary-full">
+<h3>Technical Terms</h3>
+<dl>
+  <div class="glossary-entry"><dt>Additive rank error</dt><dd>A quantile error guarantee of the form |rank(v̂) − rank(v)| ≤ εN, where the absolute error bound scales with stream length N. Contrast with relative rank error.</dd></div>
+  <div class="glossary-entry"><dt>Bias correction</dt><dd>An adjustment applied to a raw estimator to remove systematic over- or under-estimation. HyperLogLog applies corrections at small and large cardinality ranges; HLL++ uses empirical correction tables.</dd></div>
+  <div class="glossary-entry"><dt>Cache line</dt><dd>The smallest unit of data transferred between CPU cache and main memory (typically 64 bytes on modern x86). Blocked Bloom and Morton filters are designed so each query accesses exactly one cache line.</dd></div>
+  <div class="glossary-entry"><dt>Cardinality</dt><dd>The number of distinct elements in a set or multiset. Cardinality estimation structures approximate this count in sub-linear space.</dd></div>
+  <div class="glossary-entry"><dt>Compaction</dt><dd>In KLL sketches, the process of reducing the number of stored items by randomly discarding every other item from a sorted buffer. This introduces bounded error while halving space.</dd></div>
+  <div class="glossary-entry"><dt>Conservative update</dt><dd>An optimisation for Count-Min Sketch where, on insertion, only the minimum-valued counters among the k positions are incremented. Reduces overestimation in practice but breaks mergeability.</dd></div>
+  <div class="glossary-entry"><dt>Cuckoo hashing</dt><dd>A hashing scheme where each element has two possible locations. If both are occupied, an existing element is "kicked out" to its alternate location. Basis of Cuckoo filter's insert mechanism.</dd></div>
+  <div class="glossary-entry"><dt>Deterministic bound</dt><dd>An error guarantee that holds unconditionally on all inputs, with no probabilistic qualification. Contrast with probabilistic bound.</dd></div>
+  <div class="glossary-entry"><dt>Epoch-based</dt><dd>A stream processing strategy that divides the stream into fixed-size windows (epochs) for periodic maintenance. Used by Lossy Counting to prune low-frequency items.</dd></div>
+  <div class="glossary-entry"><dt>False negative</dt><dd>An incorrect report that an element is absent from a set when it is present. AMQ structures guarantee zero false negatives (with the exception of Stable Bloom Filter, which trades FNs for bounded memory).</dd></div>
+  <div class="glossary-entry"><dt>False positive</dt><dd>An incorrect report that an element is present in a set when it is not. All AMQ structures accept a tuneable false positive rate ε to achieve sub-linear space.</dd></div>
+  <div class="glossary-entry"><dt>Fingerprint</dt><dd>A short hash or signature of an element (typically a few bits), stored in place of the element itself. Used in Cuckoo, Xor, Fuse, and Ribbon filters. Fingerprint length directly controls the false positive rate.</dd></div>
+  <div class="glossary-entry"><dt>Harmonic mean</dt><dd>The reciprocal of the arithmetic mean of reciprocals: H = n / Σ(1/xᵢ). HyperLogLog uses the harmonic mean of 2^(register values) to estimate cardinality, which is less sensitive to outlier registers than the geometric mean.</dd></div>
+  <div class="glossary-entry"><dt>Hash collision</dt><dd>When two distinct elements produce the same hash value (or map to the same bucket/position). The fundamental cause of false positives in AMQ structures and overestimation in Count-Min Sketch.</dd></div>
+  <div class="glossary-entry"><dt>Heavy hitter</dt><dd>An element whose frequency exceeds a specified fraction of the stream length (e.g., f(x) > εN). Finding all heavy hitters is a core streaming problem addressed by Space-Saving, Misra-Gries, and related algorithms.</dd></div>
+  <div class="glossary-entry"><dt>Hypergraph peeling</dt><dd>An algorithmic technique for constructing static filters (Xor, Binary Fuse). Elements define hyperedges on a random hypergraph; "peeling" iteratively removes degree-1 vertices to find an assignment of fingerprints to positions.</dd></div>
+  <div class="glossary-entry"><dt>Inclusion-exclusion</dt><dd>The set identity |A∩B| = |A| + |B| − |A∪B|. When applied to sketch-estimated cardinalities, the subtraction amplifies relative error (catastrophic cancellation), making it impractical when |A∩B| ≪ |A∪B|.</dd></div>
+  <div class="glossary-entry"><dt>Information-theoretic lower bound</dt><dd>The minimum number of bits required to represent a solution to a given problem. For AMQ with n elements at FPR ε, the lower bound is n·log₂(1/ε) bits. Structures approach but cannot beat this limit.</dd></div>
+  <div class="glossary-entry"><dt>Jaccard similarity</dt><dd>A set similarity metric: J(A,B) = |A∩B| / |A∪B|, ranging from 0 (disjoint) to 1 (identical). Estimated by MinHash.</dd></div>
+  <div class="glossary-entry"><dt>Leading zeros</dt><dd>The count of consecutive 0-bits at the start of a hash value's binary representation. Observing k leading zeros occurs with probability 2⁻ᵏ, so the maximum observed is a proxy for log₂(cardinality). The core observable in HyperLogLog.</dd></div>
+  <div class="glossary-entry"><dt>Linear probing</dt><dd>A hash table collision resolution strategy where, on collision, the next sequential slot is checked. Quotient filters use this to achieve cache-friendly sequential memory access.</dd></div>
+  <div class="glossary-entry"><dt>Load factor</dt><dd>The fraction of occupied slots in a hash-based structure (n/m). Higher load factors mean better space utilisation but increase collision rates and operation costs.</dd></div>
+  <div class="glossary-entry"><dt>Logarithmic binning</dt><dd>A bucketing strategy where bin boundaries are geometrically spaced (each bin is (1+α)× wider than the previous). Used by DDSketch to guarantee relative error on quantile values regardless of scale.</dd></div>
+  <div class="glossary-entry"><dt>Maximum entropy</dt><dd>An optimisation principle: among all distributions consistent with observed moments, choose the one with maximum Shannon entropy. Used by Moments Sketch to reconstruct a distribution from its first k moments.</dd></div>
+  <div class="glossary-entry"><dt>Median-of-means</dt><dd>An estimator that partitions data into groups, computes the mean of each group, then takes the median. Used by Count Sketch to achieve concentration bounds while remaining unbiased. More robust to outliers than a single mean.</dd></div>
+  <div class="glossary-entry"><dt>Merge / mergeability</dt><dd>The ability to combine two independently constructed sketches into a single sketch representing the union of their inputs, without access to the original data. Critical for distributed and parallel computation.</dd></div>
+  <div class="glossary-entry"><dt>Multiset</dt><dd>A collection that allows repeated elements (unlike a mathematical set). Frequency and quantile sketches operate over multisets.</dd></div>
+  <div class="glossary-entry"><dt>One-sided error</dt><dd>An error guarantee where mistakes can only occur in one direction. E.g., Bloom filters may say "yes" incorrectly (false positive) but never "no" incorrectly (false negative). Also called asymmetric error.</dd></div>
+  <div class="glossary-entry"><dt>Probabilistic bound</dt><dd>An error guarantee that holds with probability ≥ 1−δ. The structure may exceed the error bound with probability δ, but this can be made arbitrarily small at the cost of more space.</dd></div>
+  <div class="glossary-entry"><dt>Quantile</dt><dd>The φ-quantile of a dataset is the value below which fraction φ of the data falls. The 0.5-quantile is the median; the 0.99-quantile (p99) is the 99th percentile.</dd></div>
+  <div class="glossary-entry"><dt>Register</dt><dd>In HyperLogLog, one of m small counters (typically 5–6 bits) that stores the maximum number of leading zeros observed among elements hashing to that register's bucket.</dd></div>
+  <div class="glossary-entry"><dt>Relative rank error</dt><dd>A quantile error guarantee of the form |rank(v̂) − rank(v)| ≤ ε·rank(v), where the error is proportional to the rank itself. Provides better accuracy at extreme quantiles than additive rank error. Used by ReqSketch.</dd></div>
+  <div class="glossary-entry"><dt>Scale function</dt><dd>In t-Digest, a mapping that controls how much compression is applied at different quantile positions. The default scale function allocates more resolution (less compression) at the tails (near 0 and 1) than at the centre.</dd></div>
+  <div class="glossary-entry"><dt>Sketch</dt><dd>A compact, lossy summary of a dataset that supports specific approximate queries. Used generically across all categories in this document. Formally, a linear sketch satisfies sketch(A∪B) = sketch(A) + sketch(B).</dd></div>
+  <div class="glossary-entry"><dt>Stochastic averaging</dt><dd>A variance reduction technique that partitions the hash space into m substreams (using the first log₂(m) bits) and averages the results. Used in PCSA and all HyperLogLog-family algorithms.</dd></div>
+  <div class="glossary-entry"><dt>Symmetric error</dt><dd>An error guarantee where the estimate may be above or below the true value with roughly equal probability. The error is typically bounded as |estimate − true| ≤ ε·true w.h.p.</dd></div>
+</dl>
+</div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="ref-section" id="refs">
+<h2>10. Key References</h2>
+<dl>
+  <dt>Bloom (1970)</dt><dd><a href="https://doi.org/10.1145/362686.362692" target="_blank" rel="noopener">"Space/Time Trade-offs in Hash Coding with Allowable Errors"</a> — original Bloom filter.</dd>
+  <dt>Flajolet &amp; Martin (1985)</dt><dd><a href="https://doi.org/10.1016/0022-0000(85)90041-8" target="_blank" rel="noopener">"Probabilistic Counting Algorithms for Data Base Applications"</a> — PCSA, foundation for cardinality estimation.</dd>
+  <dt>Flajolet, Fusy, Gandouet &amp; Meunier (2007)</dt><dd><a href="https://hal.science/hal-00406166" target="_blank" rel="noopener">"HyperLogLog: the analysis of a near-optimal cardinality estimation algorithm."</a></dd>
+  <dt>Cormode &amp; Muthukrishnan (2005)</dt><dd><a href="https://doi.org/10.1016/j.jalgor.2003.12.001" target="_blank" rel="noopener">"An Improved Data Stream Summary: The Count-Min Sketch and its Applications."</a></dd>
+  <dt>Charikar (2002)</dt><dd><a href="https://doi.org/10.1145/509907.509965" target="_blank" rel="noopener">"Similarity Estimation Techniques from Rounding Algorithms"</a> — SimHash.</dd>
+  <dt>Broder (1997)</dt><dd><a href="https://doi.org/10.1109/SEQUEN.1997.666900" target="_blank" rel="noopener">"On the Resemblance and Containment of Documents"</a> — MinHash.</dd>
+  <dt>Fan, Andersen, Kaminsky &amp; Mitzenmacher (2014)</dt><dd><a href="https://doi.org/10.1145/2674005.2674994" target="_blank" rel="noopener">"Cuckoo Filter: Practically Better Than Bloom."</a></dd>
+  <dt>Graf &amp; Lemire (2020)</dt><dd><a href="https://arxiv.org/abs/1912.08258" target="_blank" rel="noopener">"Xor Filters: Faster and Smaller Than Bloom and Cuckoo Filters."</a></dd>
+  <dt>Dillinger &amp; Walzer (2021)</dt><dd><a href="https://arxiv.org/abs/2103.02515" target="_blank" rel="noopener">"Ribbon filter: practically smaller than Bloom and Xor."</a></dd>
+  <dt>Karnin, Lang &amp; Liberty (2016)</dt><dd><a href="https://arxiv.org/abs/1603.05346" target="_blank" rel="noopener">"Optimal Quantile Approximation in Streams"</a> — KLL sketch.</dd>
+  <dt>Dunning &amp; Ertl (2019)</dt><dd><a href="https://arxiv.org/abs/1902.04023" target="_blank" rel="noopener">"Computing Extremely Accurate Quantiles Using t-Digests."</a></dd>
+  <dt>Masson, Rim &amp; Lee (2019)</dt><dd><a href="https://arxiv.org/abs/1908.10693" target="_blank" rel="noopener">"DDSketch: A Fast and Fully-Mergeable Quantile Sketch with Relative-Error Guarantees."</a></dd>
+  <dt>Greenwald &amp; Khanna (2001)</dt><dd><a href="https://doi.org/10.1145/375663.375670" target="_blank" rel="noopener">"Space-Efficient Online Computation of Quantile Summaries."</a></dd>
+  <dt>Metwally, Agrawal &amp; El Abbadi (2005)</dt><dd><a href="https://doi.org/10.1016/j.ins.2004.09.012" target="_blank" rel="noopener">"Efficient Computation of Frequent and Top-k Elements in Data Streams"</a> — Space-Saving.</dd>
+  <dt>Misra &amp; Gries (1982)</dt><dd><a href="https://doi.org/10.1016/0167-6423(82)90012-0" target="_blank" rel="noopener">"Finding Repeated Elements."</a></dd>
+  <dt>Lang (2017)</dt><dd><a href="https://arxiv.org/abs/1708.06839" target="_blank" rel="noopener">"Back to the Future: an Even More Nearly Optimal Cardinality Estimation Algorithm"</a> — CPC Sketch.</dd>
+  <dt>Apache DataSketches</dt><dd><a href="https://datasketches.apache.org/" target="_blank" rel="noopener">datasketches.apache.org</a> — production implementations of KLL, Theta, CPC, HLL, quantile, and frequency sketches.</dd>
+</dl>
+</div>
+
+<div class="note" style="margin-top:2rem;">
+  <strong>Completeness caveat.</strong> This AI-generated taxonomy covers the most widely known and used structures as of early 2025. The field is active; newer variants (Elastic Sketch, UnivMon, learned Bloom filters, etc.) exist in the research literature but are excluded where they are not yet widely adopted or where their guarantees overlap substantially with structures listed here. Some structures above (e.g., t-Digest) are included despite lacking formal proofs because of their widespread practical adoption.
+</div>
+
+</body>
+</html>

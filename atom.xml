@@ -5,8 +5,62 @@
     <link rel="self" type="application/atom+xml" href="https://rrwright.com/atom.xml"/>
     <link rel="alternate" type="text/html" href="https://rrwright.com"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
-    <updated>2026-02-20T00:00:00+00:00</updated>
+    <updated>2026-04-24T00:00:00+00:00</updated>
     <id>https://rrwright.com/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Rotating the Bar: the New Jr.&#x2F;Sr. Divide</title>
+        <published>2026-04-24T00:00:00+00:00</published>
+        <updated>2026-04-24T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://rrwright.com/notes/rotating-the-bar/"/>
+        <id>https://rrwright.com/notes/rotating-the-bar/</id>
+        
+        <content type="html" xml:base="https://rrwright.com/notes/rotating-the-bar/">&lt;p&gt;A.I. is causing everyone to have to raise their expectations of what is possible. Employees can get more done now with less effort. Managers can code again and also expect more out of their teams. But beyond just raising the bar for expectations on productivity, A.I. is causing a reconfiguration of the kinds of skills that separate Junior and Senior staff.&lt;&#x2F;p&gt;
+&lt;p&gt;On our team, I’ve seen every configuration, and it has surprised me! Senior Engineers working like Junior Engineers; and Junior Engineers working like Senior Engineers. And yes, some Seniors still work like Seniors, and some Juniors still work like Juniors.&lt;&#x2F;p&gt;
+&lt;p&gt;What’s happening is not so simple as “raising the bar,” but rather the working world (especially software engineering, but other domains also) is being reconfigured. In the A.I. era, being “junior” and “senior” mean different things than they used to.&lt;&#x2F;p&gt;
+&lt;p&gt;In the new configuration, almost everyone has started out in a Junior level. That makes sense; new technology is new to &lt;em&gt;everyone&lt;&#x2F;em&gt; (in this case, that also includes its creators). So during the short-lived Prompt-Engineer Hiring Craze of early 2023, no résumé had “10 years of experience prompting LLMs.” Everyone started with no experience. So everyone started at the “Junior Level.”&lt;&#x2F;p&gt;
+&lt;p&gt;Most HR experts I’ve known generally identify “10 years of experience” as where the Junior-to-Senior threshold usually lives. So you might expect that no one will have “Senior Level” A.I. experience another 6 years or so—though we certainly have no shortage of claimed experts!&lt;&#x2F;p&gt;
+&lt;p&gt;But something surprising is emerging: A rare group of people—whom we never thought of as a distinct group before—have actually started out with Senior skills. In hindsight, it would be better to say that people with a certain personality and who have cultivated certain kinds of practices and skills have found the world change to need exactly what they had been building.&lt;&#x2F;p&gt;
+&lt;p&gt;Here are some of the observations I’ve made about the old vs. new skills that distinguish Junior Engineers from Senior Engineers:&lt;&#x2F;p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;&lt;&#x2F;th&gt;&lt;th&gt;&lt;strong&gt;old-Junior&lt;&#x2F;strong&gt;&lt;&#x2F;th&gt;&lt;th&gt;&lt;strong&gt;old-Senior&lt;&#x2F;strong&gt;&lt;&#x2F;th&gt;&lt;th&gt;&lt;strong&gt;new-Junior&lt;&#x2F;strong&gt;&lt;&#x2F;th&gt;&lt;th&gt;&lt;strong&gt;new-Senior&lt;&#x2F;strong&gt;&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;Progress&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;Gets stuck, needs help to get unstuck&lt;&#x2F;td&gt;&lt;td&gt;Regularly progresses, helps unstick colleagues&lt;&#x2F;td&gt;&lt;td&gt;Can always produce something; may be the wrong thing&lt;&#x2F;td&gt;&lt;td&gt;Delivers results reliably; nothing is impossible&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;Knowledge&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;Doesn’t know&lt;&#x2F;td&gt;&lt;td&gt;Already knows&lt;&#x2F;td&gt;&lt;td&gt;Did it, but didn’t learn it&lt;&#x2F;td&gt;&lt;td&gt;Became an expert before the meeting&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;Learning&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;Doesn’t know what they don’t know&lt;&#x2F;td&gt;&lt;td&gt;Knows what they don’t know&lt;&#x2F;td&gt;&lt;td&gt;Can generate what they don’t know&lt;&#x2F;td&gt;&lt;td&gt;Knows what’s important not to generate&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;Ignorance&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;Imposter syndrome, worries about what they don’t know&lt;&#x2F;td&gt;&lt;td&gt;Ok with not knowing. Will learn when they need it.&lt;&#x2F;td&gt;&lt;td&gt;Learns after there’s a need for it (maybe)&lt;&#x2F;td&gt;&lt;td&gt;Learns (right) before they need it. (AI as educational accelerator to expertise)&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;Guidance&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;Just trying to make it work at all&lt;&#x2F;td&gt;&lt;td&gt;Tries to make it work so their colleagues don’t mess it up&lt;&#x2F;td&gt;&lt;td&gt;Guides toward what they want&lt;&#x2F;td&gt;&lt;td&gt;Guides away from what not to do&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;Initiative&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;Needs instruction&lt;&#x2F;td&gt;&lt;td&gt;Needs permission&lt;&#x2F;td&gt;&lt;td&gt;Needs permission&lt;&#x2F;td&gt;&lt;td&gt;Needs responsibility&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;Posture&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;Wandering in the dark.&lt;&#x2F;td&gt;&lt;td&gt;Progresses one careful step at a time&lt;&#x2F;td&gt;&lt;td&gt;Is exploring to find what to lean in to&lt;&#x2F;td&gt;&lt;td&gt;Knows what they’re leaning toward even if they can’t see it&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;Direction&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;Must be given clearly defined tasks&#x2F;steps&lt;&#x2F;td&gt;&lt;td&gt;Must be given clearly defined goals&lt;&#x2F;td&gt;&lt;td&gt;Adds information, but not clarity&lt;&#x2F;td&gt;&lt;td&gt;Reduces possibilities, clarifies options&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;Interaction&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;Asks others every question they have&lt;&#x2F;td&gt;&lt;td&gt;Rigorously sharpens every question they need to ask&lt;&#x2F;td&gt;&lt;td&gt;Shares AI content they didn’t read&#x2F;don’t understand&lt;&#x2F;td&gt;&lt;td&gt;Only shares AI content they’d stake their reputation on&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;Scope&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;Single task&lt;&#x2F;td&gt;&lt;td&gt;Whole system&lt;&#x2F;td&gt;&lt;td&gt;Single goal&lt;&#x2F;td&gt;&lt;td&gt;Compounding systems&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;Risk&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;Only given tasks which can tolerate failure&lt;&#x2F;td&gt;&lt;td&gt;Trusted to keep tasks from failing&lt;&#x2F;td&gt;&lt;td&gt;Introducing risk without realizing it&lt;&#x2F;td&gt;&lt;td&gt;Eliminating risk without others realizing it&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;Estimates&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;Assumes only the happy path&lt;&#x2F;td&gt;&lt;td&gt;Scales estimates by the unknowns and risk&lt;&#x2F;td&gt;&lt;td&gt;Assumes only the aggressive happy path.&lt;&#x2F;td&gt;&lt;td&gt;Aggressive plans with time for human quality control.&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;Quality&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;Below average contribution&lt;&#x2F;td&gt;&lt;td&gt;Reliably high-value contributions&lt;&#x2F;td&gt;&lt;td&gt;Average results are free, so you must do better than that&lt;&#x2F;td&gt;&lt;td&gt;High output, high understanding, closes off future problems&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;Differences&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;Paralyzed by differences&lt;&#x2F;td&gt;&lt;td&gt;Resolve differences&lt;&#x2F;td&gt;&lt;td&gt;Suppress&#x2F;merge differences into average results&lt;&#x2F;td&gt;&lt;td&gt;Reframe and integrate across differences for something novel&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;Originality&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;Struggles to contribute anything new&lt;&#x2F;td&gt;&lt;td&gt;Can craft novel solutions to known problems&lt;&#x2F;td&gt;&lt;td&gt;Reflects what exists elsewhere&lt;&#x2F;td&gt;&lt;td&gt;Originality is the primary contribution&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;Tension&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;Avoids cognative tension&lt;&#x2F;td&gt;&lt;td&gt;Fights through tension to resolution&lt;&#x2F;td&gt;&lt;td&gt;Resolves tensions as quickly as possible&lt;&#x2F;td&gt;&lt;td&gt;Inhabits tension to learn its nuance and find a novel solution&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;Differentiator&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;My effort&lt;&#x2F;td&gt;&lt;td&gt;What I know&lt;&#x2F;td&gt;&lt;td&gt;What I can generate&lt;&#x2F;td&gt;&lt;td&gt;How we see&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;Parallelism&lt;&#x2F;strong&gt;&lt;&#x2F;td&gt;&lt;td&gt;One thing at a time, at most&lt;&#x2F;td&gt;&lt;td&gt;Single task, but multitasks for team contributions&lt;&#x2F;td&gt;&lt;td&gt;Works on multiple tasks in parallel&lt;&#x2F;td&gt;&lt;td&gt;Stages work in parallel to be understood sequentially&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;The most surprising fact about this new group of effective people is how it DOES NOT line up with previous ideas about Junior- vs. Senior-level skills. So for any individual person, there is no shortcut to estimating how they’ll fare with A.I. tools in their work—at least none related to their previous seniority level. It turns out that hours of time in the old regime is no predictor of success in the new.&lt;&#x2F;p&gt;
+&lt;p&gt;So while there has been genuine and appropriate angst about how young people entering the work force are at a big disadvantage (because A.I. can do their entry-level job much better), we should take some solace in an inevitable truth about the future: humans will reconfigure to adapt to the new tools, eventually.&lt;&#x2F;p&gt;
+&lt;p&gt;So…&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;For any currently employed Junior or Senior person: you are starting from scratch. And the sooner you accept that and reorient, the better off you’ll be.&lt;&#x2F;li&gt;
+&lt;li&gt;For any Senior person changing jobs: you will increasingly have employers looking for the new set of Senior Skills which &lt;em&gt;ARE NOT&lt;&#x2F;em&gt; the same set that got you this far.&lt;&#x2F;li&gt;
+&lt;li&gt;For any Junior person entering or looking for a job: you will feel hopeless to the degree that your trying to find a fit for your classic Junior skills. Focus instead on developing the New Junior mindset that leads into the new Senior mindset—and the skills that go with it—and you will have much more success in your job hunt.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+        
+    </entry>
     <entry xml:lang="en">
         <title>Dialectical Review: Reviewers Write the Tests</title>
         <published>2026-02-20T00:00:00+00:00</published>
