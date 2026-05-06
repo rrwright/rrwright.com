@@ -2,6 +2,7 @@
 title = "Specific vs. General Knowledge"
 date = 2026-01-22
 description = "The kind of knowledge that makes AI useful"
+authors = ["Ryan Wright"]
 +++
 
 The "Erm, Actually" Engineer is becoming obsolete.  

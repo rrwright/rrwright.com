@@ -2,6 +2,7 @@
 title = "Philosopher-CTO"
 date = 2026-01-01
 description = "Philosophy is a 2,500-year thick treasure trove of valuable ideas for the tech world."
+authors = ["Ryan Wright"]
 +++
 
 It's like "Warrior-Poet" for the modern age. Software + Philosophy.[^1]

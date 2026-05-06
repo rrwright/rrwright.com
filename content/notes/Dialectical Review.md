@@ -2,6 +2,7 @@
 title = "Dialectical Review: Reviewers Write the Tests"
 date = 2026-02-20
 description = "A code review methodology for the age of AI-assisted development."
+authors = ["Ryan Wright"]
 +++
 
 A code review methodology for the age of AI-assisted development.

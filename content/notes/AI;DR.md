@@ -2,6 +2,7 @@
 title = "AI;DR"
 date = 2026-02-19
 description = "What makes documents valuable today?"
+authors = ["Ryan Wright"]
 +++
 
 It used to be the case that writing a document to clearly express an idea was such a significant obstacle that by the time someone did write said document, it was obviously a valuable artifact because it was clearly thought through and the work was done to carefully craft it.

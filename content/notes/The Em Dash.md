@@ -2,6 +2,7 @@
 title = "The Em Dash"
 date = 2026-01-03
 description = "It's like parentheses without slowing down."
+authors = ["Ryan Wright"]
 +++
 
 For the record: I use em dashes all the time. I love em dashes! I did this long before AI tools made it de rigueur. 

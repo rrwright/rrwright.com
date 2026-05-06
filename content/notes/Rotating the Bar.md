@@ -2,7 +2,7 @@
 title = "Rotating the Bar: the New Jr/Sr Divide"
 date = 2026-04-24
 description = "A.I. is changing what skills qualify a software engineer as 'Senior Level'"
-author = "Ryan Wright"
+authors = ["Ryan Wright"]
 +++
 
 A.I. is causing everyone to raise their expectations of what is possible. Employees can get more done now with less effort. Managers can code again and also expect more out of their teams. But beyond just raising the bar for expectations on productivity, A.I. is causing a reconfiguration of the kinds of skills that separate Junior and Senior staff.
