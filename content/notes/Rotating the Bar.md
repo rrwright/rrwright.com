@@ -2,6 +2,7 @@
 title = "Rotating the Bar: the New Jr/Sr Divide"
 date = 2026-04-24
 description = "A.I. is changing what skills qualify a software engineer as 'Senior Level'"
+author = "Ryan Wright"
 +++
 
 A.I. is causing everyone to raise their expectations of what is possible. Employees can get more done now with less effort. Managers can code again and also expect more out of their teams. But beyond just raising the bar for expectations on productivity, A.I. is causing a reconfiguration of the kinds of skills that separate Junior and Senior staff.
@@ -33,13 +34,14 @@ Here are some of the observations I've made about the old vs. new skills that di
 | **Risk**           | Only given tasks which can tolerate failure           | Trusted to keep tasks from failing                         | Introducing risk without realizing it                     | Eliminating risk without others realizing it                                    |
 | **Estimates**      | Assumes only the happy path                           | Scales estimates by the unknowns and risk                  | Assumes only the aggressive happy path                    | Aggressive plans with time for human quality control                            |
 | **Quality**        | Below average contribution                            | Reliably high-value contributions                          | Average results are free, so you must do better than that | High output, high understanding, closes off future problems                     |
+| Standards          | Good enough is good enough                            | I own the results and they should be great                 | Good enough is good enough                                | I own the results and they should be great                                      |
 | **Differences**    | Paralyzed by differences                              | Resolve differences                                        | Suppress/merge differences into average results           | Reframe and integrate across differences for something novel                    |
 | **Originality**    | Struggles to contribute anything new                  | Can craft novel solutions to known problems                | Reflects what exists elsewhere                            | Originality is the primary contribution                                         |
 | **Tension**        | Avoids cognative tension                              | Fights through tension to resolution                       | Resolves tensions as quickly as possible                  | Inhabits tension to learn its nuance and find a novel solution                  |
-| **Differentiator** | My effort                                             | What I know                                                | What I can generate                                       | How we see                                                                      |
 | **Parallelism**    | One thing at a time, at most                          | Single task, but multitasks for team contributions         | Works on multiple tasks in parallel                       | Stages work in parallel to be understood sequentially                           |
+| **Differentiator** | My effort                                             | What I know                                                | What I can generate                                       | How we see, how we interpret our experience, and what we choose to do           |
 
-The most surprising fact about this new group of effective people is how it DOES NOT line up with previous ideas about Junior- vs. Senior-level skills. So for any individual person, there is no shortcut to estimating how they'll fare with A.I. tools in their work—at least none related to their previous seniority level. It turns out that hours of time in the old regime is no predictor of success in the new.
+The most surprising fact about this new group of effective people is how it mostly DOES NOT line up with previous ideas about Junior- vs. Senior-level skills. So for any individual person, there is no shortcut to estimating how they'll fare with A.I. tools in their work—at least none related to their previous seniority level. It turns out that hours of time in the old regime is no predictor of success in the new.
 
 So while there has been genuine and appropriate angst about how young people entering the work force are at a big disadvantage (because A.I. can do their entry-level job much better), we should take some solace in an inevitable truth about the future: humans will reconfigure to adapt to the new tools, eventually. 
 
